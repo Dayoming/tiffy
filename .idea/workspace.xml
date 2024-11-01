@@ -4,7 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="b6e131d5-5ac7-4d0d-9526-f9e2833cf2d7" name="Changes" comment="chore: 프로젝트 생성">
+    <list default="true" id="b6e131d5-5ac7-4d0d-9526-f9e2833cf2d7" name="Changes" comment="chore: vue.js 프로젝트 생성">
       <change beforePath="$PROJECT_DIR$/build/classes/java/main/com/tiffy/TiffyApplication.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/java/main/com/tiffy/TiffyApplication.class" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -75,7 +75,15 @@
       <option name="project" value="LOCAL" />
       <updated>1730367891764</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="chore: vue.js 프로젝트 생성">
+      <option name="closed" value="true" />
+      <created>1730422032110</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1730422032110</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -91,6 +99,7 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="chore: 프로젝트 생성" />
-    <option name="LAST_COMMIT_MESSAGE" value="chore: 프로젝트 생성" />
+    <MESSAGE value="chore: vue.js 프로젝트 생성" />
+    <option name="LAST_COMMIT_MESSAGE" value="chore: vue.js 프로젝트 생성" />
   </component>
 </project>
