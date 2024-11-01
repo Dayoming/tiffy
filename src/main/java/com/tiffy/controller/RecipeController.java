@@ -1,18 +1,32 @@
 package com.tiffy.controller;
 
+import com.tiffy.dto.RecipeDto;
 import com.tiffy.service.RecipeService;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.web.bind.annotation.*;
 
-@Controller
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+@Slf4j
+@RestController
+@RequestMapping("/api/recipes")
+@CrossOrigin(origins = "http://localhost:8080")
 public class RecipeController {
 
-    @Autowired
-    RecipeService recipeService;
+    private final RecipeService recipeService;
 
-    @GetMapping("/recipes")
-    public String searchRecipe() {
-        return "recipe/recipe-search";
+    public RecipeController(RecipeService recipeService) {
+        this.recipeService = recipeService;
+    }
+
+    @PostMapping("/search")
+    public Map<String, Object> getRecipesByIngredients(@RequestParam String ingredients) {
+        List<RecipeDto> recipes = recipeService.getRecipes(ingredients);
+
+        Map<String, Object> response = new HashMap<>();
+        response.put("recipes", recipes);
+        return response;
     }
 }
