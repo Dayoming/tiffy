@@ -4,8 +4,46 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="b6e131d5-5ac7-4d0d-9526-f9e2833cf2d7" name="Changes" comment="chore: vue.js 프로젝트 생성">
+    <list default="true" id="b6e131d5-5ac7-4d0d-9526-f9e2833cf2d7" name="Changes" comment="design: 메인 화면 view 적용">
+      <change afterPath="$PROJECT_DIR$/frontend/src/components/exchange/ExchangeDetail.vue" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/components/exchange/ExchangeEdit.vue" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/components/exchange/ExchangeList.vue" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/components/exchange/ExchangeNew.vue" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/tiffy/constant/ItemCategory.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/tiffy/constant/ItemSellStatus.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/tiffy/constant/UserRole.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/tiffy/controller/ItemExchangeController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/tiffy/controller/RecipeController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/tiffy/controller/RecipeRestController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/tiffy/dto/ItemDto.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/tiffy/dto/RecipeDto.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/tiffy/dto/UserCreateDto.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/tiffy/entity/Item.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/tiffy/entity/User.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/tiffy/repository/ItemRepository.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/tiffy/repository/UserRepository.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/tiffy/service/ItemService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/tiffy/service/RecipeService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/8.10.2/checksums/checksums.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/8.10.2/checksums/checksums.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/8.10.2/checksums/md5-checksums.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/8.10.2/checksums/md5-checksums.bin" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/8.10.2/checksums/sha1-checksums.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/8.10.2/checksums/sha1-checksums.bin" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/8.10.2/executionHistory/executionHistory.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/8.10.2/executionHistory/executionHistory.bin" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/8.10.2/executionHistory/executionHistory.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/8.10.2/executionHistory/executionHistory.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/8.10.2/fileHashes/fileHashes.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/8.10.2/fileHashes/fileHashes.bin" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/8.10.2/fileHashes/fileHashes.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/8.10.2/fileHashes/fileHashes.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/8.10.2/fileHashes/resourceHashesCache.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/8.10.2/fileHashes/resourceHashesCache.bin" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/file-system.probe" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/file-system.probe" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/application.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/build.gradle" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/build/classes/java/main/com/tiffy/TiffyApplication.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/java/main/com/tiffy/TiffyApplication.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/tmp/compileJava/previous-compilation-data.bin" beforeDir="false" afterPath="$PROJECT_DIR$/build/tmp/compileJava/previous-compilation-data.bin" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/main.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/main.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/router/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/router/index.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -20,6 +58,13 @@
       <ProjectState />
     </projectState>
   </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Class" />
+      </list>
+    </option>
+  </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
@@ -32,20 +77,50 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;Gradle.tiffy [:com.tiffy.TiffyApplication.main()].executor&quot;: &quot;Run&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
-    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/tiffy-origin&quot;,
-    &quot;project.structure.last.edited&quot;: &quot;Project&quot;,
-    &quot;project.structure.proportion&quot;: &quot;0.0&quot;,
-    &quot;project.structure.side.proportion&quot;: &quot;0.0&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;project.propCompiler&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "Gradle.tiffy [:com.tiffy.TiffyApplication.main()].executor": "Run",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "git-widget-placeholder": "develop",
+    "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "C:/tiffy/src/main/java/com/tiffy",
+    "project.structure.last.edited": "Project",
+    "project.structure.proportion": "0.0",
+    "project.structure.side.proportion": "0.0",
+    "settings.editor.selected.configurable": "project.propCompiler"
   }
-}</component>
+}]]></component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\tiffy\src\main\java\com\tiffy" />
+      <recent name="C:\tiffy\frontend\src\components\exchange" />
+      <recent name="C:\tiffy\frontend\public" />
+      <recent name="C:\tiffy\frontend\src\assets" />
+      <recent name="C:\tiffy" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\tiffy\frontend\public" />
+      <recent name="C:\tiffy\frontend\public\favicon" />
+    </key>
+    <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="com.tiffy.config" />
+      <recent name="com.tiffy" />
+    </key>
+  </component>
   <component name="RunManager">
+    <configuration name="TiffyApplication" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="com.tiffy.TiffyApplication" />
+      <module name="tiffy.main" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.tiffy.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration default="true" type="JetRunConfigurationType">
       <method v="2">
         <option name="Make" enabled="true" />
@@ -57,6 +132,11 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Application.TiffyApplication" />
+      </list>
+    </recent_temporary>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
@@ -83,7 +163,47 @@
       <option name="project" value="LOCAL" />
       <updated>1730422032110</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="chore: .gitignore 파일 추가">
+      <option name="closed" value="true" />
+      <created>1730422259525</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1730422259525</updated>
+    </task>
+    <task id="LOCAL-00004" summary="chore: Spring Boot 서버와 Vue.js 서버 연동 - 프록시 설정&#10;&#10;사용자가 프론트엔드 서버로 접근해서 리소스를 요청하면, 프록시는 이 요청을 백엔드로 연결시켜 전달할 수 있도록 프록시를 설정해준다. Spring Boot의 포트를 8081로 변경하고 vue.config.js 파일에서 changeOrigin 옵션을 통해 Cross Origin을 허용한다.">
+      <option name="closed" value="true" />
+      <created>1730424507010</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1730424507010</updated>
+    </task>
+    <task id="LOCAL-00005" summary="chore: 공통 리소스 파일 추가">
+      <option name="closed" value="true" />
+      <created>1730426468665</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1730426468665</updated>
+    </task>
+    <task id="LOCAL-00006" summary="chore: 공통 리소스 변환 및 템플릿 레이아웃 적용&#10;&#10;공통 리소스와 규격(index.html)은 public 폴더 하위에서 관리하도록 하고, Header와 Footer를 사용해 본문 레이아웃 설정">
+      <option name="closed" value="true" />
+      <created>1730444188759</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1730444188759</updated>
+    </task>
+    <task id="LOCAL-00007" summary="design: 메인 화면 view 적용">
+      <option name="closed" value="true" />
+      <created>1730444270621</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1730444270621</updated>
+    </task>
+    <option name="localTasksCounter" value="8" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -100,6 +220,11 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="chore: 프로젝트 생성" />
     <MESSAGE value="chore: vue.js 프로젝트 생성" />
-    <option name="LAST_COMMIT_MESSAGE" value="chore: vue.js 프로젝트 생성" />
+    <MESSAGE value="chore: .gitignore 파일 추가" />
+    <MESSAGE value="chore: Spring Boot 서버와 Vue.js 서버 연동 - 프록시 설정&#10;&#10;사용자가 프론트엔드 서버로 접근해서 리소스를 요청하면, 프록시는 이 요청을 백엔드로 연결시켜 전달할 수 있도록 프록시를 설정해준다. Spring Boot의 포트를 8081로 변경하고 vue.config.js 파일에서 changeOrigin 옵션을 통해 Cross Origin을 허용한다." />
+    <MESSAGE value="chore: 공통 리소스 파일 추가" />
+    <MESSAGE value="chore: 공통 리소스 변환 및 템플릿 레이아웃 적용&#10;&#10;공통 리소스와 규격(index.html)은 public 폴더 하위에서 관리하도록 하고, Header와 Footer를 사용해 본문 레이아웃 설정" />
+    <MESSAGE value="design: 메인 화면 view 적용" />
+    <option name="LAST_COMMIT_MESSAGE" value="design: 메인 화면 view 적용" />
   </component>
 </project>
