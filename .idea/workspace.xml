@@ -4,26 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="b6e131d5-5ac7-4d0d-9526-f9e2833cf2d7" name="Changes" comment="design: 메인 화면 view 적용">
-      <change afterPath="$PROJECT_DIR$/frontend/src/components/exchange/ExchangeDetail.vue" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/frontend/src/components/exchange/ExchangeEdit.vue" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/frontend/src/components/exchange/ExchangeList.vue" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/frontend/src/components/exchange/ExchangeNew.vue" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/tiffy/constant/ItemCategory.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/tiffy/constant/ItemSellStatus.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/tiffy/constant/UserRole.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/tiffy/controller/ItemExchangeController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/tiffy/controller/RecipeController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/tiffy/controller/RecipeRestController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/tiffy/dto/ItemDto.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/tiffy/dto/RecipeDto.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/tiffy/dto/UserCreateDto.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/tiffy/entity/Item.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/tiffy/entity/User.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/tiffy/repository/ItemRepository.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/tiffy/repository/UserRepository.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/tiffy/service/ItemService.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/tiffy/service/RecipeService.java" afterDir="false" />
+    <list default="true" id="b6e131d5-5ac7-4d0d-9526-f9e2833cf2d7" name="Changes" comment="feat: 상품 삭제 기능 구현">
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/tiffy/repository/ItemMapper.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/tiffy/repository/UserMapper.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/mappers/item.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/mappers/user.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/8.10.2/checksums/checksums.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/8.10.2/checksums/checksums.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/8.10.2/checksums/md5-checksums.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/8.10.2/checksums/md5-checksums.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/8.10.2/checksums/sha1-checksums.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/8.10.2/checksums/sha1-checksums.bin" afterDir="false" />
@@ -34,16 +19,20 @@
       <change beforePath="$PROJECT_DIR$/.gradle/8.10.2/fileHashes/resourceHashesCache.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/8.10.2/fileHashes/resourceHashesCache.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/file-system.probe" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/file-system.probe" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/application.properties" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/build.gradle" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/build/classes/java/main/com/tiffy/TiffyApplication.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/java/main/com/tiffy/TiffyApplication.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/build/tmp/compileJava/previous-compilation-data.bin" beforeDir="false" afterPath="$PROJECT_DIR$/build/tmp/compileJava/previous-compilation-data.bin" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/main.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/main.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/router/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/router/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/components/exchange/ExchangeList.vue" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/exchange/ExchangeList.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/components/exchange/ExchangeNew.vue" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/exchange/ExchangeNew.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/tiffy/TiffyApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/tiffy/TiffyApplication.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/tiffy/controller/ItemExchangeController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/tiffy/controller/ItemExchangeController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/tiffy/entity/Item.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/tiffy/entity/Item.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/tiffy/entity/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/tiffy/entity/User.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/tiffy/repository/ItemRepository.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/tiffy/repository/UserRepository.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/tiffy/service/ItemService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/tiffy/service/ItemService.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -58,10 +47,28 @@
       <ProjectState />
     </projectState>
   </component>
+  <component name="ExternalProjectsManager">
+    <system id="GRADLE">
+      <state>
+        <projects_view>
+          <tree_state>
+            <expand>
+              <path>
+                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
+                <item name="tiffy" type="f1a62948:ProjectNode" />
+              </path>
+            </expand>
+            <select />
+          </tree_state>
+        </projects_view>
+      </state>
+    </system>
+  </component>
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="Class" />
+        <option value="Interface" />
       </list>
     </option>
   </component>
@@ -77,19 +84,19 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "Gradle.tiffy [:com.tiffy.TiffyApplication.main()].executor": "Run",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "git-widget-placeholder": "develop",
-    "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "C:/tiffy/src/main/java/com/tiffy",
-    "project.structure.last.edited": "Project",
-    "project.structure.proportion": "0.0",
-    "project.structure.side.proportion": "0.0",
-    "settings.editor.selected.configurable": "project.propCompiler"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;Gradle.tiffy [:com.tiffy.TiffyApplication.main()].executor&quot;: &quot;Run&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;develop&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/tiffy/src/main/java/com/tiffy&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Project&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.0&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.0&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;project.propCompiler&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="C:\tiffy\src\main\java\com\tiffy" />
@@ -99,6 +106,7 @@
       <recent name="C:\tiffy" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\tiffy" />
       <recent name="C:\tiffy\frontend\public" />
       <recent name="C:\tiffy\frontend\public\favicon" />
     </key>
@@ -203,7 +211,55 @@
       <option name="project" value="LOCAL" />
       <updated>1730444270621</updated>
     </task>
-    <option name="localTasksCounter" value="8" />
+    <task id="LOCAL-00008" summary="feat: 교환 게시판 조회 기능 및 화면 추가&#10;&#10;비동기 통신(axios 라이브러리)를 사용해 ItemExchangeController의 REST API로부터 Item 리스트를 가져와 화면에 보여주도록 구현&#10;ItemExchangeController에 @CrossOrigin(origins = &quot;http://localhost:8080&quot;)를 사용하고, Spring Security 설정을 삭제해 일시적으로 CORS 문제를 해결&#10;추후 전역적으로 CORS 문제를 해결하기 위해 Spring Security 설정 필요">
+      <option name="closed" value="true" />
+      <created>1730453754815</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1730453754815</updated>
+    </task>
+    <task id="LOCAL-00009" summary="feat: 레시피 검색 기능 구현&#10;&#10;RecipeController와 RecipeRestController를 통합&#10;검색 기능 vue 화면 생성">
+      <option name="closed" value="true" />
+      <created>1730455146866</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1730455146866</updated>
+    </task>
+    <task id="LOCAL-00010" summary="feat: 상품 등록 기능 구현">
+      <option name="closed" value="true" />
+      <created>1730679433271</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1730679433271</updated>
+    </task>
+    <task id="LOCAL-00011" summary="feat: 상품 상세 페이지 조회 기능 구현">
+      <option name="closed" value="true" />
+      <created>1730683459710</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1730683459710</updated>
+    </task>
+    <task id="LOCAL-00012" summary="feat: 상품 수정 기능 구현">
+      <option name="closed" value="true" />
+      <created>1730685238784</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1730685238784</updated>
+    </task>
+    <task id="LOCAL-00013" summary="feat: 상품 삭제 기능 구현">
+      <option name="closed" value="true" />
+      <created>1730686871391</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1730686871398</updated>
+    </task>
+    <option name="localTasksCounter" value="14" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -225,6 +281,12 @@
     <MESSAGE value="chore: 공통 리소스 파일 추가" />
     <MESSAGE value="chore: 공통 리소스 변환 및 템플릿 레이아웃 적용&#10;&#10;공통 리소스와 규격(index.html)은 public 폴더 하위에서 관리하도록 하고, Header와 Footer를 사용해 본문 레이아웃 설정" />
     <MESSAGE value="design: 메인 화면 view 적용" />
-    <option name="LAST_COMMIT_MESSAGE" value="design: 메인 화면 view 적용" />
+    <MESSAGE value="feat: 교환 게시판 조회 기능 및 화면 추가&#10;&#10;비동기 통신(axios 라이브러리)를 사용해 ItemExchangeController의 REST API로부터 Item 리스트를 가져와 화면에 보여주도록 구현&#10;ItemExchangeController에 @CrossOrigin(origins = &quot;http://localhost:8080&quot;)를 사용하고, Spring Security 설정을 삭제해 일시적으로 CORS 문제를 해결&#10;추후 전역적으로 CORS 문제를 해결하기 위해 Spring Security 설정 필요" />
+    <MESSAGE value="feat: 레시피 검색 기능 구현&#10;&#10;RecipeController와 RecipeRestController를 통합&#10;검색 기능 vue 화면 생성" />
+    <MESSAGE value="feat: 상품 등록 기능 구현" />
+    <MESSAGE value="feat: 상품 상세 페이지 조회 기능 구현" />
+    <MESSAGE value="feat: 상품 수정 기능 구현" />
+    <MESSAGE value="feat: 상품 삭제 기능 구현" />
+    <option name="LAST_COMMIT_MESSAGE" value="feat: 상품 삭제 기능 구현" />
   </component>
 </project>

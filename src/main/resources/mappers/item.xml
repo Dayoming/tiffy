@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.tiffy.repository.ItemMapper">
+
+    <!-- item의 id로 검색 -->
+    <select id="findByItemId" parameterType="Long" resultType="Item">
+        SELECT
+        item_id AS id,
+        item_nm AS itemNm,
+        item_category AS itemCategory,
+        seller_id AS sellerId,
+        seller_nm AS sellerNm,
+        price AS price,
+        stock_number AS stockNumber,
+        item_detail AS itemDetail,
+        item_sell_status AS itemSellStatus,
+        reg_time AS regTime,
+        update_time AS updateTime
+        FROM item
+        WHERE item_id = #{id}
+    </select>
+
+    <!-- item의 이름으로 검색 -->
+    <select id="findByItemNm" parameterType="Item" resultType="Item">
+        SELECT *
+        FROM item
+        WHERE item_nm = #{item.itemNm}
+    </select>
+
+    <!-- item의 이름 또는 설명으로 검색 -->
+    <select id="findByItemNmOrItemDetail" parameterType="Item" resultType="Item">
+        SELECT *
+        FROM item
+        WHERE item_nm = #{item.itemNm} OR itemDetail = #{item.itemDetail}
+    </select>
+
+    <!-- 가격 내림차순으로 정렬 -->
+    <select id="findAllByOrderByPriceDesc" resultType="Item">
+        SELECT *
+        FROM item
+        ORDER BY price DESC
+    </select>
+
+    <!-- 가격 오름차순으로 정렬 -->
+    <select id="findAllByOrderByPriceAsc" resultType="Item">
+        SELECT *
+        FROM item
+        ORDER BY price ASC
+    </select>
+
+    <!-- 전체 데이터 수 반환 -->
+    <select id="countItems" resultType="int">
+        SELECT COUNT(*) FROM item
+    </select>
+
+    <!-- 페이지네이션 적용된 데이터 조회 -->
+    <select id="findItemsByPage" resultType="Item">
+        SELECT
+        item_id AS id,
+        item_nm AS itemNm,
+        item_category AS itemCategory,
+        seller_id AS sellerId,
+        seller_nm AS sellerNm,
+        price AS price,
+        stock_number AS stockNumber,
+        item_detail AS itemDetail,
+        item_sell_status AS itemSellStatus,
+        reg_time AS regTime,
+        update_time AS updateTime
+        FROM item
+        ORDER BY price DESC
+        LIMIT #{size} OFFSET #{offset}
+    </select>
+
+    <!-- item 저장 -->
+    <insert id="saveItem" parameterType="Item">
+        INSERT INTO item (
+        itemNm, itemCategory, sellerId, sellerNm, price,
+        stockNumber, itemDetail, itemSellStatus, regTime, updateTime
+        ) VALUES (
+        #{itemNm}, #{itemCategory}, #{sellerId}, #{sellerNm}, #{price},
+        #{stockNumber}, #{itemDetail}, #{itemSellStatus}, #{regTime}, #{updateTime}
+        )
+    </insert>
+
+    <!-- item 수정 -->
+    <update id="updateItem" parameterType="Item">
+        UPDATE item
+        SET
+        item_nm = #{itemNm},
+        item_category = #{itemCategory},
+        seller_id = #{sellerId},
+        seller_nm = #{sellerNm},
+        price = #{price},
+        stock_number = #{stockNumber},
+        item_detail = #{itemDetail},
+        item_sell_status = #{itemSellStatus},
+        update_time = #{updateTime}
+        WHERE item_id = #{id}
+    </update>
+
+    <!-- item 삭제 -->
+    <delete id="deleteItemById" parameterType="Long">
+        DELETE FROM item
+        WHERE item_id = #{id}
+    </delete>
+
+</mapper>
