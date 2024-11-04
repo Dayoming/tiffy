@@ -89,9 +89,9 @@ public class ItemExchangeController {
         Map<String, String> response = new HashMap<>();
         if (itemRepository.existsById(id)) {
             itemRepository.deleteById(id);
-            response.put("message", "Item deleted successfully");
+            response.put("message", "상품을 정상적으로 삭제했습니다.");
         } else {
-            response.put("error", "Item not found");
+            response.put("error", "상품을 찾을 수 없습니다.");
         }
         return response;
     }

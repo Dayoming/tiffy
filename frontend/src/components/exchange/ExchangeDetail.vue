@@ -37,7 +37,14 @@
                 this.$router.push({ path: `/exchange/edit/${id} `});
             },
             goToDelete(id) {
-                this.$router.push({ path: `/exchange/delete/${id} `});
+                this.$axios.delete(`http://localhost:8081/api/exchange/delete/${id}`)
+                    .then(response => {
+                        alert(response.data.message);
+                        this.$router.push({ path: `/exchange`});
+                    })
+                    .catch(error => {
+                        alert(response.data.error);
+                    });
             },
             fetchData() {
                 this.$axios.get(`http://localhost:8081/api/exchange/${this.$route.params.id}`)
