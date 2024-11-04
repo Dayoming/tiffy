@@ -42,7 +42,7 @@
               <nav aria-label="...">
                 <ul class="pagination pagination-sm justify-content-center">
                   <li class="page-item" :class="{ disabled: currentPage === 1 }">
-                    <a class="page-link" href="#" @click.prevent="goToPage(1)" aria-label="Previous">
+                    <a class="page-link" href="#" @click.prevent="goToPreviousSet" aria-label="Previous">
                       <span aria-hidden="true">&laquo;</span>
                     </a>
                   </li>
@@ -54,8 +54,8 @@
                       @click.prevent="goToPage(pageNum)"
                     >{{ pageNum }}</a>
                   </li>
-                  <li class="page-item" :class="{ disabled: currentPage === totalPages }">
-                    <a class="page-link" href="#" @click.prevent="goToPage(totalPages)" aria-label="Next">
+                  <li class="page-item" :class="{ disabled: startPage + pageLimit > totalPages }">
+                    <a class="page-link" href="#" @click.prevent="goToNextSet" aria-label="Next">
                       <span aria-hidden="true">&raquo;</span>
                     </a>
                   </li>
@@ -81,12 +81,18 @@ export default {
       currentPage: 1,
       totalPages: 1,
       totalItems: 0,
-      pageSize: 10,
+      pageSize: 10, // 한 페이지당 10개
+      pageLimit: 10, // 한 번에 보여줄 페이지 버튼 수
+      startPage: 1, // 페이지 버튼 시작 번호
     };
   },
   computed: {
     pageNumbers() {
-      return Array.from({ length: this.totalPages }, (_, i) => i + 1);
+      // 현재 startPage부터 pageLimit 수만큼의 페이지 번호 배열 생성
+      return Array.from(
+            { length: Math.min(this.pageLimit, this.totalPages - this.startPage + 1) },
+            (_, i) => i + this.startPage
+          );
     },
   },
   methods: {
@@ -96,7 +102,15 @@ export default {
     goToPage(pageNum) {
       this.currentPage = pageNum;
       this.fetchData();
+
+    // 현재 페이지가 pageLimit의 배수일 때 startPage 조정
+        if (pageNum % this.pageLimit === 0) {
+          this.startPage = pageNum + 1;
+        } else if (pageNum === this.startPage - 1) {
+          this.startPage = Math.max(1, this.startPage - this.pageLimit);
+        }
     },
+
     goToNewExchange() {
       this.$router.push({ path: `/exchange/new` });
     },
@@ -116,6 +130,22 @@ export default {
         .catch((error) => {
           console.error("데이터를 가져오는 중 오류 발생:", error);
         });
+    },
+    goToPreviousSet() {
+        // 이전 페이지 묶음으로 이동
+        if (this.startPage > 1) {
+          this.startPage = Math.max(1, this.startPage - this.pageLimit);
+          this.currentPage = this.startPage;
+          this.fetchData();
+        }
+      },
+    goToNextSet() {
+        // 다음 페이지 묶음으로 이동
+        if (this.startPage + this.pageLimit <= this.totalPages) {
+          this.startPage += this.pageLimit;
+          this.currentPage = this.startPage;
+          this.fetchData();
+      }
     },
   },
   mounted() {
