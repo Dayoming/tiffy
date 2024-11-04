@@ -2,6 +2,7 @@ import { createRouter, createWebHistory } from 'vue-router';
 import HomePageIndex from '../components/HomePageIndex';
 import ExchangeList from '../components/exchange/ExchangeList';
 import ExchangeNew from '../components/exchange/ExchangeNew';
+import ExchangeDetail from '../components/exchange/ExchangeDetail';
 import RecipeSearch from '../components/recipe/RecipeSearch';
 
 const routes = [
@@ -19,6 +20,11 @@ const routes = [
         path: '/exchange/new',
         name: 'exchangeNew',
         component: ExchangeNew
+     },
+     {
+        path: '/exchange/:id',
+        name: 'exchangeDetail',
+        component: ExchangeDetail
      },
      {
         path: '/recipes',
