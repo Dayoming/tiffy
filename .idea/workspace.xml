@@ -4,7 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="b6e131d5-5ac7-4d0d-9526-f9e2833cf2d7" name="Changes" comment="feat: JPA Repository를 MyBatis Mapper로 교체&#10;&#10;Spring Data JPA 의존성을 제거하고 MyBatis를 사용해 데이터 조회, 수정, 삭제, 추가가 가능하도록 한다.">
+    <list default="true" id="b6e131d5-5ac7-4d0d-9526-f9e2833cf2d7" name="Changes" comment="feat: 페이지네이션 기능 수정&#10;&#10;페이지네이션 기능을 1~10, 10~20 단위로 보이도록 구현">
       <change beforePath="$PROJECT_DIR$/.gradle/8.10.2/checksums/checksums.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/8.10.2/checksums/checksums.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/8.10.2/checksums/md5-checksums.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/8.10.2/checksums/md5-checksums.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/8.10.2/checksums/sha1-checksums.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/8.10.2/checksums/sha1-checksums.bin" afterDir="false" />
@@ -18,7 +18,7 @@
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/build/classes/java/main/com/tiffy/TiffyApplication.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/java/main/com/tiffy/TiffyApplication.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/build/tmp/compileJava/previous-compilation-data.bin" beforeDir="false" afterPath="$PROJECT_DIR$/build/tmp/compileJava/previous-compilation-data.bin" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/components/exchange/ExchangeList.vue" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/exchange/ExchangeList.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/components/exchange/ExchangeDetail.vue" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/exchange/ExchangeDetail.vue" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -253,7 +253,15 @@
       <option name="project" value="LOCAL" />
       <updated>1730706565976</updated>
     </task>
-    <option name="localTasksCounter" value="15" />
+    <task id="LOCAL-00015" summary="feat: 페이지네이션 기능 수정&#10;&#10;페이지네이션 기능을 1~10, 10~20 단위로 보이도록 구현">
+      <option name="closed" value="true" />
+      <created>1730707200539</created>
+      <option name="number" value="00015" />
+      <option name="presentableId" value="LOCAL-00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1730707200539</updated>
+    </task>
+    <option name="localTasksCounter" value="16" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -282,6 +290,7 @@
     <MESSAGE value="feat: 상품 수정 기능 구현" />
     <MESSAGE value="feat: 상품 삭제 기능 구현" />
     <MESSAGE value="feat: JPA Repository를 MyBatis Mapper로 교체&#10;&#10;Spring Data JPA 의존성을 제거하고 MyBatis를 사용해 데이터 조회, 수정, 삭제, 추가가 가능하도록 한다." />
-    <option name="LAST_COMMIT_MESSAGE" value="feat: JPA Repository를 MyBatis Mapper로 교체&#10;&#10;Spring Data JPA 의존성을 제거하고 MyBatis를 사용해 데이터 조회, 수정, 삭제, 추가가 가능하도록 한다." />
+    <MESSAGE value="feat: 페이지네이션 기능 수정&#10;&#10;페이지네이션 기능을 1~10, 10~20 단위로 보이도록 구현" />
+    <option name="LAST_COMMIT_MESSAGE" value="feat: 페이지네이션 기능 수정&#10;&#10;페이지네이션 기능을 1~10, 10~20 단위로 보이도록 구현" />
   </component>
 </project>

@@ -43,7 +43,8 @@
                         this.$router.push({ path: `/exchange`});
                     })
                     .catch(error => {
-                        alert(response.data.error);
+                        alert("상세 데이터 조회 중 오류가 발생했습니다.");
+                        console.error("상세 데이터 조회 중 오류 발생:", error);
                     });
             },
             fetchData() {
