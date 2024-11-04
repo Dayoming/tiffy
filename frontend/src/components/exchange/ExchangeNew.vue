@@ -41,6 +41,46 @@
 </template>
 
 <script>
+export default {
+  name: 'ExchangeNew',
+  data() {
+    return {
+      form: {
+        itemNm: '',
+        itemDetail: '',
+        itemCategory: '',
+        price: '',
+        stockNumber: 1,
+      },
+      categories: [
+        { label: '과일', value: 'FRUIT' },
+        { label: '야채/채소', value: 'VEGETABLE' },
+        { label: '고기', value: 'MEAT' },
+        { label: '도구/기구', value: 'SUPPLIES' },
+        { label: '그 외', value: 'ETC' },
+      ],
+    };
+  },
+  methods: {
+    async submitForm() {
+      try {
+        const response = await this.$axios.post('http://localhost:8081/api/exchange/createItem', this.form);
+        if (response != null) {
+            alert('정상적으로 등록되었습니다.');
+            // 성공적으로 저장한 후 다른 페이지로 이동
+            this.$router.push('/exchange');
+        }
+      } catch (error) {
+        console.error(error);
+        alert('상품 등록에 오류가 발생했습니다.');
+      }
+    },
+    goBack() {
+      // 이전 페이지로 이동
+      this.$router.push('/exchange');
+    },
+  },
+};
 </script>
 
 <style scoped>
