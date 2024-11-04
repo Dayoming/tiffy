@@ -3,6 +3,7 @@ import HomePageIndex from '../components/HomePageIndex';
 import ExchangeList from '../components/exchange/ExchangeList';
 import ExchangeNew from '../components/exchange/ExchangeNew';
 import ExchangeDetail from '../components/exchange/ExchangeDetail';
+import ExchangeEdit from '../components/exchange/ExchangeEdit';
 import RecipeSearch from '../components/recipe/RecipeSearch';
 
 const routes = [
@@ -25,6 +26,11 @@ const routes = [
         path: '/exchange/:id',
         name: 'exchangeDetail',
         component: ExchangeDetail
+     },
+     {
+        path: '/exchange/edit/:id',
+        name: 'exchangeEdit',
+        component: ExchangeEdit
      },
      {
         path: '/recipes',
