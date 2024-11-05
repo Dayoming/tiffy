@@ -74,10 +74,10 @@
     </select>
 
     <!-- item 저장 -->
-    <insert id="saveItem" parameterType="Item">
+    <insert id="saveItem" parameterType="Item" useGeneratedKeys="true" keyProperty="id">
         INSERT INTO item (
-        itemNm, itemCategory, sellerId, sellerNm, price,
-        stockNumber, itemDetail, itemSellStatus, regTime, updateTime
+        item_nm, item_category, seller_id, seller_nm, price,
+        stock_number, item_detail, item_sell_status, reg_time, update_time
         ) VALUES (
         #{itemNm}, #{itemCategory}, #{sellerId}, #{sellerNm}, #{price},
         #{stockNumber}, #{itemDetail}, #{itemSellStatus}, #{regTime}, #{updateTime}
