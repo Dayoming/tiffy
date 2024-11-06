@@ -8,7 +8,7 @@
 
     <!-- Navbar Start -->
     <div class="container-fluid fixed-top px-0 wow fadeIn" data-wow-delay="0.1s">
-      <nav class="navbar navbar-expand-lg navbar-light py-lg-0 px-lg-5">
+      <nav class="navbar navbar-expand-lg navbar-light py-lg-0 px-lg-5 wow fadeIn" data-wow-delay="0.1s">
         <a href="/" class="navbar-brand ms-4 ms-lg-0">
           <h1 class="fw-bold text-primary m-0">Tiffy</h1>
         </a>
@@ -20,7 +20,8 @@
             <router-link to="/" class="nav-item nav-link active">Home</router-link>
             <router-link to="/exchange" class="nav-item nav-link">Exchange</router-link>
             <router-link to="/recipes" class="nav-item nav-link">Recipe</router-link>
-            <router-link to="/login" class="nav-item nav-link">Login</router-link>
+            <button v-if="isLoggedIn" class="nav-item nav-link btn btn-link" @click="logout" style="text-align: left;">Logout</button>
+            <router-link v-else to="/login" class="nav-item nav-link">Login</router-link>
           </div>
         </div>
       </nav>
@@ -32,5 +33,19 @@
 <script>
 export default {
   name: "CommonHeader",
+  computed: {
+    isLoggedIn() {
+      return this.$root.$globalState.isLoggedIn; // 전역 로그인 상태 사용
+    },
+  },
+  methods: {
+    logout() {
+      // 로그아웃 로직
+      localStorage.removeItem("authToken"); // 토큰 삭제
+      this.$root.$globalState.isLoggedIn = false; // 전역 로그인 상태 변경
+      this.$router.push("/"); // 메인 페이지로 리다이렉트
+    },
+  },
 };
 </script>
+

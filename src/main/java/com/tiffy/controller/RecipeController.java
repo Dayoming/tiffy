@@ -12,7 +12,6 @@ import java.util.Map;
 @Slf4j
 @RestController
 @RequestMapping("/api/recipes")
-@CrossOrigin(origins = "http://localhost:8080")
 public class RecipeController {
 
     private final RecipeService recipeService;

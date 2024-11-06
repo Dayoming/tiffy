@@ -5,6 +5,8 @@ import ExchangeNew from '../components/exchange/ExchangeNew';
 import ExchangeDetail from '../components/exchange/ExchangeDetail';
 import ExchangeEdit from '../components/exchange/ExchangeEdit';
 import RecipeSearch from '../components/recipe/RecipeSearch';
+import LoginForm from '../components/user/LoginForm';
+import SignupForm from '../components/user/SignupForm';
 
 const routes = [
     {
@@ -36,7 +38,17 @@ const routes = [
         path: '/recipes',
         name: 'recipeSearch',
         component: RecipeSearch
-     }
+     },
+     {
+        path: '/login',
+        name: 'loginForm',
+        component: LoginForm
+     },
+     {
+        path: '/signup',
+        name: 'signupForm',
+        component: SignupForm
+     },
 ];
 
 const router = createRouter({

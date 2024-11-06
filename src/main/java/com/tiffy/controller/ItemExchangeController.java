@@ -12,7 +12,6 @@ import java.util.Map;
 
 @RestController
 @RequestMapping("/api/exchange")
-@CrossOrigin(origins = "http://localhost:8080")
 public class ItemExchangeController {
 
     @Autowired
