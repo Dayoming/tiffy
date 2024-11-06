@@ -1,5 +1,10 @@
 package com.tiffy.config;
 
+import com.tiffy.service.UserService;
+import io.jsonwebtoken.SignatureAlgorithm;
+import io.jsonwebtoken.security.Keys;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -10,19 +15,30 @@ import org.springframework.security.config.annotation.web.configurers.AbstractHt
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
-import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
-import java.util.Arrays;
+import javax.crypto.SecretKey;
 import java.util.List;
 
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig {
+
+    @Value("${jwt.secret.key}")
+    private String secretKeyString;
+
+    @Bean
+    public SecretKey secretKey() {
+        return Keys.hmacShaKeyFor(secretKeyString.getBytes());
+    }
+
     @Bean
     SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+        JwtAuthenticationFilter jwtAuthenticationFilter = new JwtAuthenticationFilter(secretKey());
+
         http
                 // 인증/인가 설정
                 .authorizeHttpRequests((authorizeHttpRequests) -> authorizeHttpRequests
@@ -30,11 +46,12 @@ public class SecurityConfig {
                         .requestMatchers("/api/exchange/**").authenticated())  // 인증 필요
                 .csrf(AbstractHttpConfigurer::disable)
                 .cors(cors -> cors.configurationSource(corsConfigurationSource()))  // CORS 설정
-                .formLogin((formLogin) -> formLogin.disable())
+                .formLogin(AbstractHttpConfigurer::disable)
                 .logout((logout) -> logout
-                        .logoutRequestMatcher(new AntPathRequestMatcher("/api/user/logout"))
+                        .logoutUrl("/api/user/logout")
                         .logoutSuccessUrl("/")
-                        .invalidateHttpSession(true));  // 로그아웃 설정
+                        .invalidateHttpSession(true))  // 로그아웃 설정
+                .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
 
         return http.build();
     }

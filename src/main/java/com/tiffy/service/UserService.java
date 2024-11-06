@@ -3,12 +3,14 @@ package com.tiffy.service;
 import com.tiffy.dto.UserCreateDto;
 import com.tiffy.entity.User;
 import com.tiffy.repository.UserMapper;
+import io.jsonwebtoken.JwtBuilder;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.security.Keys;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -31,6 +33,9 @@ public class UserService {
     @Autowired
     private final PasswordEncoder passwordEncoder;
     private final AuthenticationManager authenticationManager;
+
+    @Value("${jwt.secret.key}")
+    private String SECRET_KEY;
 
     public String insertUser(@Valid UserCreateDto userCreateDto, BindingResult bindingResult) {
 
@@ -70,13 +75,12 @@ public class UserService {
     }
 
     public String generateToken(String username) {
-        SecretKey key = Keys.secretKeyFor(SignatureAlgorithm.HS256);
         // JWT 토큰 생성
         return Jwts.builder()
                 .setSubject(username)
                 .setIssuedAt(new Date())
                 .setExpiration(new Date(System.currentTimeMillis() + 86400000)) // 1일 유효기간 설정
-                .signWith(key) // 시크릿 키로 서명
+                .signWith(SignatureAlgorithm.HS256, SECRET_KEY.getBytes()) // 시크릿 키로 서명
                 .compact();
     }
 

@@ -128,7 +128,11 @@ export default {
           this.totalItems = response.data.totalItems;
         })
         .catch((error) => {
-          console.error("데이터를 가져오는 중 오류 발생:", error);
+              if (error.response && error.response.status === 403) {
+                alert("접근 권한이 없습니다. 로그인 후 다시 시도하세요.");
+                this.$router.push({ path: `/` });
+              }
+              console.error("데이터를 가져오는 중 오류 발생:", error);
         });
     },
     goToPreviousSet() {
