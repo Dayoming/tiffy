@@ -4,8 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="b6e131d5-5ac7-4d0d-9526-f9e2833cf2d7" name="Changes" comment="feat: 로그인, 회원가입 기능 구현&#10;&#10;로그인 시 JWT 토큰을 발급해 Vue로 보내주어 로그인 상태를 체크하도록 구현">
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/tiffy/config/JwtAuthenticationFilter.java" afterDir="false" />
+    <list default="true" id="b6e131d5-5ac7-4d0d-9526-f9e2833cf2d7" name="Changes" comment="feat: 교환 게시판은 로그인한 사용자만 접근할 수 있도록 구현&#10;&#10;교환 게시판 접근 시 로그인 한 사용자의 토큰을 헤더에 포함해 요청하고, 유효한 토큰인 경우에만 접근 가능하도록 JwtAuthenticationFilter 구현">
       <change beforePath="$PROJECT_DIR$/.gradle/8.10.2/checksums/checksums.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/8.10.2/checksums/checksums.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/8.10.2/checksums/md5-checksums.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/8.10.2/checksums/md5-checksums.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/8.10.2/checksums/sha1-checksums.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/8.10.2/checksums/sha1-checksums.bin" afterDir="false" />
@@ -20,10 +19,15 @@
       <change beforePath="$PROJECT_DIR$/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/application.properties" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/build/classes/java/main/com/tiffy/TiffyApplication.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/java/main/com/tiffy/TiffyApplication.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/build/tmp/compileJava/previous-compilation-data.bin" beforeDir="false" afterPath="$PROJECT_DIR$/build/tmp/compileJava/previous-compilation-data.bin" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/components/exchange/ExchangeList.vue" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/exchange/ExchangeList.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/components/exchange/ExchangeDetail.vue" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/exchange/ExchangeDetail.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/components/exchange/ExchangeEdit.vue" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/exchange/ExchangeEdit.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/components/exchange/ExchangeNew.vue" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/exchange/ExchangeNew.vue" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/frontend/src/main.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/main.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/tiffy/config/SecurityConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/tiffy/config/SecurityConfig.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/tiffy/service/UserService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/tiffy/service/UserService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/tiffy/dto/ItemDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/tiffy/dto/ItemDto.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/tiffy/entity/Item.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/tiffy/entity/Item.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/mappers/item.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/mappers/item.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -81,7 +85,7 @@
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "git-widget-placeholder": "develop",
     "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "C:/tiffy-origin",
+    "last_opened_file_path": "C:/tiffy",
     "project.structure.last.edited": "Project",
     "project.structure.proportion": "0.0",
     "project.structure.side.proportion": "0.0",
@@ -292,7 +296,15 @@
       <option name="project" value="LOCAL" />
       <updated>1730869309018</updated>
     </task>
-    <option name="localTasksCounter" value="19" />
+    <task id="LOCAL-00019" summary="feat: 교환 게시판은 로그인한 사용자만 접근할 수 있도록 구현&#10;&#10;교환 게시판 접근 시 로그인 한 사용자의 토큰을 헤더에 포함해 요청하고, 유효한 토큰인 경우에만 접근 가능하도록 JwtAuthenticationFilter 구현">
+      <option name="closed" value="true" />
+      <created>1730881485606</created>
+      <option name="number" value="00019" />
+      <option name="presentableId" value="LOCAL-00019" />
+      <option name="project" value="LOCAL" />
+      <updated>1730881485606</updated>
+    </task>
+    <option name="localTasksCounter" value="20" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -325,6 +337,7 @@
     <MESSAGE value="chore: 사용하지 않는 response.error 삭제" />
     <MESSAGE value="fix: 상품 등록 오류 수정&#10;&#10;PK 값이던 item_id 값이 null이기 때문에 발생하던 오류, xml 파일에 userGeneratedKeys와 keyProperty 옵션을 적용해 해결" />
     <MESSAGE value="feat: 로그인, 회원가입 기능 구현&#10;&#10;로그인 시 JWT 토큰을 발급해 Vue로 보내주어 로그인 상태를 체크하도록 구현" />
-    <option name="LAST_COMMIT_MESSAGE" value="feat: 로그인, 회원가입 기능 구현&#10;&#10;로그인 시 JWT 토큰을 발급해 Vue로 보내주어 로그인 상태를 체크하도록 구현" />
+    <MESSAGE value="feat: 교환 게시판은 로그인한 사용자만 접근할 수 있도록 구현&#10;&#10;교환 게시판 접근 시 로그인 한 사용자의 토큰을 헤더에 포함해 요청하고, 유효한 토큰인 경우에만 접근 가능하도록 JwtAuthenticationFilter 구현" />
+    <option name="LAST_COMMIT_MESSAGE" value="feat: 교환 게시판은 로그인한 사용자만 접근할 수 있도록 구현&#10;&#10;교환 게시판 접근 시 로그인 한 사용자의 토큰을 헤더에 포함해 요청하고, 유효한 토큰인 경우에만 접근 가능하도록 JwtAuthenticationFilter 구현" />
   </component>
 </project>

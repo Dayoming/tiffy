@@ -33,6 +33,10 @@
           <label class="form-label">수량</label>
           <input type="number" v-model="form.stockNumber" class="form-control" min="0" max="99" placeholder="1" />
         </div>
+        <div class="mb-3">
+          <label class="form-label">거래 희망 위치</label>
+          <input type="text" v-model="form.place" class="form-control" />
+        </div>
         <button type="submit" class="btn btn-primary">Submit</button>
         <button type="button" class="btn btn-light" @click="goBack">Back</button>
       </form>

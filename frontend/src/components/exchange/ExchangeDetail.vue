@@ -11,6 +11,8 @@
                 <p><strong>수량:</strong> <span>{{item.stockNumber}}</span></p>
                 <p><strong>상품 설명:</strong> <span>{{item.itemDetail}}</span></p>
                 <p><strong>판매 상태:</strong> <span>{{item.itemSellStatus}}</span></p>
+                <p><strong>거래 희망 위치:</strong> <span>{{item.place}}</span></p>
+                <div id="map"></div>
                 <p><strong>등록 시간:</strong> <span>{{item.regTime}}</span></p>
                 <p><strong>수정 시간:</strong> <span>{{item.updateTime}}</span></p>
                 <button type="button" class="btn btn-light" @click="goBack">Back</button>
@@ -26,7 +28,9 @@
         name: "ExchangeDetail",
         data() {
             return {
-                item: []
+                item: {},
+                map: null,
+                geocoder: null,
             };
         },
         methods: {
@@ -51,18 +55,58 @@
                 this.$axios.get(`http://localhost:8081/api/exchange/${this.$route.params.id}`)
                     .then(response => {
                         this.item = response.data;
+                        this.initMap();
                     })
                     .catch(error => {
                         console.error("데이터를 가져오는 중 오류 발생:", error);
                     });
             },
+            loadScript() {
+                const script = document.createElement("script");
+                script.src = "//dapi.kakao.com/v2/maps/sdk.js?appkey=1abf99a7eaabed5bf02b329ee8596ee0&autoload=false&libraries=services";
+                script.onload = () => window.kakao.maps.load(this.loadMap);
+                document.head.appendChild(script);
+            },
+            initMap() {
+                const container = document.getElementById("map");
+                const options = {
+                  center: new window.kakao.maps.LatLng(33.450701, 126.570667),
+                  level: 3,
+                }
+                this.map = new window.kakao.maps.Map(container, options);
+                this.geocoder = new window.kakao.maps.services.Geocoder()
+                console.log(this.item);
+                this.geocoder.addressSearch(this.item.place, (result, status) => {
+                  if (status === window.kakao.maps.services.Status.OK) {
+                    const coords = new window.kakao.maps.LatLng(result[0].y, result[0].x)
+                    const marker = new window.kakao.maps.Marker({
+                      map: this.map,
+                      position: coords,
+                    })
+                    const infowindow = new window.kakao.maps.InfoWindow({
+                      content: `<div style="width:150px;text-align:center;padding:6px 0;">${this.item.place}</div>`,
+                    });
+                    infowindow.open(this.map, marker)
+                    this.map.setCenter(coords);
+                  }
+                });
+            },
         },
         mounted() {
-            this.fetchData();
+            if (window.kakao && window.kakao.maps) {
+                this.fetchData();
+            } else {
+                this.loadScript();
+                this.fetchData();
+            }
         },
     };
 </script>
 
 <style scope>
-
+#map {
+    width: 100%;
+    height: 500px;
+    margin: 20px;
+}
 </style>

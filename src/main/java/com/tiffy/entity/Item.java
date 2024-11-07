@@ -27,6 +27,8 @@ public class Item {
 
     private String itemDetail; // 상품 상세 설명
 
+    private String place; // 거래 희망 위치
+
     private ItemSellStatus itemSellStatus; // 상품 판매 상태
 
     private String regTime; // 등록 시간
@@ -34,7 +36,8 @@ public class Item {
     private String updateTime; // 수정 시간
 
     @Builder
-    public Item(Long id, String itemNm, ItemCategory itemCategory, String sellerId, String sellerNm, int price, int stockNumber, String itemDetail) {
+    public Item(Long id, String itemNm, ItemCategory itemCategory, String sellerId, String sellerNm
+            , int price, int stockNumber, String itemDetail, String place) {
         this.id = id;
         this.itemNm = itemNm;
         this.itemCategory = itemCategory;
@@ -43,6 +46,7 @@ public class Item {
         this.price = price;
         this.stockNumber = stockNumber;
         this.itemDetail = itemDetail;
+        this.place = place;
         this.itemSellStatus = ItemSellStatus.SELL;
 
         LocalDateTime localDateTime = LocalDateTime.now();

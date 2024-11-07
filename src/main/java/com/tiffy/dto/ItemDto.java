@@ -19,6 +19,7 @@ public class ItemDto {
     private Integer price; // 가격
     private Integer stockNumber; // 수량
     private String itemDetail; // 상품 상세 설명
+    private String place; // 거래 희망 위치
     private ItemSellStatus itemSellStatus; // 상품 판매 상태
     private String regTime; // 등록 시간
     private String updateTime; // 수정 시간
@@ -30,11 +31,12 @@ public class ItemDto {
         this.sellerNm = entity.getSellerNm();
         this.price = entity.getPrice();
         this.stockNumber = entity.getStockNumber();
+        this.place = entity.getPlace();
         this.itemSellStatus = entity.getItemSellStatus();
     }
 
     public Item toEntity() {
         return new Item(id, itemNm, itemCategory, sellerId, sellerNm, price,
-                stockNumber, itemDetail, itemSellStatus, regTime, updateTime);
+                stockNumber, itemDetail, place, itemSellStatus, regTime, updateTime);
     }
 }
