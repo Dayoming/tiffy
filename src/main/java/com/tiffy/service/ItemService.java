@@ -87,7 +87,8 @@ public class ItemService {
         return updatedItem;
     }
 
-    public Map<String, Object> getItemsByPage(int page, int size, String searchQuery, String searchType) {
+    public Map<String, Object> getItemsByPage(int page, int size, String searchQuery
+            , String searchType, String sortOption) {
         int offset = (page - 1) * size;
         List<Item> items;
         int totalItems;
@@ -95,17 +96,17 @@ public class ItemService {
         if (searchQuery != null && !searchQuery.isEmpty()) {
             // searchType에 따라 다른 검색 메서드 호출
             if ("all".equals(searchType)) {
-                items = itemMapper.findItemsByTitleOrContent(searchQuery, size, offset);
+                items = itemMapper.findItemsByTitleOrContent(searchQuery, size, offset, sortOption);
                 totalItems = itemMapper.countItemsByTitleOrContent(searchQuery);
             } else if ("author".equals(searchType)) {
-                items = itemMapper.findItemsByAuthor(searchQuery, size, offset);
+                items = itemMapper.findItemsByAuthor(searchQuery, size, offset, sortOption);
                 totalItems = itemMapper.countItemsByAuthor(searchQuery);
             } else {
-                items = itemMapper.findItemsByPage(size, offset);
+                items = itemMapper.findItemsByPage(size, offset, sortOption);
                 totalItems = itemMapper.countItems();
             }
         } else {
-            items = itemMapper.findItemsByPage(size, offset);
+            items = itemMapper.findItemsByPage(size, offset, sortOption);
             totalItems = itemMapper.countItems();
         }
 

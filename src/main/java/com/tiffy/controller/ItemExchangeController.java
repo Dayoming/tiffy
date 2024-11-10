@@ -27,8 +27,9 @@ public class ItemExchangeController {
             @RequestParam(defaultValue = "1") int page,
             @RequestParam(defaultValue = "10") int size,
             @RequestParam(required = false) String searchQuery,
-            @RequestParam(defaultValue = "all") String searchType) {
-        return itemService.getItemsByPage(page, size, searchQuery, searchType);
+            @RequestParam(defaultValue = "all") String searchType,
+            @RequestParam(defaultValue = "latest") String sortOption) {
+        return itemService.getItemsByPage(page, size, searchQuery, searchType, sortOption);
     }
 
     @GetMapping("/{id}")

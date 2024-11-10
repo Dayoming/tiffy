@@ -58,7 +58,7 @@
     </select>
 
     <!-- 페이지네이션 적용된 데이터 조회 -->
-    <select id="findItemsByPage" resultType="Item">
+    <select id="findItemsByPage" parameterType="map" resultType="Item">
         SELECT
         item_id AS id,
         item_nm AS itemNm,
@@ -75,11 +75,25 @@
         lat AS lat,
         lng AS lng
         FROM item
-        ORDER BY id DESC
+        <if test="sortOption == 'latest'">
+            ORDER BY update_time DESC
+        </if>
+        <if test="sortOption == 'price_desc'">
+            ORDER BY price DESC
+        </if>
+        <if test="sortOption == 'price_asc'">
+            ORDER BY price ASC
+        </if>
+        <if test="sortOption == 'distance'">
+            ORDER BY lat, lng
+        </if>
+        <if test="sortOption == 'status'">
+            ORDER BY item_sell_status
+        </if>
         LIMIT #{size} OFFSET #{offset}
     </select>
 
-    <!-- 제목+내용으로 검색 -->
+    <!-- 제목+내용으로 검색할 때 정렬 추가 -->
     <select id="findItemsByTitleOrContent" parameterType="map" resultType="Item">
         SELECT
         item_id AS id,
@@ -98,11 +112,25 @@
         lng AS lng
         FROM item
         WHERE item_nm LIKE CONCAT('%', #{searchQuery}, '%') OR item_detail LIKE CONCAT('%', #{searchQuery}, '%')
-        ORDER BY id DESC
+        <if test="sortOption == 'latest'">
+            ORDER BY update_time DESC
+        </if>
+        <if test="sortOption == 'price_desc'">
+            ORDER BY price DESC
+        </if>
+        <if test="sortOption == 'price_asc'">
+            ORDER BY price ASC
+        </if>
+        <if test="sortOption == 'distance'">
+            ORDER BY lat, lng
+        </if>
+        <if test="sortOption == 'status'">
+            ORDER BY item_sell_status
+        </if>
         LIMIT #{size} OFFSET #{offset}
     </select>
 
-    <!-- 작성자로 검색 -->
+    <!-- 작성자로 검색할 때 정렬 추가 -->
     <select id="findItemsByAuthor" parameterType="map" resultType="Item">
         SELECT
         item_id AS id,
@@ -121,7 +149,21 @@
         lng AS lng
         FROM item
         WHERE seller_nm LIKE CONCAT('%', #{searchQuery}, '%')
-        ORDER BY id DESC
+        <if test="sortOption == 'latest'">
+            ORDER BY update_time DESC
+        </if>
+        <if test="sortOption == 'price_desc'">
+            ORDER BY price DESC
+        </if>
+        <if test="sortOption == 'price_asc'">
+            ORDER BY price ASC
+        </if>
+        <if test="sortOption == 'distance'">
+            ORDER BY lat, lng
+        </if>
+        <if test="sortOption == 'status'">
+            ORDER BY item_sell_status
+        </if>
         LIMIT #{size} OFFSET #{offset}
     </select>
 

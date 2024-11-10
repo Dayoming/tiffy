@@ -9,6 +9,15 @@
 
     <div class="container-xxl py-6">
       <div class="container">
+      <div class="sort-div">
+        <select v-model="sortOption" @change="fetchData" class="form-select">
+          <option value="latest" selected>최신순</option>
+          <option value="price_desc">가격 높은 순</option>
+          <option value="price_asc">가격 낮은 순</option>
+          <option value="distance">거리 순</option>
+          <option value="status">판매 상태 순</option>
+        </select>
+      </div>
       <div class="current-address-div">
         <p class="current-address-info">현재 설정된 위치: <span id="currentAddress">{{ this.place }}</span></p>
         <button class="btn btn-primary edit-place" @click="goToEditPlace">변경</button>
@@ -109,6 +118,7 @@ export default {
       distance: "",
       searchQuery: "", // 검색어
       searchType: "all", // 검색 유형
+      sortOption: "latest", // 기본 정렬 옵션
     };
   },
   computed: {
@@ -153,6 +163,7 @@ export default {
             size: this.pageSize,
             searchQuery: this.searchQuery,
             searchType: this.searchType,
+            sortOption: this.sortOption,
           },
         })
         .then((response) => {
@@ -286,4 +297,11 @@ export default {
         width: 60%;
         margin: auto;
     }
+
+    .sort-div {
+        width: 30%;
+        float: right;
+        margin-left: 30px;
+    }
+
 </style>

@@ -12,9 +12,9 @@ public interface ItemMapper {
     int countItems();
     int countItemsByTitleOrContent(String searchQuery);
     int countItemsByAuthor(String searchQuery);
-    List<Item> findItemsByPage(@Param("size") int size, @Param("offset") int offset);
-    List<Item> findItemsByTitleOrContent(@Param("searchQuery") String searchQuery, @Param("size") int size, @Param("offset") int offset);
-    List<Item> findItemsByAuthor(@Param("searchQuery") String searchQuery, @Param("size") int size, @Param("offset") int offset);
+    List<Item> findItemsByPage(@Param("size") int size, @Param("offset") int offset, @Param("sortOption") String sortOption);
+    List<Item> findItemsByTitleOrContent(@Param("searchQuery") String searchQuery, @Param("size") int size, @Param("offset") int offset, @Param("sortOption") String sortOption);
+    List<Item> findItemsByAuthor(@Param("searchQuery") String searchQuery, @Param("size") int size, @Param("offset") int offset, @Param("sortOption") String sortOption);
     List<Item> findByItemNm(@Param("item") Item item);
     List<Item> findByItemNmOrItemDetail(@Param("item") Item item);
     List<Item> findAllByOrderByPriceDesc();
