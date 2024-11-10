@@ -9,6 +9,10 @@
 
     <div class="container-xxl py-6">
       <div class="container">
+      <div class="current-address-div">
+        <p class="current-address-info">현재 설정된 위치: <span id="currentAddress">{{ this.place }}</span></p>
+        <button class="btn btn-primary edit-place" @click="goToEditPlace">변경</button>
+      </div>
         <table class="table table-hover table-bordered">
           <thead>
             <tr>
@@ -84,6 +88,9 @@ export default {
       pageSize: 10, // 한 페이지당 10개
       pageLimit: 10, // 한 번에 보여줄 페이지 버튼 수
       startPage: 1, // 페이지 버튼 시작 번호
+      place: null,
+      latitude: 0,
+      longitude: 0,
     };
   },
   computed: {
@@ -110,9 +117,11 @@ export default {
           this.startPage = Math.max(1, this.startPage - this.pageLimit);
         }
     },
-
     goToNewExchange() {
       this.$router.push({ path: `/exchange/new` });
+    },
+    goToEditPlace() {
+        this.$router.push({ path: '/exchange/ask-for-place' });
     },
     fetchData() {
       this.$axios
@@ -126,6 +135,40 @@ export default {
           this.itemList = response.data.items;
           this.totalPages = response.data.totalPages;
           this.totalItems = response.data.totalItems;
+
+
+          this.$axios
+            .get(`http://localhost:8081/api/user/findByLoginUserName`)
+            .then((response) => {
+                if (response.data.place == null) {
+                  this.$getLocation()
+                  .then((coordinates) => {
+                    const kakaoAxios = this.$axios.create();
+
+                    this.latitude = coordinates.lat;
+                    this.longitude = coordinates.lng;
+                    kakaoAxios.get('https://dapi.kakao.com/v2/local/geo/coord2address.json', {
+                      params: { x: this.longitude, y: this.latitude },
+                      headers: {
+                          Authorization: 'KakaoAK 1100c051ea6f907012629e48936f0504'
+                      }
+                  })
+                  .then((response) => {
+                    if (response.data.documents[0].address != null) {
+                        this.place = response.data.documents[0].address.address_name;
+                    } else {
+                        this.place = response.data.documents[0].road_address.address_name;
+                    }
+                    this.$axios
+                        .post(`http://localhost:8081/api/user/updatePlace`, { place: this.place })
+                        })
+                    });
+                } else {
+                    this.place = response.data.place;
+                }
+            })
+
+
         })
         .catch((error) => {
               if (error.response && error.response.status === 403) {
@@ -151,11 +194,29 @@ export default {
           this.fetchData();
       }
     },
-  },
+ },
   mounted() {
     this.fetchData();
   },
 };
 </script>
 
-<style scoped></style>
+<style scoped>
+    .current-address-info {
+        display: inline-block;
+        margin: 0;
+    }
+
+    .current-address-div {
+        margin-bottom: 30px;
+    }
+
+    #currentAddress {
+        font-weight: bold;
+        color: #3CB815;
+    }
+
+    .edit-place {
+        float: right;
+    }
+</style>

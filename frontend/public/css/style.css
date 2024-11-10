@@ -1,9 +1,22 @@
+@font-face {
+    font-family: 'NanumSquareRound';
+    src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_two@1.0/NanumSquareRound.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
 /********** Template CSS **********/
 :root {
     --primary: #3CB815;
     --secondary: #F65005;
     --light: #F7F8FC;
     --dark: #111111;
+}
+
+body {
+    font-family: 'NanumSquareRound';
+    font-weight: normal;
+    font-style: normal;
 }
 
 .back-to-top {

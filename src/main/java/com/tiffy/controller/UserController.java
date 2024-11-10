@@ -1,14 +1,13 @@
 package com.tiffy.controller;
 
 import com.tiffy.dto.UserCreateDto;
+import com.tiffy.entity.User;
 import com.tiffy.service.UserService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -57,5 +56,15 @@ public class UserController {
         response.put("status", "error");
         response.put("message", "사용자 ID 또는 비밀번호를 확인해 주세요.");
         return response;
+    }
+
+    @PostMapping("/updatePlace")
+    public Map<String, Object> exchangeUserPlaceUpdate(@AuthenticationPrincipal String username, @RequestBody Map<String, String> placeData) {
+        return userService.updateUserPlace(username, placeData.get("place"));
+    }
+
+    @GetMapping("/findByLoginUserName")
+    public User findByLoginUserName(@AuthenticationPrincipal String username) {
+        return userService.findUserByUsername(username);
     }
 }

@@ -4,6 +4,7 @@ import ExchangeList from '../components/exchange/ExchangeList';
 import ExchangeNew from '../components/exchange/ExchangeNew';
 import ExchangeDetail from '../components/exchange/ExchangeDetail';
 import ExchangeEdit from '../components/exchange/ExchangeEdit';
+import AskForPlace from '../components/exchange/AskForPlace';
 import RecipeSearch from '../components/recipe/RecipeSearch';
 import LoginForm from '../components/user/LoginForm';
 import SignupForm from '../components/user/SignupForm';
@@ -33,6 +34,11 @@ const routes = [
         path: '/exchange/edit/:id',
         name: 'exchangeEdit',
         component: ExchangeEdit
+     },
+     {
+        path: '/exchange/ask-for-place',
+        name: 'askForPlace',
+        component: AskForPlace
      },
      {
         path: '/recipes',

@@ -71,7 +71,7 @@
         reg_time AS regTime,
         update_time AS updateTime
         FROM item
-        ORDER BY price DESC
+        ORDER BY id DESC
         LIMIT #{size} OFFSET #{offset}
     </select>
 

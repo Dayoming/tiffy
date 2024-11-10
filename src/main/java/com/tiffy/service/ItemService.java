@@ -98,6 +98,11 @@ public class ItemService {
             response.put("totalItems", totalItems);
             response.put("totalPages", totalPages);
             return response;
-        }
+    }
+
+    public Map<String, Object> distanceCalculate(Double longitude, Double latitude) {
+        Map<String, Object> response = new HashMap<>();
+        return response;
+    }
 
 }

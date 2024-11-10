@@ -15,6 +15,7 @@ public interface ItemMapper {
     List<Item> findByItemNmOrItemDetail(@Param("item") Item item);
     List<Item> findAllByOrderByPriceDesc();
     List<Item> findAllByOrderByPriceAsc();
+    Long distanceCalculate(@Param("longitude") Long longitude, @Param("latitude") Long latitude);
     void saveItem(Item item);
     void updateItem(Item item);
     void deleteItemById(@Param("id") Long id);

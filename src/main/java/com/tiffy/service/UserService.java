@@ -3,10 +3,8 @@ package com.tiffy.service;
 import com.tiffy.dto.UserCreateDto;
 import com.tiffy.entity.User;
 import com.tiffy.repository.UserMapper;
-import io.jsonwebtoken.JwtBuilder;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
-import io.jsonwebtoken.security.Keys;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,8 +18,9 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.BindingResult;
 
-import javax.crypto.SecretKey;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
 @RequiredArgsConstructor
 @Service
@@ -75,8 +74,12 @@ public class UserService {
     }
 
     public String generateToken(String username) {
+        Map<String, Object> claims = new HashMap<>();
+        claims.put("username", username);
+
         // JWT 토큰 생성
         return Jwts.builder()
+                .setClaims(claims)
                 .setSubject(username)
                 .setIssuedAt(new Date())
                 .setExpiration(new Date(System.currentTimeMillis() + 86400000)) // 1일 유효기간 설정
@@ -90,5 +93,20 @@ public class UserService {
 
     public User findUserByUsername(String username) {
         return userMapper.findUserByUsername(username);
+    }
+
+    public Map<String, Object> updateUserPlace(String username, String place) {
+        Map<String, Object> response = new HashMap<>();
+        User user = userMapper.findUserByUsername(username);
+        user.setPlace(place);
+        try {
+            userMapper.updateUserPlace(user);
+        } catch (Exception e) {
+            e.printStackTrace();
+            response.put("error", "해당 장소를 찾지 못했습니다.");
+        }
+
+        response.put("message", "장소가 업데이트 되었습니다.");
+        return response;
     }
 }
