@@ -69,6 +69,8 @@ export default {
         price: '',
         place: '',
         stockNumber: 1,
+        lat: 0.0,
+        lon: 0.0,
       },
       categories: [
         { label: '과일', value: 'FRUIT' },
@@ -152,6 +154,8 @@ export default {
                         // 인포윈도우에 초기 주소를 표시
                         this.infowindow.setContent(content);
                         this.infowindow.open(this.map, marker);
+                        this.form.lat = this.latitude;
+                        this.form.lng = this.longitude;
                     }
                });
 
@@ -175,6 +179,9 @@ export default {
                             } else {
                                 this.form.place = result[0].address.address_name;
                             }
+
+                            this.form.lat = mouseEvent.latLng.Ma;
+                            this.form.lng = mouseEvent.latLng.La;
 
                             // 마커를 클릭한 위치에 표시
                             marker.setPosition(mouseEvent.latLng);

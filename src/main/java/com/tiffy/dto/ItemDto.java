@@ -5,6 +5,8 @@ import com.tiffy.constant.ItemSellStatus;
 import com.tiffy.entity.Item;
 import lombok.*;
 
+import java.math.BigDecimal;
+
 @Getter
 @Setter
 @AllArgsConstructor
@@ -20,6 +22,8 @@ public class ItemDto {
     private Integer stockNumber; // 수량
     private String itemDetail; // 상품 상세 설명
     private String place; // 거래 희망 위치
+    private BigDecimal lat; // 거래 희망 위치 경도
+    private BigDecimal lng; // 거래 희망 위치 위도
     private ItemSellStatus itemSellStatus; // 상품 판매 상태
     private String regTime; // 등록 시간
     private String updateTime; // 수정 시간
@@ -32,11 +36,13 @@ public class ItemDto {
         this.price = entity.getPrice();
         this.stockNumber = entity.getStockNumber();
         this.place = entity.getPlace();
+        this.lat = entity.getLat();
+        this.lng = entity.getLng();
         this.itemSellStatus = entity.getItemSellStatus();
     }
 
     public Item toEntity() {
         return new Item(id, itemNm, itemCategory, sellerId, sellerNm, price,
-                stockNumber, itemDetail, place, itemSellStatus, regTime, updateTime);
+                stockNumber, itemDetail, place, lat, lng, itemSellStatus, regTime, updateTime);
     }
 }

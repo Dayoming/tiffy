@@ -21,8 +21,8 @@
               <th scope="col">카테고리</th>
               <th scope="col">작성자</th>
               <th scope="col">가격</th>
-              <th scope="col">수량</th>
               <th scope="col">판매상태</th>
+              <th scope="col">거리</th>
             </tr>
           </thead>
           <tbody>
@@ -32,8 +32,8 @@
               <td>{{ item.itemCategory }}</td>
               <td>{{ item.sellerNm }}</td>
               <td>{{ item.price }}</td>
-              <td>{{ item.stockNumber }}</td>
               <td>{{ item.itemSellStatus }}</td>
+              <td>{{ item.distance }}</td>
             </tr>
           </tbody>
         </table>
@@ -91,6 +91,7 @@ export default {
       place: null,
       latitude: 0,
       longitude: 0,
+      distance: "X",
     };
   },
   computed: {
@@ -136,11 +137,10 @@ export default {
           this.totalPages = response.data.totalPages;
           this.totalItems = response.data.totalItems;
 
-
           this.$axios
             .get(`http://localhost:8081/api/user/findByLoginUserName`)
             .then((response) => {
-                if (response.data.place == null) {
+                if (response.data.place == null || response.data.place == '') { // 사용자 위치가 없으면 현재 위치 설정
                   this.$getLocation()
                   .then((coordinates) => {
                     const kakaoAxios = this.$axios.create();
@@ -162,13 +162,23 @@ export default {
                     this.$axios
                         .post(`http://localhost:8081/api/user/updatePlace`, { place: this.place })
                         })
+                    this.calculateDistances();
                     });
                 } else {
                     this.place = response.data.place;
+                    const kakaoAxios = this.$axios.create();
+                    kakaoAxios.get('https://dapi.kakao.com/v2/local/search/address.json', {
+                        params: { query: this.place },
+                        headers: {
+                            Authorization: 'KakaoAK 1100c051ea6f907012629e48936f0504'
+                        }
+                    }).then((response) => {
+                        this.longitude = response.data.documents[0].x;
+                        this.latitude = response.data.documents[0].y;
+                        this.calculateDistances();
+                    });
                 }
             })
-
-
         })
         .catch((error) => {
               if (error.response && error.response.status === 403) {
@@ -194,6 +204,35 @@ export default {
           this.fetchData();
       }
     },
+    calculateDistances() {
+      // 사용자 위치와 각 게시글의 위치 간의 거리 계산
+      this.itemList.forEach((item) => {
+        const itemCoords = { lat: item.lat, lng: item.lng }
+
+        // 위도 또는 경도가 없는 경우 'X'로 표시
+        if (!itemCoords.lat || !itemCoords.lng) {
+            item.distance = "X";
+            return;
+        }
+
+        const distanceInKm = this.getDistanceFromLatLonInKm(this.latitude, this.longitude, itemCoords.lat, itemCoords.lng);
+        item.distance = `${distanceInKm.toFixed(1)}km`;
+      });
+    },
+    getDistanceFromLatLonInKm(lat1, lon1, lat2, lon2) {
+      // 두 좌표 간의 거리 계산 (단위: km)
+      const R = 6371; // 지구 반지름 (단위: km)
+      const dLat = this.deg2rad(lat2 - lat1);
+      const dLon = this.deg2rad(lon2 - lon1);
+      const a = Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+                Math.cos(this.deg2rad(lat1)) * Math.cos(this.deg2rad(lat2)) *
+                Math.sin(dLon / 2) * Math.sin(dLon / 2);
+      const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+      return R * c;
+    },
+    deg2rad(deg) {
+      return deg * (Math.PI / 180);
+    }
  },
   mounted() {
     this.fetchData();

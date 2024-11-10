@@ -17,7 +17,9 @@
         place AS place,
         item_sell_status AS itemSellStatus,
         reg_time AS regTime,
-        update_time AS updateTime
+        update_time AS updateTime,
+        lat AS lat,
+        lng AS lng
         FROM item
         WHERE item_id = #{id}
     </select>
@@ -69,7 +71,9 @@
         place AS place,
         item_sell_status AS itemSellStatus,
         reg_time AS regTime,
-        update_time AS updateTime
+        update_time AS updateTime,
+        lat AS lat,
+        lng AS lng
         FROM item
         ORDER BY id DESC
         LIMIT #{size} OFFSET #{offset}
@@ -79,10 +83,11 @@
     <insert id="saveItem" parameterType="Item" useGeneratedKeys="true" keyProperty="id">
         INSERT INTO item (
         item_nm, item_category, seller_id, seller_nm, price,
-        stock_number, item_detail, place, item_sell_status, reg_time, update_time
+        stock_number, item_detail, place, item_sell_status, reg_time, update_time, lat, lng
         ) VALUES (
         #{itemNm}, #{itemCategory}, #{sellerId}, #{sellerNm}, #{price},
-        #{stockNumber}, #{itemDetail}, #{place}, #{itemSellStatus}, #{regTime}, #{updateTime}
+        #{stockNumber}, #{itemDetail}, #{place}, #{itemSellStatus}, #{regTime}, #{updateTime},
+        #{lat}, #{lng}
         )
     </insert>
 
@@ -98,6 +103,8 @@
         stock_number = #{stockNumber},
         item_detail = #{itemDetail},
         place = #{place},
+        lat = #{lat},
+        lng = #{lng},
         item_sell_status = #{itemSellStatus},
         update_time = #{updateTime}
         WHERE item_id = #{id}

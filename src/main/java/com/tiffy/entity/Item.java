@@ -4,6 +4,7 @@ import com.tiffy.constant.ItemCategory;
 import com.tiffy.constant.ItemSellStatus;
 import lombok.*;
 
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
@@ -29,6 +30,10 @@ public class Item {
 
     private String place; // 거래 희망 위치
 
+    private BigDecimal lat; // 거래 희망 위치 위도
+
+    private BigDecimal lng; // 거래 희망 위치 경도
+
     private ItemSellStatus itemSellStatus; // 상품 판매 상태
 
     private String regTime; // 등록 시간
@@ -37,7 +42,7 @@ public class Item {
 
     @Builder
     public Item(Long id, String itemNm, ItemCategory itemCategory, String sellerId, String sellerNm
-            , int price, int stockNumber, String itemDetail, String place) {
+            , int price, int stockNumber, String itemDetail, String place, BigDecimal lat, BigDecimal lng) {
         this.id = id;
         this.itemNm = itemNm;
         this.itemCategory = itemCategory;
@@ -47,6 +52,8 @@ public class Item {
         this.stockNumber = stockNumber;
         this.itemDetail = itemDetail;
         this.place = place;
+        this.lat = lat;
+        this.lng = lng;
         this.itemSellStatus = ItemSellStatus.SELL;
 
         LocalDateTime localDateTime = LocalDateTime.now();
