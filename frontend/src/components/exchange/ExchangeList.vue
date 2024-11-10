@@ -70,6 +70,21 @@
               <button @click="goToNewExchange" class="btn btn-primary float-end">등록</button>
             </div>
           </div>
+          <div class="search-div">
+            <div class="input-group mb-3">
+                <select v-model="searchType" class="form-select" style="max-width: 120px;">
+                  <option value="all" selected>제목+내용</option>
+                  <option value="author">작성자</option>
+                </select>
+                <input
+                  type="text"
+                  class="form-control"
+                  placeholder="검색어를 입력하세요"
+                  v-model="searchQuery"
+                />
+                <button class="btn btn-primary" @click="searchItems">검색</button>
+              </div>
+          </div>
         </div>
       </div>
     </div>
@@ -91,7 +106,9 @@ export default {
       place: null,
       latitude: 0,
       longitude: 0,
-      distance: "X",
+      distance: "",
+      searchQuery: "", // 검색어
+      searchType: "all", // 검색 유형
     };
   },
   computed: {
@@ -124,12 +141,18 @@ export default {
     goToEditPlace() {
         this.$router.push({ path: '/exchange/ask-for-place' });
     },
+    searchItems() {
+        this.currentPage = 1; // 새로운 검색 시 페이지를 1로 초기화
+        this.fetchData(); // 검색어와 검색 유형을 포함해 데이터 가져오기
+    },
     fetchData() {
       this.$axios
         .get(`http://localhost:8081/api/exchange/`, {
           params: {
             page: this.currentPage,
             size: this.pageSize,
+            searchQuery: this.searchQuery,
+            searchType: this.searchType,
           },
         })
         .then((response) => {
@@ -257,5 +280,10 @@ export default {
 
     .edit-place {
         float: right;
+    }
+
+    .search-div {
+        width: 60%;
+        margin: auto;
     }
 </style>

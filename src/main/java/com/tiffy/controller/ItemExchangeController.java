@@ -25,8 +25,10 @@ public class ItemExchangeController {
     @GetMapping("/")
     public Map<String, Object> exchangeList(
             @RequestParam(defaultValue = "1") int page,
-            @RequestParam(defaultValue = "10") int size) {
-        return itemService.getItemsByPage(page, size);
+            @RequestParam(defaultValue = "10") int size,
+            @RequestParam(required = false) String searchQuery,
+            @RequestParam(defaultValue = "all") String searchType) {
+        return itemService.getItemsByPage(page, size, searchQuery, searchType);
     }
 
     @GetMapping("/{id}")

@@ -10,7 +10,11 @@ import java.util.List;
 public interface ItemMapper {
     Item findByItemId(@Param("id") Long id);
     int countItems();
+    int countItemsByTitleOrContent(String searchQuery);
+    int countItemsByAuthor(String searchQuery);
     List<Item> findItemsByPage(@Param("size") int size, @Param("offset") int offset);
+    List<Item> findItemsByTitleOrContent(@Param("searchQuery") String searchQuery, @Param("size") int size, @Param("offset") int offset);
+    List<Item> findItemsByAuthor(@Param("searchQuery") String searchQuery, @Param("size") int size, @Param("offset") int offset);
     List<Item> findByItemNm(@Param("item") Item item);
     List<Item> findByItemNmOrItemDetail(@Param("item") Item item);
     List<Item> findAllByOrderByPriceDesc();

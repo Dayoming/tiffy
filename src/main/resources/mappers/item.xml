@@ -79,6 +79,66 @@
         LIMIT #{size} OFFSET #{offset}
     </select>
 
+    <!-- 제목+내용으로 검색 -->
+    <select id="findItemsByTitleOrContent" parameterType="map" resultType="Item">
+        SELECT
+        item_id AS id,
+        item_nm AS itemNm,
+        item_category AS itemCategory,
+        seller_id AS sellerId,
+        seller_nm AS sellerNm,
+        price AS price,
+        stock_number AS stockNumber,
+        item_detail AS itemDetail,
+        place AS place,
+        item_sell_status AS itemSellStatus,
+        reg_time AS regTime,
+        update_time AS updateTime,
+        lat AS lat,
+        lng AS lng
+        FROM item
+        WHERE item_nm LIKE CONCAT('%', #{searchQuery}, '%') OR item_detail LIKE CONCAT('%', #{searchQuery}, '%')
+        ORDER BY id DESC
+        LIMIT #{size} OFFSET #{offset}
+    </select>
+
+    <!-- 작성자로 검색 -->
+    <select id="findItemsByAuthor" parameterType="map" resultType="Item">
+        SELECT
+        item_id AS id,
+        item_nm AS itemNm,
+        item_category AS itemCategory,
+        seller_id AS sellerId,
+        seller_nm AS sellerNm,
+        price AS price,
+        stock_number AS stockNumber,
+        item_detail AS itemDetail,
+        place AS place,
+        item_sell_status AS itemSellStatus,
+        reg_time AS regTime,
+        update_time AS updateTime,
+        lat AS lat,
+        lng AS lng
+        FROM item
+        WHERE seller_nm LIKE CONCAT('%', #{searchQuery}, '%')
+        ORDER BY id DESC
+        LIMIT #{size} OFFSET #{offset}
+    </select>
+
+    <!-- 제목+내용으로 검색된 총 개수 -->
+    <select id="countItemsByTitleOrContent" parameterType="String" resultType="int">
+        SELECT COUNT(*)
+        FROM item
+        WHERE item_nm LIKE CONCAT('%', #{searchQuery}, '%') OR item_detail LIKE CONCAT('%', #{searchQuery}, '%')
+    </select>
+
+    <!-- 작성자로 검색된 총 개수 -->
+    <select id="countItemsByAuthor" parameterType="String" resultType="int">
+        SELECT COUNT(*)
+        FROM item
+        WHERE seller_nm LIKE CONCAT('%', #{searchQuery}, '%')
+    </select>
+
     <!-- item 저장 -->
     <insert id="saveItem" parameterType="Item" useGeneratedKeys="true" keyProperty="id">
         INSERT INTO item (
