@@ -780,9 +780,6 @@
           </div>
       </div>
       <!-- Blog End -->
-
-      <!-- Back to Top -->
-      <a href="#" class="btn btn-lg btn-primary btn-lg-square rounded-circle back-to-top"><i class="bi bi-arrow-up"></i></a>
 </template>
 
 <script>
@@ -790,3 +787,12 @@ export default {
   name: 'HomePageIndex'
 }
 </script>
+
+<style scope>
+    .go-to-chat {
+        position: fixed;
+        right: 30px;
+        bottom: 30px;
+        z-index: 99;
+    }
+</style>

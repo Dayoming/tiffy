@@ -4,7 +4,13 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="b6e131d5-5ac7-4d0d-9526-f9e2833cf2d7" name="Changes" comment="feat: 검색 기능 구현&#10;&#10;작성자, 게시글+제목으로 검색 가능">
+    <list default="true" id="b6e131d5-5ac7-4d0d-9526-f9e2833cf2d7" name="Changes" comment="design: 채팅 버튼 및 모달, 채팅방 화면 구현">
+      <change afterPath="$PROJECT_DIR$/frontend/public/js/functions.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/public/js/zuck-stories.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/public/vendor/OverlayScrollbars-master/css/OverlayScrollbars.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/public/vendor/OverlayScrollbars-master/css/OverlayScrollbars.min.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/public/vendor/OverlayScrollbars-master/js/OverlayScrollbars.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/public/vendor/OverlayScrollbars-master/js/OverlayScrollbars.min.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/8.10.2/checksums/checksums.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/8.10.2/checksums/checksums.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/8.10.2/checksums/md5-checksums.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/8.10.2/checksums/md5-checksums.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/8.10.2/checksums/sha1-checksums.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/8.10.2/checksums/sha1-checksums.bin" afterDir="false" />
@@ -18,11 +24,9 @@
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/build/classes/java/main/com/tiffy/TiffyApplication.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/java/main/com/tiffy/TiffyApplication.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/build/tmp/compileJava/previous-compilation-data.bin" beforeDir="false" afterPath="$PROJECT_DIR$/build/tmp/compileJava/previous-compilation-data.bin" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/components/exchange/ExchangeList.vue" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/exchange/ExchangeList.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/tiffy/controller/ItemExchangeController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/tiffy/controller/ItemExchangeController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/tiffy/repository/ItemMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/tiffy/repository/ItemMapper.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/tiffy/service/ItemService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/tiffy/service/ItemService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/mappers/item.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/mappers/item.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/public/css/style.css" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/public/css/style.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/public/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/public/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/components/HomePageIndex.vue" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/HomePageIndex.vue" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -74,26 +78,26 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;Gradle.tiffy [:com.tiffy.TiffyApplication.main()].executor&quot;: &quot;Run&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;develop&quot;,
-    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/tiffy&quot;,
-    &quot;project.structure.last.edited&quot;: &quot;Project&quot;,
-    &quot;project.structure.proportion&quot;: &quot;0.0&quot;,
-    &quot;project.structure.side.proportion&quot;: &quot;0.0&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "Gradle.tiffy [:com.tiffy.TiffyApplication.main()].executor": "Run",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "git-widget-placeholder": "develop",
+    "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "C:/tiffy/frontend/public/js",
+    "project.structure.last.edited": "Project",
+    "project.structure.proportion": "0.0",
+    "project.structure.side.proportion": "0.0",
+    "settings.editor.selected.configurable": "preferences.pluginManager"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\tiffy\frontend\public\js" />
       <recent name="C:\tiffy\src\main\java\com\tiffy" />
       <recent name="C:\tiffy\frontend\src\components\exchange" />
       <recent name="C:\tiffy\frontend\public" />
       <recent name="C:\tiffy\frontend\src\assets" />
-      <recent name="C:\tiffy" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="C:\tiffy" />
@@ -331,7 +335,15 @@
       <option name="project" value="LOCAL" />
       <updated>1731245869121</updated>
     </task>
-    <option name="localTasksCounter" value="24" />
+    <task id="LOCAL-00024" summary="feat: 정렬 기능 구현&#10;&#10;최신순, 가격 높은 순, 가격 낮은 순, 거리순, 판매상태 순 정렬 기능 구현">
+      <option name="closed" value="true" />
+      <created>1731246974440</created>
+      <option name="number" value="00024" />
+      <option name="presentableId" value="LOCAL-00024" />
+      <option name="project" value="LOCAL" />
+      <updated>1731246974440</updated>
+    </task>
+    <option name="localTasksCounter" value="25" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -369,6 +381,8 @@
     <MESSAGE value="feat: 사용자 위치를 묻는 기능 구현&#10;&#10;다양한 기기에서의 접근을 위해 데이터는 user DB에서 관리하도록 변경&#10;교환 게시판에 사용자가 처음 진입한 경우 사용자의 현재 위치를 저장하고, 변경 시 변경된 위치가 저장되도록 구현" />
     <MESSAGE value="feat: 사용자가 설정한 위치와 게시글 사이의 거리를 알려주는 기능 구현&#10;&#10;사용자가 설정한 위치와 게시글에서 희망하는 거래 위치와의 거리를 표시" />
     <MESSAGE value="feat: 검색 기능 구현&#10;&#10;작성자, 게시글+제목으로 검색 가능" />
-    <option name="LAST_COMMIT_MESSAGE" value="feat: 검색 기능 구현&#10;&#10;작성자, 게시글+제목으로 검색 가능" />
+    <MESSAGE value="feat: 정렬 기능 구현&#10;&#10;최신순, 가격 높은 순, 가격 낮은 순, 거리순, 판매상태 순 정렬 기능 구현" />
+    <MESSAGE value="design: 채팅 버튼 및 모달, 채팅방 화면 구현" />
+    <option name="LAST_COMMIT_MESSAGE" value="design: 채팅 버튼 및 모달, 채팅방 화면 구현" />
   </component>
 </project>
