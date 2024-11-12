@@ -20,6 +20,7 @@ import org.springframework.validation.BindingResult;
 
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @RequiredArgsConstructor
@@ -108,5 +109,13 @@ public class UserService {
 
         response.put("message", "장소가 업데이트 되었습니다.");
         return response;
+    }
+
+    public List<User> findUserByIncludeUserNickname(String nickname) {
+        return userMapper.findUserByIncludeUserNickname(nickname);
+    }
+
+    public User findUserByUserNickname(String nickname) {
+        return userMapper.findUserByUserNickname(nickname);
     }
 }

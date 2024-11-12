@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.tiffy.repository.NotificationMapper">
+    <!-- 읽지 않은 알림 조회 -->
+    <select id="getUnreadNotifications" parameterType="int" resultType="Notification">
+        SELECT * FROM Notification WHERE user_id = #{userId} AND is_read = FALSE
+    </select>
+
+    <!-- 알림 생성 -->
+    <insert id="createNotification" parameterType="Notification">
+        INSERT INTO Notification (chatroom_id, user_id) VALUES (#{chatRoomId}, #{userId})
+    </insert>
+
+    <!-- 알림 읽음 상태 업데이트 -->
+    <update id="markAsRead" parameterType="int">
+        UPDATE Notification SET is_read = TRUE WHERE user_id = #{userId}
+    </update>
+</mapper>

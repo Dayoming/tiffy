@@ -39,8 +39,9 @@ public class SecurityConfig {
         http
                 // 인증/인가 설정
                 .authorizeHttpRequests((authorizeHttpRequests) -> authorizeHttpRequests
-                        .requestMatchers("/api/recipes/**", "/api/user/signup", "/api/user/login").permitAll()  // 회원가입, 로그인은 인증 없이 접근 가능
-                        .requestMatchers("/api/exchange/**", "/api/user/**").authenticated())  // 인증 필요
+                        .requestMatchers("/api/recipes/**", "/api/user/signup", "/api/user/login", "/ws/**").permitAll()  // 회원가입, 로그인은 인증 없이 접근 가능
+                        .requestMatchers("/api/exchange/**", "/api/user/**", "/api/messages/**"
+                                , "/api/chatrooms/**", "/api/notifications/**").authenticated())  // 인증 필요
                 .csrf(AbstractHttpConfigurer::disable)
                 .cors(cors -> cors.configurationSource(corsConfigurationSource()))  // CORS 설정
                 .formLogin(AbstractHttpConfigurer::disable)

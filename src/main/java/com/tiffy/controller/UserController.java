@@ -10,6 +10,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @RequiredArgsConstructor
@@ -66,5 +67,20 @@ public class UserController {
     @GetMapping("/findByLoginUserName")
     public User findByLoginUserName(@AuthenticationPrincipal String username) {
         return userService.findUserByUsername(username);
+    }
+
+    @GetMapping("/findUserByIncludeUserNickname")
+    public List<User> searchUsers(@RequestParam String nickname) {
+        return userService.findUserByIncludeUserNickname(nickname);
+    }
+
+    @GetMapping("/findUserByUserNickname")
+    public User findUserByUserNickname(@RequestParam String nickname) {
+        return userService.findUserByUserNickname(nickname);
+    }
+
+    @GetMapping("/findUserById")
+    public User findUserById(@RequestParam Long id) {
+        return userService.findUserById(id);
     }
 }
