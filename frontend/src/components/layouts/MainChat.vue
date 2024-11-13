@@ -11,7 +11,7 @@
         <ChatSidebar v-if="contacts" :contacts="contacts" @openChat="openChat" @closeSidebar="closeSidebar" />
 
         <!-- 채팅창 컴포넌트: activeChat이 설정될 때만 보임 -->
-        <ChatToast v-if="activeChat" :chat="activeChat" @sendMessage="sendMessage" @closeToast="closeToast" />
+        <ChatToast v-if="activeChat" :chat="activeChat" :loginUserId="loginUserId" @sendMessage="sendMessage" @closeToast="closeToast" />
     </div>
 </template>
 
@@ -110,7 +110,12 @@ export default {
                 });
 
                 // 불러온 메시지 데이터를 activeChat.messages에 추가
-                this.activeChat.messages = response.data;
+                this.activeChat.messages = response.data.map(message => ({
+                    ...message,
+                    sender: message.senderId === this.loginUserId ? "me" : "other" // 메시지의 보낸 사람 구분
+                }));
+
+                console.log(this.activeChat.messages);
             } catch (error) {
                 console.error("Error fetching messages:", error);
             }
@@ -161,7 +166,7 @@ export default {
                   // senderId가 현재 로그인한 사용자의 ID와 다를 때만 추가
                   if (parsedMessage.senderId !== this.loginUserId) {
                       if (this.activeChat && parsedMessage.chatRoomId === this.activeChat.chatRoomId) {
-                          this.activeChat.messages.push(parsedMessage);
+                          this.activeChat.messages.push({ ...parsedMessage, sender: parsedMessage.senderId === this.loginUserId ? "me" : "other" });
                       }
                   }
                 });

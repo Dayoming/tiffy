@@ -30,6 +30,7 @@
 export default {
     props: {
         chat: Object,
+        loginUserId: Number,
     },
     data() {
         return {

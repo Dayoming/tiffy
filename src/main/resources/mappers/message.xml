@@ -4,7 +4,15 @@
 <mapper namespace="com.tiffy.repository.MessageMapper">
     <!-- 채팅방 내 메시지 조회 -->
     <select id="getMessagesByChatRoomId" parameterType="Long" resultType="Message">
-        SELECT * FROM Message WHERE chatroom_id = #{chatRoomId} ORDER BY timestamp
+        SELECT id,
+                chatroom_id AS chatRoomId,
+                sender_id AS senderId,
+                receiver_id AS receiverId,
+                content,
+                timestamp
+        FROM Message
+        WHERE chatroom_id = #{chatRoomId}
+        ORDER BY timestamp
     </select>
 
     <!-- 메시지 저장 -->
