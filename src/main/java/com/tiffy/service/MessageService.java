@@ -4,6 +4,7 @@ import com.tiffy.entity.Message;
 import com.tiffy.repository.MessageMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.PathVariable;
 
 import java.util.List;
 
@@ -22,6 +23,10 @@ public class MessageService {
 
     public void saveMessage(Message message) {
         messageMapper.saveMessage(message);
+    }
+
+    public Message getLastMessageByChatRoomId(@PathVariable Long chatRoomId) {
+        return messageMapper.getLastMessageByChatRoomId(chatRoomId);
     }
 
 }

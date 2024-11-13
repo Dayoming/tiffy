@@ -19,12 +19,16 @@ public class MessageController {
 
     @GetMapping("/{chatRoomId}")
     public List<Message> getMessagesByChatRoomId(@PathVariable Long chatRoomId) {
-        System.out.println(messageService.getMessagesByChatRoomId(chatRoomId));
         return messageService.getMessagesByChatRoomId(chatRoomId);
     }
 
     @PostMapping("/send")
     public void sendMessage(@RequestBody Message message) {
         messageService.saveMessage(message);
+    }
+
+    @GetMapping("/getLastMessage")
+    public Message getLastMessageByChatRoomId(Long chatRoomId) {
+        return messageService.getLastMessageByChatRoomId(chatRoomId);
     }
 }

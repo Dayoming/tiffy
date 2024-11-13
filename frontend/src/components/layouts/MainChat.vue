@@ -1,7 +1,7 @@
 <template>
     <div>
         <!-- 사이드바 버튼 -->
-        <a class="icon-md btn btn-primary position-fixed end-0 bottom-0 me-5 mb-5" data-bs-toggle="offcanvas"
+        <a class="icon-md btn btn-primary position-fixed end-0 bottom-0 mb-5" data-bs-toggle="offcanvas"
             href="#offcanvasChat" role="button" aria-controls="offcanvasChat"
             style="border-radius: 10px; z-index: 1;">
             <i class="bi bi-arrow-bar-left"></i>
@@ -30,6 +30,7 @@ export default {
             loginUserId: 0,
             otherUserId: 0,
             textMessage: '',
+            lastMessage: '',
             messages: [],
             stompClient: null,
             headers: '',
@@ -68,6 +69,13 @@ export default {
                             this.otherUserId = room.user1Id;
                         }
 
+                        this.$axios.get(`http://localhost:8081/api/messages/getLastMessage`, {
+                            params: { chatRoomId: room.id }
+                        })
+                        .then((lastMessageResponse) => {
+                            this.lastMessage = lastMessageResponse.data.content;
+                        });
+
                         // 상대방 사용자 정보를 가져오는 요청을 반환
                         return this.$axios.get(`http://localhost:8081/api/user/findUserById`, {
                             params: { id: this.otherUserId }
@@ -76,7 +84,7 @@ export default {
                             id: userResponse.data.id,
                             chatRoomId: room.id,
                             nickname: userResponse.data.nickname,
-                            lastMessage: '테스트 메시지입니다.'
+                            lastMessage: this.lastMessage,
                         }));
                     });
 
@@ -115,7 +123,6 @@ export default {
                     sender: message.senderId === this.loginUserId ? "me" : "other" // 메시지의 보낸 사람 구분
                 }));
 
-                console.log(this.activeChat.messages);
             } catch (error) {
                 console.error("Error fetching messages:", error);
             }
@@ -137,13 +144,14 @@ export default {
                     timestamp: new Date().toLocaleTimeString(),
                 };
 
-                this.stompClient.send(`/app/user/messages/${this.activeChat.chatRoomId}`, {}, JSON.stringify(message));
+                this.stompClient.send(`/app/user/messages/${this.activeChat.id}`, {}, JSON.stringify(message));
                 this.activeChat.messages.push(
                     { ...message,
                       senderId: this.loginUserId,
                       sender: "me",
                       timestamp: message.timestamp });
             }
+            this.setContacts();
         },
         connect(chatRoomId) {
             const socket = new SockJS("http://localhost:8081/ws/chat");
@@ -163,7 +171,7 @@ export default {
                 this.stompClient.subscribe(`/queue/user/${chatRoomId}`, (message) => {
                   const parsedMessage = JSON.parse(message.body);
 
-                  // senderId가 현재 로그인한 사용자의 ID와 다를 때만 추가
+                  // senderId가 현재 로그인한 사용자의 ID와 다르고, 같은 채팅방일 때만 추가
                   if (parsedMessage.senderId !== this.loginUserId) {
                       if (this.activeChat && parsedMessage.chatRoomId === this.activeChat.chatRoomId) {
                           this.activeChat.messages.push({ ...parsedMessage, sender: parsedMessage.senderId === this.loginUserId ? "me" : "other" });

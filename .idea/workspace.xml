@@ -4,7 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="b6e131d5-5ac7-4d0d-9526-f9e2833cf2d7" name="Changes" comment="feat: 실시간 채팅 기능 구현&#10;&#10;STOMP 프로토콜과 웹 소켓을 사용한 실시간 채팅 기능 구현">
+    <list default="true" id="b6e131d5-5ac7-4d0d-9526-f9e2833cf2d7" name="Changes" comment="fix: 사용자 검색 후 결과를 눌렀을 때 채팅창이 뜨지 않는 현상 수정&#10;&#10;사용자를 검색한 후 결과를 클릭하면 부모 컴포넌트에 선택된 유저와 채팅창 정보를 전달하도록 구현">
       <change beforePath="$PROJECT_DIR$/.gradle/8.10.2/checksums/checksums.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/8.10.2/checksums/checksums.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/8.10.2/checksums/md5-checksums.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/8.10.2/checksums/md5-checksums.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/8.10.2/checksums/sha1-checksums.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/8.10.2/checksums/sha1-checksums.bin" afterDir="false" />
@@ -18,8 +18,12 @@
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/build/classes/java/main/com/tiffy/TiffyApplication.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/java/main/com/tiffy/TiffyApplication.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/build/tmp/compileJava/previous-compilation-data.bin" beforeDir="false" afterPath="$PROJECT_DIR$/build/tmp/compileJava/previous-compilation-data.bin" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/components/layouts/ChatToast.vue" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/layouts/ChatToast.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/public/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/public/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/components/layouts/ChatSidebar.vue" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/layouts/ChatSidebar.vue" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/frontend/src/components/layouts/MainChat.vue" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/layouts/MainChat.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/tiffy/controller/MessageController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/tiffy/controller/MessageController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/tiffy/repository/MessageMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/tiffy/repository/MessageMapper.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/tiffy/service/MessageService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/tiffy/service/MessageService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/mappers/message.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/mappers/message.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -353,7 +357,23 @@
       <option name="project" value="LOCAL" />
       <updated>1731410725971</updated>
     </task>
-    <option name="localTasksCounter" value="27" />
+    <task id="LOCAL-00027" summary="feat: 받은 메시지와 보냈던 메시지가 다르게 표시되도록 변경&#10;&#10;MessageMapper를 수정해 채팅방 내 모든 메시지 조회가 정상적으로 수행되도록 하고, Vue에서 현재 로그인한 유저와 senderId가 같을 때 특정 클래스 지정">
+      <option name="closed" value="true" />
+      <created>1731456472537</created>
+      <option name="number" value="00027" />
+      <option name="presentableId" value="LOCAL-00027" />
+      <option name="project" value="LOCAL" />
+      <updated>1731456472537</updated>
+    </task>
+    <task id="LOCAL-00028" summary="fix: 사용자 검색 후 결과를 눌렀을 때 채팅창이 뜨지 않는 현상 수정&#10;&#10;사용자를 검색한 후 결과를 클릭하면 부모 컴포넌트에 선택된 유저와 채팅창 정보를 전달하도록 구현">
+      <option name="closed" value="true" />
+      <created>1731458058018</created>
+      <option name="number" value="00028" />
+      <option name="presentableId" value="LOCAL-00028" />
+      <option name="project" value="LOCAL" />
+      <updated>1731458058018</updated>
+    </task>
+    <option name="localTasksCounter" value="29" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -368,8 +388,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="chore: vue.js 프로젝트 생성" />
-    <MESSAGE value="chore: .gitignore 파일 추가" />
     <MESSAGE value="chore: Spring Boot 서버와 Vue.js 서버 연동 - 프록시 설정&#10;&#10;사용자가 프론트엔드 서버로 접근해서 리소스를 요청하면, 프록시는 이 요청을 백엔드로 연결시켜 전달할 수 있도록 프록시를 설정해준다. Spring Boot의 포트를 8081로 변경하고 vue.config.js 파일에서 changeOrigin 옵션을 통해 Cross Origin을 허용한다." />
     <MESSAGE value="chore: 공통 리소스 파일 추가" />
     <MESSAGE value="chore: 공통 리소스 변환 및 템플릿 레이아웃 적용&#10;&#10;공통 리소스와 규격(index.html)은 public 폴더 하위에서 관리하도록 하고, Header와 Footer를 사용해 본문 레이아웃 설정" />
@@ -393,6 +411,8 @@
     <MESSAGE value="feat: 정렬 기능 구현&#10;&#10;최신순, 가격 높은 순, 가격 낮은 순, 거리순, 판매상태 순 정렬 기능 구현" />
     <MESSAGE value="design: 채팅 버튼 및 모달, 채팅방 화면 구현" />
     <MESSAGE value="feat: 실시간 채팅 기능 구현&#10;&#10;STOMP 프로토콜과 웹 소켓을 사용한 실시간 채팅 기능 구현" />
-    <option name="LAST_COMMIT_MESSAGE" value="feat: 실시간 채팅 기능 구현&#10;&#10;STOMP 프로토콜과 웹 소켓을 사용한 실시간 채팅 기능 구현" />
+    <MESSAGE value="feat: 받은 메시지와 보냈던 메시지가 다르게 표시되도록 변경&#10;&#10;MessageMapper를 수정해 채팅방 내 모든 메시지 조회가 정상적으로 수행되도록 하고, Vue에서 현재 로그인한 유저와 senderId가 같을 때 특정 클래스 지정" />
+    <MESSAGE value="fix: 사용자 검색 후 결과를 눌렀을 때 채팅창이 뜨지 않는 현상 수정&#10;&#10;사용자를 검색한 후 결과를 클릭하면 부모 컴포넌트에 선택된 유저와 채팅창 정보를 전달하도록 구현" />
+    <option name="LAST_COMMIT_MESSAGE" value="fix: 사용자 검색 후 결과를 눌렀을 때 채팅창이 뜨지 않는 현상 수정&#10;&#10;사용자를 검색한 후 결과를 클릭하면 부모 컴포넌트에 선택된 유저와 채팅창 정보를 전달하도록 구현" />
   </component>
 </project>

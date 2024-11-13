@@ -10,7 +10,7 @@
         </div>
         <div class="offcanvas-body pt-0 custom-scrollbar">
             <form class="rounded position-relative">
-                <input class="form-control ps-5 bg-light" type="search" placeholder="Search..." aria-label="Search" v-model="searchKeyword" @input="searchUser()">
+                <input :value="searchKeyword" id="searchKeyword" class="form-control ps-5 bg-light" type="search" placeholder="Search..." aria-label="Search" @input="searchUser">
                 <ul class="dropdown-menu" style="width: 100%">
                   <li v-for="user in users" :key="user.id" @click="goOrCreateChat(user.id)"><a class="dropdown-item" href="#">{{user.nickname}}</a></li>
                 </ul>
@@ -45,7 +45,9 @@ export default {
         contacts: Array,
     },
     methods: {
-        searchUser() {
+        searchUser(e) {
+            this.searchKeyword = e.target.value;
+            console.log(this.searchKeyword);
             const dropDown = document.getElementsByClassName("dropdown-menu")[0];
 
             if (this.searchKeyword == '') {

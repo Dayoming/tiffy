@@ -8,5 +8,6 @@ import java.util.List;
 @Mapper
 public interface MessageMapper {
     List<Message> getMessagesByChatRoomId(Long chatRoomId);
+    Message getLastMessageByChatRoomId(Long chatRoomId);
     void saveMessage(Message message);
 }
