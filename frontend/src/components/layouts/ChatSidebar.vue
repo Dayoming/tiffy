@@ -77,8 +77,17 @@ export default {
                 this.$axios.get(`http://localhost:8081/api/user/findUserById`, {
                     params: { id: response.data.user2Id },
                 })
-                .then((response) => {
-                    console.log(response.data.nickname + "님과의 1:1 채팅방에 입장했습니다.");
+                .then((userResponse) => {
+                    console.log(userResponse.data.nickname + "님과의 1:1 채팅방에 입장했습니다.");
+                    const user = userResponse.data;
+                    const chatRoom = response.data;
+
+                    // 부모 컴포넌트로 선택된 유저와 채팅방 정보를 전달
+                    this.$emit('openChat', {
+                        id: user.id,
+                        nickname: user.nickname,
+                        chatRoomId: chatRoom.id,
+                    });
                 })
         })
         .catch((error) => {
