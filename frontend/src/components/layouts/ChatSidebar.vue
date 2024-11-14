@@ -10,7 +10,10 @@
     </div>
     <div class="offcanvas-body pt-0 custom-scrollbar">
       <form class="rounded position-relative">
-        <input :value="searchKeyword" id="searchKeyword" class="form-control ps-5 bg-light" type="search" placeholder="Search..." aria-label="Search" @input="searchUser">
+        <input :value="searchKeyword" v-bind:disabled="loginUserId === 0" id="searchKeyword"
+            class="form-control ps-5 bg-light" type="search"
+            v-bind:placeholder="loginUserId === 0 ? '로그인 후 사용 가능한 기능입니다.' : '두 글자 이상 입력해주세요.'"
+            aria-label="Search" @input="searchUser">
         <ul v-if="searchKeyword !== '' && users.length > 0" class="dropdown-menu" :class="searchKeyword !== '' && users.length > 0 ? 'show' : ''" style="width: 100%;">
           <li v-for="user in users" :key="user.id" @click="goOrCreateChat(user.id)">
             <a class="dropdown-item" href="#">{{user.nickname}}</a>
@@ -74,6 +77,12 @@ export default {
             alert("자기 자신과는 대화할 수 없습니다.");
             return;
         }
+
+        if (this.loginUserId) {
+            alert("로그인 후 사용 가능한 기능입니다.");
+            return;
+        }
+
         this.$axios
             .get(`http://localhost:8081/api/chatrooms/getOrCreate`, {
               params: {

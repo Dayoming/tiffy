@@ -1,11 +1,16 @@
 <template>
     <div>
         <!-- 사이드바 버튼 -->
-        <a class="icon-md btn btn-primary position-fixed end-0 bottom-0 mb-5" data-bs-toggle="offcanvas"
-            href="#offcanvasChat" role="button" aria-controls="offcanvasChat"
-            style="border-radius: 10px; z-index: 1;">
-            <i class="bi bi-arrow-bar-left"></i>
-        </a>
+        <div class="sidebar-div">
+            <a class="icon-md btn btn-primary position-fixed end-0 bottom-0 mb-5 sidebar-btn" data-bs-toggle="offcanvas"
+                href="#offcanvasChat" role="button" aria-controls="offcanvasChat">
+                <!-- 읽지 않은 메시지가 있을 때만 보이는 알림 아이콘 -->
+                <div v-if="unreadNotificationCount > 0" class="notification-side-bar-shape">
+                    <p class="notification-side-bar-count">{{ unreadNotificationCount }}</p>
+                </div>
+                <i class="bi bi-arrow-bar-left"></i>
+            </a>
+        </div>
 
         <!-- 사이드바 컴포넌트 -->
         <ChatSidebar v-if="contacts" :contacts="contacts" :loginUserId="loginUserId" @openChat="openChat" @closeSidebar="closeSidebar" />
@@ -34,6 +39,7 @@ export default {
             messages: [],
             stompClient: null,
             headers: '',
+            unreadNotificationCount: 0,
         };
     },
     methods: {
@@ -87,6 +93,9 @@ export default {
                     // 모든 채팅방 정보를 contacts 배열에 저장
                     Promise.all(contactPromises).then(contacts => {
                         this.contacts = contacts;
+                        // 전체 읽지 않은 메시지 수 계산
+                        // contacts 배열에 있는 각 채팅방의 읽지 않은 메시지 수를 모두 더해 unreadNotificationCount에 저장
+                        this.unreadNotificationCount = contacts.reduce((total, contact) => total + contact.notificationCount, 0);
                     });
                 })
                 .catch((error) => {
@@ -205,3 +214,36 @@ export default {
     },
 };
 </script>
+<style scope>
+    .notification-side-bar-shape {
+        width: 10px;
+        height: 10px;
+        background-color: #F65005;
+        border-radius: 10px;
+        position: absolute;
+        top: 30%;
+    }
+
+    .sidebar-btn {
+        width: 50px;
+        height: 100px;
+        z-index: 2;
+    }
+
+    .sidebar-div {
+        position: relative;
+    }
+
+    .sidebar-div i {
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        right: 30%;
+    }
+
+    .notification-side-bar-count {
+        font-size: 7px;
+    }
+
+
+</style>
