@@ -22,13 +22,13 @@ public class ChatController {
         this.messagingTemplate = messagingTemplate;
     }
 
-    @MessageMapping("/user/messages/{chatRoomId}")
+    @MessageMapping("/user/messages/{receiverId}")
     public void sendMessage(@Payload Message message) {
         messageService.saveMessage(message);
         notificationService.createNotification(message.getChatRoomId(), message.getReceiverId());
 
         // 메시지를 수신자에게만 전송
-        messagingTemplate.convertAndSend("/queue/user/" + message.getChatRoomId(), message);
+        messagingTemplate.convertAndSend("/queue/user/" + message.getReceiverId(), message);
     }
 }
 
