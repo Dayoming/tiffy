@@ -83,7 +83,6 @@ export default {
                     // 모든 채팅방 정보를 contacts 배열에 저장
                     Promise.all(contactPromises).then(contacts => {
                         this.contacts = contacts;
-                        console.log(contacts);
                     });
                 })
                 .catch((error) => {

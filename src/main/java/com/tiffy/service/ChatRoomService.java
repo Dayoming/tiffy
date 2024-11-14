@@ -27,6 +27,7 @@ public class ChatRoomService {
         if (chatRoom == null) { // 만약 두 유저가 포함된 채팅방이 없다면 새 채팅방 만들기
             chatRoom = new ChatRoom(user1.getId(), user2Id);
             chatRoomMapper.createChatRoom(chatRoom);
+            chatRoom = chatRoomMapper.findChatRoomByUsers(user1.getId(), user2Id);
         }
         return chatRoom;
     }

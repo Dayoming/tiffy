@@ -4,7 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="b6e131d5-5ac7-4d0d-9526-f9e2833cf2d7" name="Changes" comment="feat: 사용자가 메시지를 보낼 때 사이드바에 마지막 메시지 업데이트&#10;&#10;사용자에게 메시지를 보낼 때 사이드바에 마지막 메시지가 업데이트 되도록 구현 (메시지를 받을 때 구현도 필요)">
+    <list default="true" id="b6e131d5-5ac7-4d0d-9526-f9e2833cf2d7" name="Changes" comment="feat: 채팅 시 사이드바에 실시간으로 변경 내용 적용&#10;&#10;기존의 채팅방 구독 형태가 아니라 유저를 직접 구독하는 방식으로 변경, 메시지를 받으면 사이드바 데이터를 갱신">
       <change beforePath="$PROJECT_DIR$/.gradle/8.10.2/checksums/checksums.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/8.10.2/checksums/checksums.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/8.10.2/checksums/md5-checksums.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/8.10.2/checksums/md5-checksums.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/8.10.2/checksums/sha1-checksums.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/8.10.2/checksums/sha1-checksums.bin" afterDir="false" />
@@ -18,8 +18,9 @@
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/build/classes/java/main/com/tiffy/TiffyApplication.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/java/main/com/tiffy/TiffyApplication.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/build/tmp/compileJava/previous-compilation-data.bin" beforeDir="false" afterPath="$PROJECT_DIR$/build/tmp/compileJava/previous-compilation-data.bin" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/components/layouts/ChatSidebar.vue" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/layouts/ChatSidebar.vue" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/frontend/src/components/layouts/MainChat.vue" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/layouts/MainChat.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/tiffy/controller/ChatController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/tiffy/controller/ChatController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/tiffy/service/ChatRoomService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/tiffy/service/ChatRoomService.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -368,7 +369,15 @@
       <option name="project" value="LOCAL" />
       <updated>1731493627645</updated>
     </task>
-    <option name="localTasksCounter" value="30" />
+    <task id="LOCAL-00030" summary="feat: 채팅 시 사이드바에 실시간으로 변경 내용 적용&#10;&#10;기존의 채팅방 구독 형태가 아니라 유저를 직접 구독하는 방식으로 변경, 메시지를 받으면 사이드바 데이터를 갱신">
+      <option name="closed" value="true" />
+      <created>1731562041827</created>
+      <option name="number" value="00030" />
+      <option name="presentableId" value="LOCAL-00030" />
+      <option name="project" value="LOCAL" />
+      <updated>1731562041827</updated>
+    </task>
+    <option name="localTasksCounter" value="31" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -383,7 +392,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="chore: 공통 리소스 파일 추가" />
     <MESSAGE value="chore: 공통 리소스 변환 및 템플릿 레이아웃 적용&#10;&#10;공통 리소스와 규격(index.html)은 public 폴더 하위에서 관리하도록 하고, Header와 Footer를 사용해 본문 레이아웃 설정" />
     <MESSAGE value="design: 메인 화면 view 적용" />
     <MESSAGE value="feat: 교환 게시판 조회 기능 및 화면 추가&#10;&#10;비동기 통신(axios 라이브러리)를 사용해 ItemExchangeController의 REST API로부터 Item 리스트를 가져와 화면에 보여주도록 구현&#10;ItemExchangeController에 @CrossOrigin(origins = &quot;http://localhost:8080&quot;)를 사용하고, Spring Security 설정을 삭제해 일시적으로 CORS 문제를 해결&#10;추후 전역적으로 CORS 문제를 해결하기 위해 Spring Security 설정 필요" />
@@ -408,6 +416,7 @@
     <MESSAGE value="feat: 받은 메시지와 보냈던 메시지가 다르게 표시되도록 변경&#10;&#10;MessageMapper를 수정해 채팅방 내 모든 메시지 조회가 정상적으로 수행되도록 하고, Vue에서 현재 로그인한 유저와 senderId가 같을 때 특정 클래스 지정" />
     <MESSAGE value="fix: 사용자 검색 후 결과를 눌렀을 때 채팅창이 뜨지 않는 현상 수정&#10;&#10;사용자를 검색한 후 결과를 클릭하면 부모 컴포넌트에 선택된 유저와 채팅창 정보를 전달하도록 구현" />
     <MESSAGE value="feat: 사용자가 메시지를 보낼 때 사이드바에 마지막 메시지 업데이트&#10;&#10;사용자에게 메시지를 보낼 때 사이드바에 마지막 메시지가 업데이트 되도록 구현 (메시지를 받을 때 구현도 필요)" />
-    <option name="LAST_COMMIT_MESSAGE" value="feat: 사용자가 메시지를 보낼 때 사이드바에 마지막 메시지 업데이트&#10;&#10;사용자에게 메시지를 보낼 때 사이드바에 마지막 메시지가 업데이트 되도록 구현 (메시지를 받을 때 구현도 필요)" />
+    <MESSAGE value="feat: 채팅 시 사이드바에 실시간으로 변경 내용 적용&#10;&#10;기존의 채팅방 구독 형태가 아니라 유저를 직접 구독하는 방식으로 변경, 메시지를 받으면 사이드바 데이터를 갱신" />
+    <option name="LAST_COMMIT_MESSAGE" value="feat: 채팅 시 사이드바에 실시간으로 변경 내용 적용&#10;&#10;기존의 채팅방 구독 형태가 아니라 유저를 직접 구독하는 방식으로 변경, 메시지를 받으면 사이드바 데이터를 갱신" />
   </component>
 </project>

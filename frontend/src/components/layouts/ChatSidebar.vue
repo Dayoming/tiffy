@@ -24,6 +24,7 @@
                     </div>
                     <div class="overflow-hidden">
                         <a class="h6 mb-0 stretched-link">{{ contact.nickname }}</a>
+                        <div class="notification"><p class="notification-num">1</p></div>
                         <div class="small text-secondary text-truncate">{{ contact.lastMessage }}</div>
                     </div>
                     <div class="small ms-auto text-nowrap"> Just now</div>
@@ -47,7 +48,6 @@ export default {
     methods: {
         searchUser(e) {
             this.searchKeyword = e.target.value;
-            console.log(this.searchKeyword);
             const dropDown = document.getElementsByClassName("dropdown-menu")[0];
 
             if (this.searchKeyword == '') {
@@ -102,5 +102,21 @@ export default {
 <style scope>
 .stretched-link {
     font-family: 'NanumSquareRound';
+}
+
+.notification {
+    display: inline-block;
+    width: 15px;
+    height: 15px;
+    background-color: #F65005;
+    border-radius: 10px;
+    float: inline-end;
+}
+
+.notification-num {
+    color: white;
+    font-size: 0.6em;
+    text-align: center;
+    margin-top: 1px;
 }
 </style>
