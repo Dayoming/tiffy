@@ -4,7 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="b6e131d5-5ac7-4d0d-9526-f9e2833cf2d7" name="Changes" comment="feat: 채팅 시 사이드바에 실시간으로 변경 내용 적용&#10;&#10;기존의 채팅방 구독 형태가 아니라 유저를 직접 구독하는 방식으로 변경, 메시지를 받으면 사이드바 데이터를 갱신">
+    <list default="true" id="b6e131d5-5ac7-4d0d-9526-f9e2833cf2d7" name="Changes" comment="fix: 새로운 채팅 시 마지막 메시지 갱신 안되는 버그 해결&#10;&#10;채팅방을 열 때 채팅방을 생성하거나 불러오는데, 채팅방을 생성할 때 반환되는 객체에 id가 없어서 발생하는 문제였다. 채팅방을 만드는 경우 만들어진 채팅방을 한 번 더 조회해 id를 반환시켜 해결했다.">
       <change beforePath="$PROJECT_DIR$/.gradle/8.10.2/checksums/checksums.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/8.10.2/checksums/checksums.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/8.10.2/checksums/md5-checksums.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/8.10.2/checksums/md5-checksums.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/8.10.2/checksums/sha1-checksums.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/8.10.2/checksums/sha1-checksums.bin" afterDir="false" />
@@ -20,7 +20,10 @@
       <change beforePath="$PROJECT_DIR$/build/tmp/compileJava/previous-compilation-data.bin" beforeDir="false" afterPath="$PROJECT_DIR$/build/tmp/compileJava/previous-compilation-data.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/frontend/src/components/layouts/ChatSidebar.vue" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/layouts/ChatSidebar.vue" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/frontend/src/components/layouts/MainChat.vue" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/layouts/MainChat.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/tiffy/service/ChatRoomService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/tiffy/service/ChatRoomService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/tiffy/controller/NotificationController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/tiffy/controller/NotificationController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/tiffy/repository/NotificationMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/tiffy/repository/NotificationMapper.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/tiffy/service/NotificationService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/tiffy/service/NotificationService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/mappers/notification.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/mappers/notification.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -377,7 +380,15 @@
       <option name="project" value="LOCAL" />
       <updated>1731562041827</updated>
     </task>
-    <option name="localTasksCounter" value="31" />
+    <task id="LOCAL-00031" summary="fix: 새로운 채팅 시 마지막 메시지 갱신 안되는 버그 해결&#10;&#10;채팅방을 열 때 채팅방을 생성하거나 불러오는데, 채팅방을 생성할 때 반환되는 객체에 id가 없어서 발생하는 문제였다. 채팅방을 만드는 경우 만들어진 채팅방을 한 번 더 조회해 id를 반환시켜 해결했다.">
+      <option name="closed" value="true" />
+      <created>1731565431656</created>
+      <option name="number" value="00031" />
+      <option name="presentableId" value="LOCAL-00031" />
+      <option name="project" value="LOCAL" />
+      <updated>1731565431656</updated>
+    </task>
+    <option name="localTasksCounter" value="32" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -392,7 +403,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="chore: 공통 리소스 변환 및 템플릿 레이아웃 적용&#10;&#10;공통 리소스와 규격(index.html)은 public 폴더 하위에서 관리하도록 하고, Header와 Footer를 사용해 본문 레이아웃 설정" />
     <MESSAGE value="design: 메인 화면 view 적용" />
     <MESSAGE value="feat: 교환 게시판 조회 기능 및 화면 추가&#10;&#10;비동기 통신(axios 라이브러리)를 사용해 ItemExchangeController의 REST API로부터 Item 리스트를 가져와 화면에 보여주도록 구현&#10;ItemExchangeController에 @CrossOrigin(origins = &quot;http://localhost:8080&quot;)를 사용하고, Spring Security 설정을 삭제해 일시적으로 CORS 문제를 해결&#10;추후 전역적으로 CORS 문제를 해결하기 위해 Spring Security 설정 필요" />
     <MESSAGE value="feat: 레시피 검색 기능 구현&#10;&#10;RecipeController와 RecipeRestController를 통합&#10;검색 기능 vue 화면 생성" />
@@ -417,6 +427,7 @@
     <MESSAGE value="fix: 사용자 검색 후 결과를 눌렀을 때 채팅창이 뜨지 않는 현상 수정&#10;&#10;사용자를 검색한 후 결과를 클릭하면 부모 컴포넌트에 선택된 유저와 채팅창 정보를 전달하도록 구현" />
     <MESSAGE value="feat: 사용자가 메시지를 보낼 때 사이드바에 마지막 메시지 업데이트&#10;&#10;사용자에게 메시지를 보낼 때 사이드바에 마지막 메시지가 업데이트 되도록 구현 (메시지를 받을 때 구현도 필요)" />
     <MESSAGE value="feat: 채팅 시 사이드바에 실시간으로 변경 내용 적용&#10;&#10;기존의 채팅방 구독 형태가 아니라 유저를 직접 구독하는 방식으로 변경, 메시지를 받으면 사이드바 데이터를 갱신" />
-    <option name="LAST_COMMIT_MESSAGE" value="feat: 채팅 시 사이드바에 실시간으로 변경 내용 적용&#10;&#10;기존의 채팅방 구독 형태가 아니라 유저를 직접 구독하는 방식으로 변경, 메시지를 받으면 사이드바 데이터를 갱신" />
+    <MESSAGE value="fix: 새로운 채팅 시 마지막 메시지 갱신 안되는 버그 해결&#10;&#10;채팅방을 열 때 채팅방을 생성하거나 불러오는데, 채팅방을 생성할 때 반환되는 객체에 id가 없어서 발생하는 문제였다. 채팅방을 만드는 경우 만들어진 채팅방을 한 번 더 조회해 id를 반환시켜 해결했다." />
+    <option name="LAST_COMMIT_MESSAGE" value="fix: 새로운 채팅 시 마지막 메시지 갱신 안되는 버그 해결&#10;&#10;채팅방을 열 때 채팅방을 생성하거나 불러오는데, 채팅방을 생성할 때 반환되는 객체에 id가 없어서 발생하는 문제였다. 채팅방을 만드는 경우 만들어진 채팅방을 한 번 더 조회해 id를 반환시켜 해결했다." />
   </component>
 </project>

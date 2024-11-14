@@ -1,11 +1,8 @@
 package com.tiffy.controller;
 
-import com.tiffy.entity.Notification;
 import com.tiffy.service.NotificationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 @RestController
 @RequestMapping("/api/notifications")
@@ -17,13 +14,14 @@ public class NotificationController {
         this.notificationService = notificationService;
     }
 
-    @GetMapping("/unread/{userId}")
-    public List<Notification> getUnreadNotifications(@PathVariable Long userId) {
-        return notificationService.getUnreadNotifications(userId);
+    @GetMapping("/unread/{chatRoomId}/{userId}")
+    public Integer getUnreadNotificationsCount(@PathVariable Long chatRoomId, @PathVariable Long userId) {
+        System.out.println("No reading Message: " + notificationService.getUnreadNotificationsCount(chatRoomId, userId));
+        return notificationService.getUnreadNotificationsCount(chatRoomId, userId);
     }
 
-    @PostMapping("/markAsRead/{userId}")
-    public void markAsRead(@PathVariable Long userId) {
-        notificationService.markAsRead(userId);
+    @PostMapping("/markAsRead/{chatRoomId}/{userId}")
+    public void markAsRead(@PathVariable Long chatRoomId, @PathVariable Long userId) {
+        notificationService.markAsRead(chatRoomId, userId);
     }
 }

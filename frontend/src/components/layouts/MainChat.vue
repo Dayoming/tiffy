@@ -8,7 +8,7 @@
         </a>
 
         <!-- 사이드바 컴포넌트 -->
-        <ChatSidebar v-if="contacts" :contacts="contacts" @openChat="openChat" @closeSidebar="closeSidebar" />
+        <ChatSidebar v-if="contacts" :contacts="contacts" :loginUserId="loginUserId" @openChat="openChat" @closeSidebar="closeSidebar" />
 
         <!-- 채팅창 컴포넌트: activeChat이 설정될 때만 보임 -->
         <ChatToast v-if="activeChat" :chat="activeChat" :loginUserId="loginUserId" @sendMessage="sendMessage" @closeToast="closeToast" />
@@ -59,24 +59,28 @@ export default {
 
                     // 각 채팅방의 상대방 사용자 정보와 마지막 메시지를 동시에 가져오기 위해 Promise.all 사용
                     const contactPromises = chatRooms.map(room => {
-                        // 상대방 사용자 ID 결정
+                        // 상대방 사용자 ID 결정 (로그인 한 유저의 상대)
                         const otherUserId = this.loginUserId === room.user1Id ? room.user2Id : room.user1Id;
 
-                        // 두 개의 요청을 동시에 수행하여 결과를 반환
+                        // 채팅방의 마지막 메시지를 가져옴
                         const lastMessageRequest = this.$axios.get(`http://localhost:8081/api/messages/getLastMessage`, {
                             params: { chatRoomId: room.id }
                         });
 
+                        // 상대방 사용자 닉네임을 가져옴
                         const userInfoRequest = this.$axios.get(`http://localhost:8081/api/user/findUserById`, {
                             params: { id: otherUserId }
                         });
 
-                        // 두 요청이 완료된 후에 결과를 조합하여 반환
-                        return Promise.all([lastMessageRequest, userInfoRequest]).then(([lastMessageResponse, userResponse]) => ({
+                        const notificationCountRequest = this.$axios.get(`http://localhost:8081/api/notifications/unread/${room.id}/${this.loginUserId}`);
+                        console.log(notificationCountRequest);
+                        // 요청이 완료된 후에 결과를 조합하여 반환
+                        return Promise.all([lastMessageRequest, userInfoRequest, notificationCountRequest]).then(([lastMessageResponse, userResponse, notificationCountRequest]) => ({
                             id: userResponse.data.id,
                             chatRoomId: room.id,
                             nickname: userResponse.data.nickname,
                             lastMessage: lastMessageResponse.data.content || '', // 마지막 메시지가 없을 경우 빈 문자열로 설정
+                            notificationCount: notificationCountRequest.data,
                         }));
                     });
 
@@ -97,6 +101,11 @@ export default {
                 nickname: contact.nickname,
                 messages: [],
             };
+
+            // 해당 채팅방에서 유저가 받은 대화 모두 읽음 처리
+            this.$axios.post(`http://localhost:8081/api/notifications/markAsRead/${this.activeChat.chatRoomId}/${this.loginUserId}`);
+
+            this.setContacts();
 
             // 이전 대화 내용 불러오기
             try {
@@ -155,14 +164,18 @@ export default {
                 this.stompClient.subscribe(`/queue/user/${loginUserId}`, (message) => {
                   const parsedMessage = JSON.parse(message.body);
 
-                  this.setContacts();
-
-                  // senderId가 현재 로그인한 사용자의 ID와 다르고, 같은 채팅방일 때만 추가
+                  // senderId가 현재 로그인한 사용자의 ID와 다르고, 같은 채팅방이 켜져 있을 때
                   if (parsedMessage.senderId !== this.loginUserId) {
                       if (this.activeChat && parsedMessage.chatRoomId === this.activeChat.chatRoomId) {
                           this.activeChat.messages.push({ ...parsedMessage, sender: parsedMessage.senderId === this.loginUserId ? "me" : "other" });
+                          // 채팅방 메시지 읽음 처리
+                          this.$axios
+                            .post(`http://localhost:8081/api/notifications/markAsRead/${this.activeChat.chatRoomId}/${this.loginUserId}`);
                       }
                   }
+
+                  this.setContacts();
+
                 });
               },
               (error) => {

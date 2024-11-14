@@ -2,10 +2,8 @@ package com.tiffy.repository;
 
 import com.tiffy.entity.Notification;
 
-import java.util.List;
-
 public interface NotificationMapper {
-    List<Notification> getUnreadNotifications(Long userId);
+    Integer getUnreadNotificationsCount(Long chatRoomId, Long userId);
     void createNotification(Notification notification);
-    void markAsRead(Long userId);
+    void markAsRead(Notification notification);
 }

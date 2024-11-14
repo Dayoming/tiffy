@@ -2,9 +2,9 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.tiffy.repository.NotificationMapper">
-    <!-- 읽지 않은 알림 조회 -->
-    <select id="getUnreadNotifications" parameterType="int" resultType="Notification">
-        SELECT * FROM Notification WHERE user_id = #{userId} AND is_read = FALSE
+    <!-- 읽지 않은 알림 개수 조회 -->
+    <select id="getUnreadNotificationsCount" parameterType="Notification" resultType="Integer">
+        SELECT COUNT(*) FROM Notification WHERE user_id = #{userId} AND is_read = FALSE AND chatroom_id = #{chatRoomId}
     </select>
 
     <!-- 알림 생성 -->
@@ -13,7 +13,7 @@
     </insert>
 
     <!-- 알림 읽음 상태 업데이트 -->
-    <update id="markAsRead" parameterType="int">
-        UPDATE Notification SET is_read = TRUE WHERE user_id = #{userId}
+    <update id="markAsRead" parameterType="Notification">
+        UPDATE Notification SET is_read = TRUE WHERE user_id = #{userId} AND chatroom_id = #{chatRoomId}
     </update>
 </mapper>
