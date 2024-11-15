@@ -20,7 +20,6 @@ export default {
   },
   methods: {
     handleLogout() {
-        this.$router.push("/login"); // 로그아웃 시 로그인 페이지로 이동
       }
   },
 };

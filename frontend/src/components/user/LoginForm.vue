@@ -51,24 +51,26 @@ export default {
                     password: this.password
                 });
 
-
-                // 로그인 성공 시 토큰을 로컬 스토리지에 저장하고 메인 페이지로 리다이렉트
-                const token = response.data.token;
-                localStorage.setItem("authToken", token);
-
-                this.$root.$globalState.isLoggedIn = true;
-
-                alert(response.data.message);
-                this.$router.push('/');
-
-            } catch (error) {
-                // 로그인 실패 시 오류 메시지 설정
-                if (error.response && error.response.data) {
-                    this.errorMessage = "사용자 ID 또는 비밀번호를 확인해 주세요.";
-                } else {
-                    this.errorMessage = "로그인 중 오류가 발생했습니다. 다시 시도해 주세요.";
+                if (response.data.status === 'success') {
+                    // 로그인 성공 시 토큰을 로컬 스토리지에 저장하고 새로고침 후 메인 페이지로 리다이렉트
+                    const token = response.data.token;
+                    localStorage.setItem("authToken", token);
+                    this.$root.$globalState.isLoggedIn = true;
+                    alert(response.data.message);
+                    this.$router.go(0);
+                } else if (response.data.status === 'error') {
+                    this.errorMessage = response.data.message;
+                    this.username = '';
+                    this.password = '';
                 }
+            } catch (error) {
+                this.errorMessage = "로그인 중 오류가 발생했습니다. 다시 시도해 주세요.";
             }
+        },
+    },
+    mounted() {
+        if (this.$root.$globalState.isLoggedIn === true) {
+            this.$router.push("/");
         }
     }
 };

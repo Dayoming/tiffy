@@ -43,7 +43,7 @@ export default {
       // 로그아웃 로직
       localStorage.removeItem("authToken"); // 토큰 삭제
       this.$root.$globalState.isLoggedIn = false; // 전역 로그인 상태 변경
-      this.$router.push("/"); // 메인 페이지로 리다이렉트
+      this.$router.go(0); // 페이지 새로고침
     },
   },
 };
