@@ -4,8 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="b6e131d5-5ac7-4d0d-9526-f9e2833cf2d7" name="Changes" comment="fix: 로그인/로그아웃시 페이지를 다시 불러와 바뀐 유저 데이터를 적용&#10;&#10;로그아웃 시 페이지를 새로고침해 다시 불러오고, 로그인 시 새로고침 하되 페이지를 mounted 할 때 현재 로그인 상태인지 점검해서 이미 로그인 상태이면 메인 페이지로 이동하도록 수정">
-      <change afterPath="$PROJECT_DIR$/frontend/src/axios.js" afterDir="false" />
+    <list default="true" id="b6e131d5-5ac7-4d0d-9526-f9e2833cf2d7" name="Changes" comment="design: 디자인 수정&#10;&#10;1. 채팅창은 일정 크기 이상 늘어나지 않고 스크롤바로 볼 수 있게 구현 (채팅 수, 송신 시 스크롤바 가장 아래에 위치)&#10;2. 교환 게시판 UI 수정, 검색 창과 위치 변경 버튼 위치 수정">
       <change beforePath="$PROJECT_DIR$/.gradle/8.10.2/checksums/checksums.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/8.10.2/checksums/checksums.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/8.10.2/checksums/md5-checksums.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/8.10.2/checksums/md5-checksums.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/8.10.2/checksums/sha1-checksums.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/8.10.2/checksums/sha1-checksums.bin" afterDir="false" />
@@ -18,26 +17,14 @@
       <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/outputFiles.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/outputFiles.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/file-system.probe" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/file-system.probe" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application-test.properties" beforeDir="false" afterPath="$PROJECT_DIR$/application-test.properties" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/build/classes/java/main/com/tiffy/TiffyApplication.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/java/main/com/tiffy/TiffyApplication.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/build/resources/main/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/build/resources/main/application.properties" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/build/tmp/compileJava/previous-compilation-data.bin" beforeDir="false" afterPath="$PROJECT_DIR$/build/tmp/compileJava/previous-compilation-data.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/frontend/src/components/exchange/ExchangeDetail.vue" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/exchange/ExchangeDetail.vue" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/frontend/src/components/exchange/ExchangeEdit.vue" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/exchange/ExchangeEdit.vue" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/frontend/src/components/exchange/ExchangeList.vue" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/exchange/ExchangeList.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/components/exchange/ExchangeNew.vue" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/exchange/ExchangeNew.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/components/layouts/ChatSidebar.vue" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/layouts/ChatSidebar.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/components/layouts/ChatToast.vue" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/layouts/ChatToast.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/components/layouts/MainChat.vue" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/layouts/MainChat.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/components/recipe/RecipeSearch.vue" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/recipe/RecipeSearch.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/components/user/LoginForm.vue" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/user/LoginForm.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/components/user/SignupForm.vue" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/user/SignupForm.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/main.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/main.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/vue.config.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/vue.config.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/application.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/mappers/chatroom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/mappers/chatroom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/mappers/message.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/mappers/message.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/mappers/notification.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/mappers/notification.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/tiffy/controller/ItemExchangeController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/tiffy/controller/ItemExchangeController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/tiffy/service/ItemService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/tiffy/service/ItemService.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -463,7 +450,15 @@
       <option name="project" value="LOCAL" />
       <updated>1731635531687</updated>
     </task>
-    <option name="localTasksCounter" value="35" />
+    <task id="LOCAL-00035" summary="design: 디자인 수정&#10;&#10;1. 채팅창은 일정 크기 이상 늘어나지 않고 스크롤바로 볼 수 있게 구현 (채팅 수, 송신 시 스크롤바 가장 아래에 위치)&#10;2. 교환 게시판 UI 수정, 검색 창과 위치 변경 버튼 위치 수정">
+      <option name="closed" value="true" />
+      <created>1731834059808</created>
+      <option name="number" value="00035" />
+      <option name="presentableId" value="LOCAL-00035" />
+      <option name="project" value="LOCAL" />
+      <updated>1731834059809</updated>
+    </task>
+    <option name="localTasksCounter" value="36" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -478,7 +473,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="feat: 상품 등록 기능 구현" />
     <MESSAGE value="feat: 상품 상세 페이지 조회 기능 구현" />
     <MESSAGE value="feat: 상품 수정 기능 구현" />
     <MESSAGE value="feat: 상품 삭제 기능 구현" />
@@ -503,6 +497,7 @@
     <MESSAGE value="feat: 채팅 목록에 채팅 알림 기능 구현&#10;&#10;상대방에게 메시지가 왔을 때 채팅방에 들어가있지 않으면 읽지 않은 메시지 개수를 표시" />
     <MESSAGE value="feat: 사이드바 버튼에 알림 기능 구현&#10;&#10;상대방에게 메시지가 왔을 때 채팅방에 들어가있지 않으면 사이드바에 개수와 도형 표시" />
     <MESSAGE value="fix: 로그인/로그아웃시 페이지를 다시 불러와 바뀐 유저 데이터를 적용&#10;&#10;로그아웃 시 페이지를 새로고침해 다시 불러오고, 로그인 시 새로고침 하되 페이지를 mounted 할 때 현재 로그인 상태인지 점검해서 이미 로그인 상태이면 메인 페이지로 이동하도록 수정" />
-    <option name="LAST_COMMIT_MESSAGE" value="fix: 로그인/로그아웃시 페이지를 다시 불러와 바뀐 유저 데이터를 적용&#10;&#10;로그아웃 시 페이지를 새로고침해 다시 불러오고, 로그인 시 새로고침 하되 페이지를 mounted 할 때 현재 로그인 상태인지 점검해서 이미 로그인 상태이면 메인 페이지로 이동하도록 수정" />
+    <MESSAGE value="design: 디자인 수정&#10;&#10;1. 채팅창은 일정 크기 이상 늘어나지 않고 스크롤바로 볼 수 있게 구현 (채팅 수, 송신 시 스크롤바 가장 아래에 위치)&#10;2. 교환 게시판 UI 수정, 검색 창과 위치 변경 버튼 위치 수정" />
+    <option name="LAST_COMMIT_MESSAGE" value="design: 디자인 수정&#10;&#10;1. 채팅창은 일정 크기 이상 늘어나지 않고 스크롤바로 볼 수 있게 구현 (채팅 수, 송신 시 스크롤바 가장 아래에 위치)&#10;2. 교환 게시판 UI 수정, 검색 창과 위치 변경 버튼 위치 수정" />
   </component>
 </project>

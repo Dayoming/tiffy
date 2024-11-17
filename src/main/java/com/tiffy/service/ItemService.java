@@ -3,7 +3,9 @@ package com.tiffy.service;
 import com.tiffy.constant.ItemSellStatus;
 import com.tiffy.dto.ItemDto;
 import com.tiffy.entity.Item;
+import com.tiffy.entity.User;
 import com.tiffy.repository.ItemMapper;
+import com.tiffy.repository.UserMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -24,6 +26,9 @@ public class ItemService {
     @Autowired
     private final ItemMapper itemMapper;
 
+    @Autowired
+    private final UserMapper userMapper;
+
     public ResponseEntity<Object> findByItemId(Long id) {
         Item item = itemMapper.findByItemId(id);
         if (item == null) {
@@ -33,15 +38,16 @@ public class ItemService {
     }
 
     @Transactional
-    public ResponseEntity<Map<String, String>> createItem(ItemDto itemDto) {
+    public ResponseEntity<Map<String, String>> createItem(String username, ItemDto itemDto) {
         itemDto.setItemSellStatus(ItemSellStatus.SELL);
 
         LocalDateTime localDateTime = LocalDateTime.now();
         itemDto.setRegTime(localDateTime.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")));
         itemDto.setUpdateTime(localDateTime.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")));
 
-        itemDto.setSellerNm("Admin");
-        itemDto.setSellerId("Admin");
+        User user = userMapper.findUserByUsername(username);
+        itemDto.setSellerNm(user.getNickname());
+        itemDto.setSellerId(user.getUsername());
 
         // price와 stockNumber가 null이면 기본값 설정
         if (itemDto.getPrice() == null) {
@@ -74,12 +80,14 @@ public class ItemService {
     }
 
     @Transactional
-    public Item editItem(Long id, ItemDto itemDto) {
+    public Item editItem(String username, Long id, ItemDto itemDto) {
         Item target = itemMapper.findByItemId(id);
         LocalDateTime now = LocalDateTime.now();
         itemDto.setUpdateTime(now.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")));
-        itemDto.setSellerNm("Admin");
-        itemDto.setSellerId("Admin");
+
+        User user = userMapper.findUserByUsername(username);
+        itemDto.setSellerNm(user.getNickname());
+        itemDto.setSellerId(user.getUsername());
 
         Item updatedItem = itemDto.toEntity();
         updatedItem.setId(target.getId());  // 기존 아이템 ID 유지

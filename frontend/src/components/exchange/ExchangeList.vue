@@ -41,9 +41,10 @@
         </div>
 
         <!-- Card START -->
-         <div class="card">
+         <div class="card mt-4">
           <!-- Card body START -->
-          <div v-for="item in itemList" :key="item.id" @click="goToDetail(item.id)" class="card-body">
+          <div v-for="item in itemList" :key="item.id" @click="goToDetail(item.id)"
+           :class="item.itemSellStatus === 'SOLD_OUT' ? 'sold-out' : ''" class="card-body">
             <!-- Related events item -->
             <div class="d-sm-flex flex-wrap align-items-center" style="cursor: pointer;">
               <!-- Avatar -->
@@ -315,8 +316,6 @@ export default {
 
     .card-body {
         border-top: 1px solid rgba(0, 0, 0, 0.125);
-        margin-top: 5px;
-        margin-bottom: 5px;
     }
 
     .card {
@@ -354,6 +353,10 @@ export default {
       background-color: #3CB815;
       color: white;
       border-color: #3CB815;
+    }
+
+    .sold-out {
+      background-color: rgba(0, 0, 0, 0.085);
     }
 
 

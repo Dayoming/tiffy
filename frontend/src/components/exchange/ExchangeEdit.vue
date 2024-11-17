@@ -3,6 +3,37 @@
     <div class="container py-6">
       <form @submit.prevent="submitForm" class="container">
         <div class="mb-3">
+          <label class="form-label">판매상태</label><br />
+              <div class="form-check form-check-inline">
+                <!-- 판매중 -->
+                <input
+                  class="form-check-input"
+                  type="radio"
+                  v-model="form.itemSellStatus"
+                  id="inlineRadioItemSellStatus1"
+                  value="SELL"
+                  selected
+                />
+                <label class="form-check-label" for="inlineRadioItemSellStatus1">
+                  판매중
+                </label>
+                </div>
+
+                <div class="form-check form-check-inline">
+                      <!-- 판매종료 -->
+                      <input
+                        class="form-check-input"
+                        type="radio"
+                        v-model="form.itemSellStatus"
+                        id="inlineRadioItemSellStatus2"
+                        value="SOLD_OUT"
+                      />
+                      <label class="form-check-label" for="inlineRadioItemSellStatus2">
+                        판매종료
+                      </label>
+              </div>
+            </div>
+        <div class="mb-3">
           <label class="form-label">제목</label>
           <input type="text" v-model="form.itemNm" class="form-control" />
         </div>
@@ -37,6 +68,13 @@
           <label class="form-label">거래 희망 위치</label>
           <input type="text" v-model="form.place" class="form-control" />
         </div>
+        <div class="map_wrap">
+            <div id="map" style="width:100%;height:100%;position:relative;overflow:hidden;"></div>
+            <div class="hAddr">
+                <span class="title">지도중심기준 행정동 주소정보</span>
+                <span id="centerAddr"></span>
+            </div>
+        </div>
         <button type="submit" class="btn btn-primary">Submit</button>
         <button type="button" class="btn btn-light" @click="goBack">Back</button>
       </form>
@@ -49,12 +87,20 @@ export default {
   name: 'ExchangeEdit',
   data() {
     return {
+      map: null,
+      geocoder: null,
+      infowindow: null,
+      latitude: 0,
+      longitude: 0,
       form: {
         itemNm: '',
         itemDetail: '',
         itemCategory: '',
         price: '',
+        place: '',
         stockNumber: 1,
+        lat: 0.0,
+        lon: 0.0,
       },
       categories: [
         { label: '과일', value: 'FRUIT' },
@@ -79,6 +125,126 @@ export default {
         alert('상품 수정에 오류가 발생했습니다.');
       }
     },
+    loadScript() {
+      if (!window.kakao || !window.kakao.maps) {
+        const script = document.createElement("script");
+        script.src = "//dapi.kakao.com/v2/maps/sdk.js?appkey=1abf99a7eaabed5bf02b329ee8596ee0&autoload=false&libraries=services";
+        script.onload = () => {
+          window.kakao.maps.load(() => {
+            this.loadMap(); // SDK 로드 완료 후 지도 생성
+          });
+        };
+        document.head.appendChild(script);
+      } else {
+        // 이미 로드된 경우 바로 지도 생성
+        this.loadMap();
+      }
+    },
+    // 카카오 지도 생성
+    loadMap() {
+        const container = document.getElementById("map");
+        // 위, 경도 가져오기
+        this.$getLocation().
+            then((coordinates) => {
+                this.latitude = coordinates.lat;
+                this.longitude = coordinates.lng;
+                 const options = {
+                    center: new window.kakao.maps.LatLng(this.latitude, this.longitude), // 지도 중심 좌표
+                    level: 3, // 지도의 확대, 축소 정도
+                };
+                 this.map = new window.kakao.maps.Map(container, options);
+                // 주소-좌표 변환 객체를 생성합니다
+                this.geocoder = new window.kakao.maps.services.Geocoder();
+                this.infowindow = new window.kakao.maps.InfoWindow({ zindex: 1 }); // 클릭한 위치에 대한 주소를 표시할 인포윈도우
+                 // 마커가 표시될 위치입니다
+                const markerPosition = new window.kakao.maps.LatLng(this.latitude, this.longitude);
+                // 마커를 생성합니다
+                const marker = new window.kakao.maps.Marker({
+                    position: markerPosition,
+                });
+                 marker.setMap(this.map);
+                 // 초기 지도 중심 좌표의 주소 표시
+                this.searchDetailAddrFromCoords(this.map.getCenter(), (result, status) => {
+                    if (status === window.kakao.maps.services.Status.OK) {
+                        const detailAddr = result[0].road_address
+                            ? `<div>도로명주소 : ${result[0].road_address.address_name}</div>`
+                            : "";
+                        const content = `
+                            <div class="bAddr">
+                                <span class="title">법정동 주소정보</span>
+                                  ${detailAddr}
+                                <div>지번 주소 : ${result[0].address.address_name}</div>
+                            </div>`;
+                         if (detailAddr != "") {
+                            this.form.place = result[0].road_address.address_name;
+                        } else {
+                            this.form.place = result[0].address.address_name;
+                        }
+                         // 인포윈도우에 초기 주소를 표시
+                        this.infowindow.setContent(content);
+                        this.infowindow.open(this.map, marker);
+                        this.form.lat = this.latitude;
+                        this.form.lng = this.longitude;
+                    }
+               });
+                 // 현재 지도 중심좌표로 주소를 검색해서 지도 좌측 상단에 표시
+                this.searchAddrFromCoords(this.map.getCenter(), this.displayCenterInfo);
+                 // 지도를 클릭했을 때 클릭 위치 좌표에 대한 주소정보 표시 이벤트 등록
+                window.kakao.maps.event.addListener(this.map, 'click', (mouseEvent) => {
+                    this.searchDetailAddrFromCoords(mouseEvent.latLng, (result, status) => {
+                        if (status === window.kakao.maps.services.Status.OK) {
+                            const detailAddr = result[0].road_address
+                                ? `<div>도로명주소 :  ${result[0].road_address.address_name}</div>` : "";
+                            const content = `
+                                <div class="bAddr">
+                                    ${detailAddr}
+                                    <div>지번 주소 : ${result[0].address.address_name}</div>
+                                </div>`;
+                             if (detailAddr != "") {
+                                this.form.place = result[0].road_address.address_name;
+                            } else {
+                                this.form.place = result[0].address.address_name;
+                            }
+                             this.form.lat = mouseEvent.latLng.Ma;
+                            this.form.lng = mouseEvent.latLng.La;
+                             // 마커를 클릭한 위치에 표시
+                            marker.setPosition(mouseEvent.latLng);
+                            // 인포윈도우에 클릭한 위치에 대한 법정동 상세 주소정보를 표시합니다
+                            this.infowindow.setContent(content);
+                            this.infowindow.open(this.map, marker)
+                        }
+                    });
+                });
+                 // 중심 좌표나 확대 수준이 변경됐을 때 지도 중심 좌표에 대한 주소 정보를 표시하도록 이벤트를 등록합니다
+                window.kakao.maps.event.addListener(this.map, 'idle', () => {
+                    this.searchAddrFromCoords(this.map.getCenter(), this.displayCenterInfo);
+                });
+            })
+            .catch((error) => {
+                console.log(error);
+        });
+    },
+    searchAddrFromCoords(coords, callback) {
+        // 좌표로 행정동 주소 정보를 요청합니다
+        this.geocoder.coord2RegionCode(coords.getLng(), coords.getLat(), callback);
+    },
+    searchDetailAddrFromCoords(coords, callback) {
+        // 좌표로 법정동 상세 주소 정보를 요청합니다
+        this.geocoder.coord2Address(coords.getLng(), coords.getLat(), callback);
+    },
+    // 지도 좌측상단에 지도 중심좌표에 대한 주소정보를 표출하는 함수입니다
+    displayCenterInfo(result, status) {
+        if (status === window.kakao.maps.services.Status.OK) {
+            const infoDiv = document.getElementById('centerAddr');
+             for(let i = 0; i < result.length; i++) {
+                // 행정동의 region_type 값은 'H' 이므로
+                if (result[i].region_type === 'H') {
+                    infoDiv.innerHTML = result[i].address_name;
+                    break;
+                }
+            }
+        }
+    },
     fetchData() {
         this.$axios.get(`/api/exchange/${this.$route.params.id}`)
             .then(response => {
@@ -95,11 +261,57 @@ export default {
     },
   },
   mounted() {
-    this.fetchData();
+      this.loadScript();
+      this.fetchData();
   },
 };
 </script>
 
 <style scoped>
+#map {
+    width: 100%;
+    height: 500px;
+    margin-bottom: 20px;
+}
+
+.map_wrap {
+  position: relative;
+  width: 100%;
+  height: 500px;
+  margin-bottom: 20px;
+}
+.title {
+  font-weight: bold;
+  display: block;
+}
+.hAddr {
+  position: absolute;
+  left: 10px;
+  top: 10px;
+  font-size: small;
+  border-radius: 2px;
+  background: #fff;
+  background: rgba(255, 255, 255, 0.8);
+  z-index: 1;
+  padding: 5px;
+}
+#centerAddr {
+  display: block;
+  margin-top: 2px;
+  font-weight: normal;
+}
+.bAddr {
+  padding: 5px;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+  font-size: small;
+}
+
+.place-input {
+  display: inline-block;
+  width: 70%;
+  margin: 10px;
+}
 
 </style>

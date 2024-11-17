@@ -6,6 +6,7 @@ import com.tiffy.service.ItemService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Map;
@@ -18,8 +19,9 @@ public class ItemExchangeController {
     ItemService itemService;
 
     @PostMapping("/createItem")
-    public ResponseEntity<Map<String, String>> createExchangeItem(@Valid @RequestBody ItemDto itemDto) {
-        return itemService.createItem(itemDto);
+    public ResponseEntity<Map<String, String>> createExchangeItem(@AuthenticationPrincipal String username
+            , @Valid @RequestBody ItemDto itemDto) {
+        return itemService.createItem(username, itemDto);
     }
 
     @GetMapping("/")
@@ -43,7 +45,7 @@ public class ItemExchangeController {
     }
 
     @PutMapping("/edit/{id}")
-    public Item exchangeListEdit(@PathVariable Long id, @RequestBody ItemDto itemDto) {
-        return itemService.editItem(id, itemDto);
+    public Item exchangeListEdit(@AuthenticationPrincipal String username, @PathVariable Long id, @RequestBody ItemDto itemDto) {
+        return itemService.editItem(username, id, itemDto);
     }
 }

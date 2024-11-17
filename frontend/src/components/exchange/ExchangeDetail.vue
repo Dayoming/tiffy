@@ -52,53 +52,76 @@
                     });
             },
             fetchData() {
-                this.$axios.get(`/api/exchange/${this.$route.params.id}`)
-                    .then(response => {
-                        this.item = response.data;
-                        this.initMap();
-                    })
-                    .catch(error => {
-                        console.error("데이터를 가져오는 중 오류 발생:", error);
-                    });
+              this.$axios.get(`/api/exchange/${this.$route.params.id}`)
+                .then(response => {
+                  this.item = response.data;
+
+                  // 지도 초기화는 데이터 로드 후 진행
+                  if (window.kakao && window.kakao.maps) {
+                    this.initMap();
+                  }
+                })
+                .catch(error => {
+                  console.error("데이터를 가져오는 중 오류 발생:", error);
+                });
             },
             loadScript() {
+              if (!window.kakao || !window.kakao.maps) {
                 const script = document.createElement("script");
                 script.src = "//dapi.kakao.com/v2/maps/sdk.js?appkey=1abf99a7eaabed5bf02b329ee8596ee0&autoload=false&libraries=services";
-                script.onload = () => window.kakao.maps.load(this.loadMap);
+                script.onload = () => {
+                  window.kakao.maps.load(() => {
+                    this.initMap(); // SDK 로드 후 지도 초기화
+                  });
+                };
                 document.head.appendChild(script);
+              } else {
+                // 이미 로드된 경우 바로 지도 초기화
+                this.initMap();
+              }
             },
             initMap() {
-                const container = document.getElementById("map");
-                const options = {
-                  center: new window.kakao.maps.LatLng(33.450701, 126.570667),
-                  level: 3,
+              if (!this.item.place) {
+                console.error("지도 초기화 실패: 거래 위치 정보가 없습니다.");
+                return;
+              }
+
+              const container = document.getElementById("map");
+              const options = {
+                center: new window.kakao.maps.LatLng(33.450701, 126.570667),
+                level: 3,
+              };
+
+              this.map = new window.kakao.maps.Map(container, options);
+              this.geocoder = new window.kakao.maps.services.Geocoder();
+
+              // 주소 검색 및 마커 표시
+              this.geocoder.addressSearch(this.item.place, (result, status) => {
+                if (status === window.kakao.maps.services.Status.OK) {
+                  const coords = new window.kakao.maps.LatLng(result[0].y, result[0].x);
+                  const marker = new window.kakao.maps.Marker({
+                    map: this.map,
+                    position: coords,
+                  });
+                  const infowindow = new window.kakao.maps.InfoWindow({
+                    content: `<div style="width:150px;text-align:center;padding:6px 0;">${this.item.place}</div>`,
+                  });
+                  infowindow.open(this.map, marker);
+                  this.map.setCenter(coords);
+                } else {
+                  console.error("주소 검색 실패:", status);
                 }
-                this.map = new window.kakao.maps.Map(container, options);
-                this.geocoder = new window.kakao.maps.services.Geocoder()
-                console.log(this.item);
-                this.geocoder.addressSearch(this.item.place, (result, status) => {
-                  if (status === window.kakao.maps.services.Status.OK) {
-                    const coords = new window.kakao.maps.LatLng(result[0].y, result[0].x)
-                    const marker = new window.kakao.maps.Marker({
-                      map: this.map,
-                      position: coords,
-                    })
-                    const infowindow = new window.kakao.maps.InfoWindow({
-                      content: `<div style="width:150px;text-align:center;padding:6px 0;">${this.item.place}</div>`,
-                    });
-                    infowindow.open(this.map, marker)
-                    this.map.setCenter(coords);
-                  }
-                });
+              });
             },
         },
         mounted() {
-            if (window.kakao && window.kakao.maps) {
-                this.fetchData();
-            } else {
-                this.loadScript();
-                this.fetchData();
-            }
+          if (window.kakao && window.kakao.maps) {
+            this.fetchData(); // 데이터 가져오기
+            this.initMap(); // 지도 초기화
+          } else {
+            this.loadScript(); // SDK 로드
+            this.fetchData(); // 데이터 가져오기
+          }
         },
     };
 </script>
