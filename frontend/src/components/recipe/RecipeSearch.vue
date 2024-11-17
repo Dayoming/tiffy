@@ -1,8 +1,11 @@
 <template>
-  <div class="container-xxl py-6">
-    <div class="container py-6">
-      <h1 style="margin-bottom: 30px;">Recipe Search</h1>
-
+    <div class="container-fluid page-header wow fadeIn" data-wow-delay="0.1s">
+      <div class="container">
+        <h1 class="display-3 mb-3 animated slideInDown">Recipe Search</h1>
+        <nav aria-label="breadcrumb animated slideInDown"></nav>
+      </div>
+    </div>
+  <div class="container py-6 px-4">
       <form @submit.prevent="searchRecipes">
         <div class="input-group mb-3">
           <input type="text" v-model="ingredients" class="form-control" placeholder="재료를 입력하세요" required />
@@ -35,7 +38,6 @@
               </div>
             </div>
           </div>
-        </div>
       </div>
 
       <div v-if="loading" class="mt-4">검색 중...</div>
@@ -93,5 +95,7 @@ export default {
 </script>
 
 <style scoped>
-
+    .card-title, h6 {
+        font-family: 'NanumSquareRound';
+    }
 </style>
