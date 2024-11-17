@@ -4,17 +4,17 @@
 <mapper namespace="com.tiffy.repository.ChatRoomMapper">
     <!-- 채팅방 조회 -->
     <select id="findChatRoomByUsers" parameterType="map" resultType="ChatRoom">
-        SELECT * FROM ChatRoom WHERE (user1_id = #{user1Id} AND user2_id = #{user2Id})
+        SELECT * FROM chatroom WHERE (user1_id = #{user1Id} AND user2_id = #{user2Id})
         OR (user1_id = #{user2Id} AND user2_id = #{user1Id})
     </select>
 
     <!-- 특정 유저가 포함된 채팅방 모두 조회 -->
     <select id="findChatRoomsByUserId" parameterType="Long" resultType="ChatRoom">
-        SELECT * FROM ChatRoom WHERE user1_id = #{userId} OR user2_id = #{userid}
+        SELECT * FROM chatroom WHERE user1_id = #{userId} OR user2_id = #{userid}
     </select>
 
     <!-- 채팅방 생성 -->
     <insert id="createChatRoom" parameterType="ChatRoom">
-        INSERT INTO ChatRoom (user1_id, user2_id) VALUES (#{user1Id}, #{user2Id})
+        INSERT INTO chatroom (user1_id, user2_id) VALUES (#{user1Id}, #{user2Id})
     </insert>
 </mapper>

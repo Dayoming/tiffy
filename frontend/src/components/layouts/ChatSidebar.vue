@@ -1,4 +1,17 @@
 <template>
+<!-- 사이드바 버튼 -->
+  <div class="sidebar-div">
+      <a class="icon-md btn btn-primary position-fixed end-0 bottom-0 mb-5 sidebar-btn" data-bs-toggle="offcanvas"
+
+          href="#offcanvasChat" role="button" aria-controls="offcanvasChat"
+          @click="openSidebar">
+          <!-- 읽지 않은 메시지가 있을 때만 보이는 알림 아이콘 -->
+          <div v-if="unreadNotificationCount > 0" class="notification-side-bar-shape">
+              <p class="notification-side-bar-count">{{ unreadNotificationCount }}</p>
+          </div>
+          <i class="bi bi-arrow-bar-left"></i>
+      </a>
+  </div>
   <div class="offcanvas offcanvas-end" data-bs-scroll="true" data-bs-backdrop="false" tabindex="-1" id="offcanvasChat">
     <div class="offcanvas-header d-flex justify-content-between">
       <h5 class="offcanvas-title">Message</h5>
@@ -53,6 +66,7 @@ export default {
     props: {
         contacts: Array,
         loginUserId: Number,
+        unreadNotificationCount: Number,
     },
     methods: {
         searchUser(e) {
@@ -75,10 +89,11 @@ export default {
     goOrCreateChat(id) {
         if (id === this.loginUserId) {
             alert("자기 자신과는 대화할 수 없습니다.");
+            this.searchKeyword = '';
             return;
         }
 
-        if (this.loginUserId) {
+        if (!this.loginUserId) {
             alert("로그인 후 사용 가능한 기능입니다.");
             return;
         }
@@ -109,6 +124,8 @@ export default {
         .catch((error) => {
             console.log(error);
         });
+
+        this.searchKeyword = '';
     },
   },
 };

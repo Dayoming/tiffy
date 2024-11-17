@@ -53,7 +53,7 @@ export default {
         async signupForm() {
             try {
                 // 서버에 회원가입 요청 전송
-                const response = await this.$axios.post('http://localhost:8081/api/user/signup', {
+                const response = await this.$axios.post('/api/user/signup', {
                     username: this.username,
                     password1: this.password1,
                     password2: this.password2,

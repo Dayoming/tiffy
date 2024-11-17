@@ -9,57 +9,77 @@
 
     <div class="container-xxl py-6">
       <div class="container">
-      <div class="sort-div">
-        <select v-model="sortOption" @change="fetchData" class="form-select">
-          <option value="latest" selected>최신순</option>
-          <option value="price_desc">가격 높은 순</option>
-          <option value="price_asc">가격 낮은 순</option>
-          <option value="distance">거리 순</option>
-          <option value="status">판매 상태 순</option>
-        </select>
-      </div>
-      <div class="current-address-div">
-        <p class="current-address-info">현재 설정된 위치: <span id="currentAddress">{{ this.place }}</span></p>
-        <button class="btn btn-primary edit-place" @click="goToEditPlace">변경</button>
-      </div>
-        <table class="table table-hover table-bordered">
-          <thead>
-            <tr>
-              <th scope="col">No</th>
-              <th scope="col">제목</th>
-              <th scope="col">카테고리</th>
-              <th scope="col">작성자</th>
-              <th scope="col">가격</th>
-              <th scope="col">판매상태</th>
-              <th scope="col">거리</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr v-for="item in itemList" :key="item.id" @click="goToDetail(item.id)" style="cursor: pointer;">
-              <th scope="row">{{ item.id }}</th>
-              <td>{{ item.itemNm }}</td>
-              <td>{{ item.itemCategory }}</td>
-              <td>{{ item.sellerNm }}</td>
-              <td>{{ item.price }}</td>
-              <td>{{ item.itemSellStatus }}</td>
-              <td>{{ item.distance }}</td>
-            </tr>
-          </tbody>
-        </table>
+        <div class="current-address-div">
+          <p class="current-address-info"><i class="bi bi-geo-alt pe-1" style="color: #3CB815;"></i> <span id="currentAddress">{{ this.place }}</span></p>
+          <button class="btn btn-primary edit-place" @click="goToEditPlace">변경</button>
+        </div>
+        <div style="display: flex;">
+            <div class="search-div">
+                <div class="input-group mb-3">
+                    <select v-model="searchType" class="form-select" style="max-width: 120px;">
+                      <option value="all" selected>제목+내용</option>
+                      <option value="author">작성자</option>
+                    </select>
+                    <input
+                      type="text"
+                      class="form-control"
+                      placeholder="검색어를 입력하세요"
+                      v-model="searchQuery"
+                    />
+                    <button class="btn btn-primary" @click="searchItems">검색</button>
+                  </div>
+              </div>
+            <div class="sort-div">
+              <select v-model="sortOption" @change="fetchData" class="form-select">
+                <option value="latest" selected>최신순</option>
+                <option value="price_desc">가격 높은 순</option>
+                <option value="price_asc">가격 낮은 순</option>
+                <option value="distance">거리 순</option>
+                <option value="status">판매 상태 순</option>
+              </select>
+            </div>
+        </div>
+
+        <!-- Card START -->
+         <div class="card">
+          <!-- Card body START -->
+          <div v-for="item in itemList" :key="item.id" @click="goToDetail(item.id)" class="card-body">
+            <!-- Related events item -->
+            <div class="d-sm-flex flex-wrap align-items-center" style="cursor: pointer;">
+              <!-- Avatar -->
+              <div class="avatar avatar-md">
+                <img class="avatar-img rounded-circle border border-white border-3" src="icon/profile-default-icon.png" alt="profile">
+              </div>
+              <!-- info -->
+              <div class="ms-sm-2 my-2 my-sm-0">
+                <h6 class="mb-0 card-list-title">{{ item.itemNm }}</h6>
+                <p class="small mb-0">{{ item.itemCategory }}</p>
+                <p class="small mb-0"> <i class="bi bi-geo-alt pe-1" style="color: #3CB815;"></i>{{ item.place }} <i class="bi bi-arrow-left-right"></i> {{ item.distance }}</p>
+              </div>
+              <!-- Button -->
+              <div class="ms-sm-auto mt-2 mt-sm-0">
+                <p class="small mb-0">{{ item.regTime }}</p>
+              </div>
+            </div>
+            <!-- Related events item -->
+          </div>
+          <!-- Card body END -->
+        </div>
+        <!-- Card END -->
 
         <!-- Pagination -->
-        <div class="container text-center">
+        <div class="container text-center mt-5">
           <div class="row align-items-start">
             <div class="col"></div>
             <div class="col">
-              <nav aria-label="...">
+              <nav aria-label="..." class="responsive-pagination">
                 <ul class="pagination pagination-sm justify-content-center">
                   <li class="page-item" :class="{ disabled: currentPage === 1 }">
                     <a class="page-link" href="#" @click.prevent="goToPreviousSet" aria-label="Previous">
                       <span aria-hidden="true">&laquo;</span>
                     </a>
                   </li>
-                  <li v-for="pageNum in pageNumbers" :key="pageNum" class="page-item">
+                  <li v-for="pageNum in pageNumbers" :key="pageNum" class="page-item d-none d-md-block">
                     <a
                       class="page-link"
                       href="#"
@@ -78,21 +98,6 @@
             <div class="col">
               <button @click="goToNewExchange" class="btn btn-primary float-end">등록</button>
             </div>
-          </div>
-          <div class="search-div">
-            <div class="input-group mb-3">
-                <select v-model="searchType" class="form-select" style="max-width: 120px;">
-                  <option value="all" selected>제목+내용</option>
-                  <option value="author">작성자</option>
-                </select>
-                <input
-                  type="text"
-                  class="form-control"
-                  placeholder="검색어를 입력하세요"
-                  v-model="searchQuery"
-                />
-                <button class="btn btn-primary" @click="searchItems">검색</button>
-              </div>
           </div>
         </div>
       </div>
@@ -157,7 +162,7 @@ export default {
     },
     fetchData() {
       this.$axios
-        .get(`http://localhost:8081/api/exchange/`, {
+        .get(`/api/exchange/`, {
           params: {
             page: this.currentPage,
             size: this.pageSize,
@@ -172,7 +177,7 @@ export default {
           this.totalItems = response.data.totalItems;
 
           this.$axios
-            .get(`http://localhost:8081/api/user/findByLoginUserName`)
+            .get(`/api/user/findByLoginUserName`)
             .then((response) => {
                 if (response.data.place == null || response.data.place == '') { // 사용자 위치가 없으면 현재 위치 설정
                   this.$getLocation()
@@ -194,7 +199,7 @@ export default {
                         this.place = response.data.documents[0].road_address.address_name;
                     }
                     this.$axios
-                        .post(`http://localhost:8081/api/user/updatePlace`, { place: this.place })
+                        .post(`/api/user/updatePlace`, { place: this.place })
                         })
                     this.calculateDistances();
                     });
@@ -290,18 +295,66 @@ export default {
     }
 
     .edit-place {
-        float: right;
+        margin-left: 10px;
     }
 
     .search-div {
         width: 60%;
-        margin: auto;
+        float: left;
     }
 
     .sort-div {
-        width: 30%;
+        width: 20%;
         float: right;
         margin-left: 30px;
     }
+
+    .card-list-title {
+        font-family: 'NanumSquareRound';
+    }
+
+    .card-body {
+        border-top: 1px solid rgba(0, 0, 0, 0.125);
+        margin-top: 5px;
+        margin-bottom: 5px;
+    }
+
+    .card {
+        border: none;
+    }
+
+    /* 데스크톱 환경: 페이지 번호 표시 */
+    @media (min-width: 768px) {
+      .responsive-pagination .page-item.d-none.d-md-block {
+        display: inline-block;
+      }
+    }
+
+    /* 모바일 환경: 페이지 번호 숨김 */
+    @media (max-width: 767px) {
+      .responsive-pagination .page-item.d-none {
+        display: none !important;
+      }
+    }
+
+    /* 페이지네이션 스타일 */
+    .responsive-pagination .page-link {
+      padding: 0.5rem 0.75rem;
+      border: 1px solid #ddd;
+      color: #3CB815;
+      transition: all 0.2s ease-in-out;
+    }
+
+    .responsive-pagination .page-link:hover {
+      background-color: #f1f1f1;
+      color: #3CB815;
+    }
+
+    .responsive-pagination .page-link.active {
+      background-color: #3CB815;
+      color: white;
+      border-color: #3CB815;
+    }
+
 
 </style>

@@ -1,19 +1,7 @@
 <template>
     <div>
-        <!-- 사이드바 버튼 -->
-        <div class="sidebar-div">
-            <a class="icon-md btn btn-primary position-fixed end-0 bottom-0 mb-5 sidebar-btn" data-bs-toggle="offcanvas"
-                href="#offcanvasChat" role="button" aria-controls="offcanvasChat">
-                <!-- 읽지 않은 메시지가 있을 때만 보이는 알림 아이콘 -->
-                <div v-if="unreadNotificationCount > 0" class="notification-side-bar-shape">
-                    <p class="notification-side-bar-count">{{ unreadNotificationCount }}</p>
-                </div>
-                <i class="bi bi-arrow-bar-left"></i>
-            </a>
-        </div>
-
         <!-- 사이드바 컴포넌트 -->
-        <ChatSidebar v-if="contacts" :contacts="contacts" :loginUserId="loginUserId" @openChat="openChat" @closeSidebar="closeSidebar" />
+        <ChatSidebar v-if="contacts" :contacts="contacts" :loginUserId="loginUserId" :unreadNotificationCount="unreadNotificationCount" @openChat="openChat" @closeSidebar="closeSidebar" />
 
         <!-- 채팅창 컴포넌트: activeChat이 설정될 때만 보임 -->
         <ChatToast v-if="activeChat" :chat="activeChat" :loginUserId="loginUserId" @sendMessage="sendMessage" @closeToast="closeToast" />
@@ -40,12 +28,21 @@ export default {
             stompClient: null,
             headers: '',
             unreadNotificationCount: 0,
+            isOpenSidebar: false,
         };
     },
     methods: {
+        openSidebar() {
+            // 이미 열려 있는 경우
+            if (this.isOpenSidebar) {
+                this.isOpenSidebar = false;
+            } else {
+                this.isOpenSidebar = true;
+            }
+        },
         goOrCreateChat(id) {
             this.$axios
-                .get(`http://localhost:8081/api/chatrooms/getOrCreate`, {
+                .get(`/api/chatrooms/getOrCreate`, {
                   params: {
                     user2Id: id,
                   },
@@ -59,7 +56,7 @@ export default {
         },
         setContacts() {
             this.$axios
-                .get(`http://localhost:8081/api/chatrooms/findChatRoomsByUserId`)
+                .get(`/api/chatrooms/findChatRoomsByUserId`)
                 .then((response) => {
                     const chatRooms = response.data;
 
@@ -69,17 +66,16 @@ export default {
                         const otherUserId = this.loginUserId === room.user1Id ? room.user2Id : room.user1Id;
 
                         // 채팅방의 마지막 메시지를 가져옴
-                        const lastMessageRequest = this.$axios.get(`http://localhost:8081/api/messages/getLastMessage`, {
+                        const lastMessageRequest = this.$axios.get(`/api/messages/getLastMessage`, {
                             params: { chatRoomId: room.id }
                         });
 
                         // 상대방 사용자 닉네임을 가져옴
-                        const userInfoRequest = this.$axios.get(`http://localhost:8081/api/user/findUserById`, {
+                        const userInfoRequest = this.$axios.get(`/api/user/findUserById`, {
                             params: { id: otherUserId }
                         });
 
-                        const notificationCountRequest = this.$axios.get(`http://localhost:8081/api/notifications/unread/${room.id}/${this.loginUserId}`);
-                        console.log(notificationCountRequest);
+                        const notificationCountRequest = this.$axios.get(`/api/notifications/unread/${room.id}/${this.loginUserId}`);
                         // 요청이 완료된 후에 결과를 조합하여 반환
                         return Promise.all([lastMessageRequest, userInfoRequest, notificationCountRequest]).then(([lastMessageResponse, userResponse, notificationCountRequest]) => ({
                             id: userResponse.data.id,
@@ -96,6 +92,7 @@ export default {
                         // 전체 읽지 않은 메시지 수 계산
                         // contacts 배열에 있는 각 채팅방의 읽지 않은 메시지 수를 모두 더해 unreadNotificationCount에 저장
                         this.unreadNotificationCount = contacts.reduce((total, contact) => total + contact.notificationCount, 0);
+                        console.log(this.unreadNotificationCount);
                     });
                 })
                 .catch((error) => {
@@ -112,13 +109,13 @@ export default {
             };
 
             // 해당 채팅방에서 유저가 받은 대화 모두 읽음 처리
-            this.$axios.post(`http://localhost:8081/api/notifications/markAsRead/${this.activeChat.chatRoomId}/${this.loginUserId}`);
+            this.$axios.post(`/api/notifications/markAsRead/${this.activeChat.chatRoomId}/${this.loginUserId}`);
 
             this.setContacts();
 
             // 이전 대화 내용 불러오기
             try {
-                const response = await this.$axios.get(`http://localhost:8081/api/messages/${this.activeChat.chatRoomId}`, {
+                const response = await this.$axios.get(`/api/messages/${this.activeChat.chatRoomId}`, {
                     params: { chatRoomId: this.activeChat.chatRoomId }
                 });
 
@@ -153,6 +150,7 @@ export default {
                       sender: "me",
                       timestamp: message.timestamp });
                 this.setContacts();
+
             }
         },
         connect(loginUserId) {
@@ -179,7 +177,7 @@ export default {
                           this.activeChat.messages.push({ ...parsedMessage, sender: parsedMessage.senderId === this.loginUserId ? "me" : "other" });
                           // 채팅방 메시지 읽음 처리
                           this.$axios
-                            .post(`http://localhost:8081/api/notifications/markAsRead/${this.activeChat.chatRoomId}/${this.loginUserId}`);
+                            .post(`/api/notifications/markAsRead/${this.activeChat.chatRoomId}/${this.loginUserId}`);
                       }
                   }
 
@@ -202,7 +200,7 @@ export default {
     },
     mounted() {
         this.$axios
-            .get(`http://localhost:8081/api/user/findByLoginUserName`)
+            .get(`/api/user/findByLoginUserName`)
             .then((response) => {
                 this.loginUserId = response.data.id;
                 this.connect(this.loginUserId);
@@ -244,6 +242,4 @@ export default {
     .notification-side-bar-count {
         font-size: 7px;
     }
-
-
 </style>

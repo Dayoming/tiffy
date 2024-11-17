@@ -4,7 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="b6e131d5-5ac7-4d0d-9526-f9e2833cf2d7" name="Changes" comment="feat: 사이드바 버튼에 알림 기능 구현&#10;&#10;상대방에게 메시지가 왔을 때 채팅방에 들어가있지 않으면 사이드바에 개수와 도형 표시">
+    <list default="true" id="b6e131d5-5ac7-4d0d-9526-f9e2833cf2d7" name="Changes" comment="fix: 로그인/로그아웃시 페이지를 다시 불러와 바뀐 유저 데이터를 적용&#10;&#10;로그아웃 시 페이지를 새로고침해 다시 불러오고, 로그인 시 새로고침 하되 페이지를 mounted 할 때 현재 로그인 상태인지 점검해서 이미 로그인 상태이면 메인 페이지로 이동하도록 수정">
+      <change afterPath="$PROJECT_DIR$/frontend/src/axios.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/8.10.2/checksums/checksums.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/8.10.2/checksums/checksums.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/8.10.2/checksums/md5-checksums.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/8.10.2/checksums/md5-checksums.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/8.10.2/checksums/sha1-checksums.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/8.10.2/checksums/sha1-checksums.bin" afterDir="false" />
@@ -14,15 +15,29 @@
       <change beforePath="$PROJECT_DIR$/.gradle/8.10.2/fileHashes/fileHashes.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/8.10.2/fileHashes/fileHashes.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/8.10.2/fileHashes/resourceHashesCache.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/8.10.2/fileHashes/resourceHashesCache.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/outputFiles.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/outputFiles.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/file-system.probe" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/file-system.probe" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application-test.properties" beforeDir="false" afterPath="$PROJECT_DIR$/application-test.properties" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/build/classes/java/main/com/tiffy/TiffyApplication.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/java/main/com/tiffy/TiffyApplication.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/resources/main/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/build/resources/main/application.properties" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/build/tmp/compileJava/previous-compilation-data.bin" beforeDir="false" afterPath="$PROJECT_DIR$/build/tmp/compileJava/previous-compilation-data.bin" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/App.vue" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/App.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/components/exchange/ExchangeDetail.vue" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/exchange/ExchangeDetail.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/components/exchange/ExchangeEdit.vue" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/exchange/ExchangeEdit.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/components/exchange/ExchangeList.vue" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/exchange/ExchangeList.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/components/exchange/ExchangeNew.vue" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/exchange/ExchangeNew.vue" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/frontend/src/components/layouts/ChatSidebar.vue" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/layouts/ChatSidebar.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/components/layouts/CommonHeader.vue" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/layouts/CommonHeader.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/components/layouts/ChatToast.vue" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/layouts/ChatToast.vue" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/frontend/src/components/layouts/MainChat.vue" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/layouts/MainChat.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/components/recipe/RecipeSearch.vue" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/recipe/RecipeSearch.vue" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/frontend/src/components/user/LoginForm.vue" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/user/LoginForm.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/components/user/SignupForm.vue" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/user/SignupForm.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/main.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/main.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/vue.config.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/vue.config.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/application.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/mappers/chatroom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/mappers/chatroom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/mappers/message.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/mappers/message.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/mappers/notification.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/mappers/notification.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -40,12 +55,26 @@
   <component name="ExternalProjectsManager">
     <system id="GRADLE">
       <state>
+        <task path="$PROJECT_DIR$">
+          <activation />
+        </task>
         <projects_view>
           <tree_state>
             <expand>
               <path>
                 <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
                 <item name="tiffy" type="f1a62948:ProjectNode" />
+              </path>
+              <path>
+                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
+                <item name="tiffy" type="f1a62948:ProjectNode" />
+                <item name="Tasks" type="e4a08cd1:TasksNode" />
+              </path>
+              <path>
+                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
+                <item name="tiffy" type="f1a62948:ProjectNode" />
+                <item name="Tasks" type="e4a08cd1:TasksNode" />
+                <item name="build" type="c8890929:TasksNode$1" />
               </path>
             </expand>
             <select />
@@ -66,8 +95,7 @@
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="ProjectColorInfo">{
-  &quot;customColor&quot;: &quot;&quot;,
-  &quot;associatedIndex&quot;: 1
+  &quot;associatedIndex&quot;: 2
 }</component>
   <component name="ProjectId" id="2oCICZP9xupDVDVCQ7bltXk8Ej9" />
   <component name="ProjectViewState">
@@ -77,12 +105,13 @@
   <component name="PropertiesComponent">{
   &quot;keyToString&quot;: {
     &quot;Gradle.tiffy [:com.tiffy.TiffyApplication.main()].executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.tiffy [bootJar].executor&quot;: &quot;Run&quot;,
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
     &quot;git-widget-placeholder&quot;: &quot;develop&quot;,
     &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
     &quot;last_opened_file_path&quot;: &quot;C:/tiffy/frontend/public/js&quot;,
     &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;project.structure.last.edited&quot;: &quot;Project&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Problems&quot;,
     &quot;project.structure.proportion&quot;: &quot;0.0&quot;,
     &quot;project.structure.side.proportion&quot;: &quot;0.0&quot;,
     &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;,
@@ -109,7 +138,7 @@
       <recent name="com.tiffy" />
     </key>
   </component>
-  <component name="RunManager">
+  <component name="RunManager" selected="Application.TiffyApplication">
     <configuration name="TiffyApplication" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="com.tiffy.TiffyApplication" />
       <module name="tiffy.main" />
@@ -123,8 +152,31 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration name="tiffy [bootJar]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+      <ExternalSystemSettings>
+        <option name="executionName" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$" />
+        <option name="externalSystemIdString" value="GRADLE" />
+        <option name="scriptParameters" />
+        <option name="taskDescriptions">
+          <list />
+        </option>
+        <option name="taskNames">
+          <list>
+            <option value="bootJar" />
+          </list>
+        </option>
+        <option name="vmOptions" />
+      </ExternalSystemSettings>
+      <ExternalSystemDebugServerProcess>true</ExternalSystemDebugServerProcess>
+      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
+      <DebugAllEnabled>false</DebugAllEnabled>
+      <RunAsTest>false</RunAsTest>
+      <method v="2" />
+    </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Gradle.tiffy [bootJar]" />
         <item itemvalue="Application.TiffyApplication" />
       </list>
     </recent_temporary>
@@ -403,7 +455,15 @@
       <option name="project" value="LOCAL" />
       <updated>1731578859794</updated>
     </task>
-    <option name="localTasksCounter" value="34" />
+    <task id="LOCAL-00034" summary="fix: 로그인/로그아웃시 페이지를 다시 불러와 바뀐 유저 데이터를 적용&#10;&#10;로그아웃 시 페이지를 새로고침해 다시 불러오고, 로그인 시 새로고침 하되 페이지를 mounted 할 때 현재 로그인 상태인지 점검해서 이미 로그인 상태이면 메인 페이지로 이동하도록 수정">
+      <option name="closed" value="true" />
+      <created>1731635531687</created>
+      <option name="number" value="00034" />
+      <option name="presentableId" value="LOCAL-00034" />
+      <option name="project" value="LOCAL" />
+      <updated>1731635531687</updated>
+    </task>
+    <option name="localTasksCounter" value="35" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -418,7 +478,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="feat: 레시피 검색 기능 구현&#10;&#10;RecipeController와 RecipeRestController를 통합&#10;검색 기능 vue 화면 생성" />
     <MESSAGE value="feat: 상품 등록 기능 구현" />
     <MESSAGE value="feat: 상품 상세 페이지 조회 기능 구현" />
     <MESSAGE value="feat: 상품 수정 기능 구현" />
@@ -443,6 +502,7 @@
     <MESSAGE value="fix: 새로운 채팅 시 마지막 메시지 갱신 안되는 버그 해결&#10;&#10;채팅방을 열 때 채팅방을 생성하거나 불러오는데, 채팅방을 생성할 때 반환되는 객체에 id가 없어서 발생하는 문제였다. 채팅방을 만드는 경우 만들어진 채팅방을 한 번 더 조회해 id를 반환시켜 해결했다." />
     <MESSAGE value="feat: 채팅 목록에 채팅 알림 기능 구현&#10;&#10;상대방에게 메시지가 왔을 때 채팅방에 들어가있지 않으면 읽지 않은 메시지 개수를 표시" />
     <MESSAGE value="feat: 사이드바 버튼에 알림 기능 구현&#10;&#10;상대방에게 메시지가 왔을 때 채팅방에 들어가있지 않으면 사이드바에 개수와 도형 표시" />
-    <option name="LAST_COMMIT_MESSAGE" value="feat: 사이드바 버튼에 알림 기능 구현&#10;&#10;상대방에게 메시지가 왔을 때 채팅방에 들어가있지 않으면 사이드바에 개수와 도형 표시" />
+    <MESSAGE value="fix: 로그인/로그아웃시 페이지를 다시 불러와 바뀐 유저 데이터를 적용&#10;&#10;로그아웃 시 페이지를 새로고침해 다시 불러오고, 로그인 시 새로고침 하되 페이지를 mounted 할 때 현재 로그인 상태인지 점검해서 이미 로그인 상태이면 메인 페이지로 이동하도록 수정" />
+    <option name="LAST_COMMIT_MESSAGE" value="fix: 로그인/로그아웃시 페이지를 다시 불러와 바뀐 유저 데이터를 적용&#10;&#10;로그아웃 시 페이지를 새로고침해 다시 불러오고, 로그인 시 새로고침 하되 페이지를 mounted 할 때 현재 로그인 상태인지 점검해서 이미 로그인 상태이면 메인 페이지로 이동하도록 수정" />
   </component>
 </project>

@@ -9,5 +9,15 @@ module.exports = defineConfig({
         changeOrigin: true,
       },
     },
+    client: {
+        overlay: {
+            runtimeErrors: (error) => {
+                if (error.message === 'ResizeObserver loop limit exceeded') {
+                    return false;
+                }
+                return true;
+            }
+        }
+    }
   },
 });

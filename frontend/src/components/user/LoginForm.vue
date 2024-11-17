@@ -46,7 +46,7 @@ export default {
         async loginForm() {
             try {
                 // 로그인 요청 보내기
-                const response = await this.$axios.post('http://localhost:8081/api/user/login', {
+                const response = await this.$axios.post('/api/user/login', {
                     username: this.username,
                     password: this.password
                 });

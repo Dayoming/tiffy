@@ -2,7 +2,7 @@ import { createApp } from 'vue'
 import { reactive } from 'vue'
 import App from './App.vue'
 import router from './router/index.js' // 라우터 import
-import axios from 'axios'
+import axios from './axios'
 import Vue3Geolocation from 'vue3-geolocation'
 
 // 모든 요청에서 Authorization 헤더에 추가하도록 axios 설정

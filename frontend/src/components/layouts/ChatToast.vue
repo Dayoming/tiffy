@@ -8,7 +8,7 @@
                 <button type="button" class="btn-close ms-2 mb-1" @click="$emit('closeToast')"></button>
             </div>
             <div class="toast-body">
-                <div class="chat-conversation-content custom-scrollbar h-200px">
+                <div class="chat-conversation-content custom-scrollbar h-200px" ref="chatContents">
                     <div v-for="message in chat.messages" :key="message.id" class="d-flex" :class="message.sender === 'me' ? 'justify-content-end text-end mb-1' : 'mb-1'">
                         <div class="w-100">
                             <div class="d-flex flex-column" :class="message.sender === 'me' ? 'align-items-end' : 'align-items-start'">
@@ -18,7 +18,7 @@
                         </div>
                     </div>
                 </div>
-                <textarea class="form-control mb-sm-0 mb-3" placeholder="Type a message" rows="1" v-model="newMessage"></textarea>
+                <input class="form-control mb-sm-0 mb-3" placeholder="Type a message" rows="1" v-model="newMessage" @keyup.enter="sendMessage"/>
                 <button class="btn btn-sm btn-primary ms-auto chat-send-btn" @click="sendMessage">Send</button>
             </div>
         </div>
@@ -40,10 +40,37 @@ export default {
     methods: {
         sendMessage() {
             if (this.newMessage.trim()) {
+                // 메시지 전송 후 DOM 업데이트를 기다린 다음 스크롤 이동
                 this.$emit('sendMessage', { content: this.newMessage });
                 this.newMessage = '';
+                this.$nextTick(() => this.scrollToBottom());
+            }
+        },
+        scrollToBottom() {
+            const chatContents = this.$refs.chatContents;
+            if (chatContents) {
+                chatContents.scrollTop = chatContents.scrollHeight;
             }
         },
     },
+    watch: {
+        'chat.messages': {
+            handler() {
+                // messages 변경 시 DOM 업데이트 후 스크롤
+                this.$nextTick(() => this.scrollToBottom());
+            },
+            deep: true, // messages 배열 내부의 변경을 감지
+        },
+    },
+    mounted() {
+        this.$nextTick(() => this.scrollToBottom());
+    },
 };
 </script>
+
+<style scoped>
+    .chat-conversation-content {
+        overflow-y: auto;
+        height: 300px;
+    }
+</style>

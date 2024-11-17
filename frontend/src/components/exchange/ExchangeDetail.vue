@@ -41,7 +41,7 @@
                 this.$router.push({ path: `/exchange/edit/${id} `});
             },
             goToDelete(id) {
-                this.$axios.delete(`http://localhost:8081/api/exchange/delete/${id}`)
+                this.$axios.delete(`/api/exchange/delete/${id}`)
                     .then(response => {
                         alert(response.data.message);
                         this.$router.push({ path: `/exchange`});
@@ -52,7 +52,7 @@
                     });
             },
             fetchData() {
-                this.$axios.get(`http://localhost:8081/api/exchange/${this.$route.params.id}`)
+                this.$axios.get(`/api/exchange/${this.$route.params.id}`)
                     .then(response => {
                         this.item = response.data;
                         this.initMap();

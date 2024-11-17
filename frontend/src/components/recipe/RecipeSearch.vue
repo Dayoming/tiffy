@@ -59,7 +59,7 @@ export default {
     searchRecipes() {
       this.loading = true;
       this.$axios
-        .post('http://localhost:8081/api/recipes/search', new URLSearchParams({ ingredients: this.ingredients }))
+        .post('/api/recipes/search', new URLSearchParams({ ingredients: this.ingredients }))
         .then(response => {
           this.recipes = response.data.recipes || [];
         })

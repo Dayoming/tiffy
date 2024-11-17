@@ -84,7 +84,7 @@ export default {
   methods: {
     async submitForm() {
       try {
-        const response = await this.$axios.post('http://localhost:8081/api/exchange/createItem', this.form);
+        const response = await this.$axios.post('/api/exchange/createItem', this.form);
         if (response.status === 201) { // 상태 코드 확인
             alert(response.data.message); // 성공 메시지를 응답에서 받아서 사용
             this.$router.push('/exchange'); // 성공적으로 저장한 후 다른 페이지로 이동

@@ -68,7 +68,7 @@ export default {
   methods: {
     async submitForm() {
       try {
-        const response = await this.$axios.put(`http://localhost:8081/api/exchange/edit/${this.$route.params.id}`, this.form);
+        const response = await this.$axios.put(`/api/exchange/edit/${this.$route.params.id}`, this.form);
         if (response != null) {
             alert('정상적으로 수정되었습니다.');
             // 성공적으로 저장한 후 다른 페이지로 이동
@@ -80,7 +80,7 @@ export default {
       }
     },
     fetchData() {
-        this.$axios.get(`http://localhost:8081/api/exchange/${this.$route.params.id}`)
+        this.$axios.get(`/api/exchange/${this.$route.params.id}`)
             .then(response => {
                 this.item = response.data;
                 this.form = { ...response.data };
