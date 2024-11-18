@@ -27,6 +27,9 @@ public class SecurityConfig {
     @Value("${jwt.secret.key}")
     private String secretKeyString;
 
+    @Value("${cors.allowed.origin}")
+    private String allowedOrigin;
+
     @Bean
     public SecretKey secretKey() {
         return Keys.hmacShaKeyFor(secretKeyString.getBytes());
@@ -58,7 +61,7 @@ public class SecurityConfig {
     @Bean
     CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
-        configuration.setAllowedOrigins(List.of("http://localhost:8080"));  // Vue.js 개발 서버 도메인
+        configuration.setAllowedOrigins(List.of(allowedOrigin));  // Vue.js 개발 서버 도메인
         configuration.setAllowedMethods(List.of("GET", "POST", "PATCH", "DELETE", "PUT", "OPTIONS"));
         configuration.setAllowedHeaders(List.of("*"));  // 모든 헤더 허용
         configuration.setAllowCredentials(true);  // 자격 증명을 허용하여 쿠키가 전송될 수 있도록 설정

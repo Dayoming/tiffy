@@ -15,13 +15,18 @@
         <button type="button" class="navbar-toggler me-4" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
           <span class="navbar-toggler-icon"></span>
         </button>
-        <div class="collapse navbar-collapse" id="navbarCollapse">
+        <div class="collapse navbar-collapse" id="navbarCollapse" ref="navbarCollapse">
           <div class="navbar-nav ms-auto p-4 p-lg-0">
-            <router-link to="/" class="nav-item nav-link active">Home</router-link>
-            <router-link to="/exchange" class="nav-item nav-link">Exchange</router-link>
-            <router-link to="/recipes" class="nav-item nav-link">Recipe</router-link>
-            <button v-if="isLoggedIn" class="nav-item nav-link btn btn-link" @click="logout" style="text-align: left;">Logout</button>
-            <router-link v-else to="/login" class="nav-item nav-link">Login</router-link>
+            <router-link to="/" class="nav-item nav-link active"
+            @click="closeNavbar">Home</router-link>
+            <router-link to="/exchange" class="nav-item nav-link"
+            @click="closeNavbar">Exchange</router-link>
+            <router-link to="/recipes" class="nav-item nav-link"
+            @click="closeNavbar">Recipe</router-link>
+            <button v-if="isLoggedIn" class="nav-item nav-link btn btn-link"
+            @click="logout" style="text-align: left;">Logout</button>
+            <router-link v-else to="/login" class="nav-item nav-link"
+            @click="closeNavbar">Login</router-link>
           </div>
         </div>
       </nav>
@@ -43,7 +48,18 @@ export default {
       // 로그아웃 로직
       localStorage.removeItem("authToken"); // 토큰 삭제
       this.$root.$globalState.isLoggedIn = false; // 전역 로그인 상태 변경
+      const navbarCollapse = this.$refs.navbarCollapse;
+      if (navbarCollapse.classList.contains("show")) {
+        navbarCollapse.classList.remove("show");
+      }
       this.$router.go(0); // 페이지 새로고침
+    },
+    closeNavbar() {
+          // Bootstrap의 collapse 클래스를 수동으로 닫기
+          const navbarCollapse = this.$refs.navbarCollapse;
+          if (navbarCollapse.classList.contains("show")) {
+            navbarCollapse.classList.remove("show");
+      }
     },
   },
 };

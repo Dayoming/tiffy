@@ -1,21 +1,22 @@
 <template>
 <!-- 사이드바 버튼 -->
-  <div class="sidebar-div">
-      <a class="icon-md btn btn-primary position-fixed end-0 bottom-0 mb-5 sidebar-btn" data-bs-toggle="offcanvas"
-
-          href="#offcanvasChat" role="button" aria-controls="offcanvasChat"
-          @click="openSidebar">
-          <!-- 읽지 않은 메시지가 있을 때만 보이는 알림 아이콘 -->
-          <div v-if="unreadNotificationCount > 0" class="notification-side-bar-shape">
-              <p class="notification-side-bar-count">{{ unreadNotificationCount }}</p>
-          </div>
-          <i class="bi bi-arrow-bar-left"></i>
-      </a>
-  </div>
+    <div class="sidebar-div">
+        <a :class="['icon-md btn btn-primary position-fixed end-0 bottom-0 mb-5 sidebar-btn',
+            isOpenedSideBar ? 'open-sidebar-btn' : '']"
+            data-bs-toggle="offcanvas"
+            href="#offcanvasChat" role="button" aria-controls="offcanvasChat"
+            @click="toggleSidebar">
+            <!-- 읽지 않은 메시지가 있을 때만 보이는 알림 아이콘 -->
+            <div v-if="unreadNotificationCount > 0" class="notification-side-bar-shape">
+                <p class="notification-side-bar-count">{{ unreadNotificationCount }}</p>
+            </div>
+            <i class="bi bi-arrow-bar-left"></i>
+        </a>
+   </div>
   <div class="offcanvas offcanvas-end" data-bs-scroll="true" data-bs-backdrop="false" tabindex="-1" id="offcanvasChat">
     <div class="offcanvas-header d-flex justify-content-between">
       <h5 class="offcanvas-title">Message</h5>
-      <button class="btn btn-secondary-soft-hover py-1 px-2" data-bs-dismiss="offcanvas" aria-label="Close">
+      <button class="btn btn-secondary-soft-hover py-1 px-2" data-bs-dismiss="offcanvas" aria-label="Close" @click="toggleSidebar">
         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-x-lg" viewBox="0 0 16 16">
           <path d="M2.146 2.854a.5.5 0 1 1 .708-.708L8 7.293l5.146-5.147a.5.5 0 0 1 .708.708L8.707 8l5.147 5.146a.5.5 0 0 1-.708.708L8 8.707l-5.146 5.147a.5.5 0 0 1-.708-.708L7.293 8z"/>
         </svg>
@@ -48,7 +49,7 @@
             </div>
             <div class="small text-secondary text-truncate">{{ contact.lastMessage }}</div>
           </div>
-          <div class="small ms-auto text-nowrap">Just now</div>
+          <div class="small ms-auto text-nowrap">{{ contact.timestamp }}</div>
         </li>
       </ul>
     </div>
@@ -61,6 +62,7 @@ export default {
         return {
             searchKeyword: '',
             users: [],
+            isOpenedSideBar: false,
         }
     },
     props: {
@@ -69,13 +71,16 @@ export default {
         unreadNotificationCount: Number,
     },
     methods: {
+        toggleSidebar() {
+            this.isOpenedSideBar = !this.isOpenedSideBar; // 열림 상태 토글
+        },
         searchUser(e) {
             this.searchKeyword = e.target.value;
 
             // 두 글자 이상일 때만 검색 결과 반환
             if (this.searchKeyword.length >= 2) {
                 this.$axios
-                    .get(`http://localhost:8081/api/user/findUserByIncludeUserNickname`, {
+                    .get(`/api/user/findUserByIncludeUserNickname`, {
                       params: {
                         nickname: this.searchKeyword,
                       },
@@ -84,50 +89,49 @@ export default {
                         this.users = response.data;
                 });
             }
-    },
-    // 검색한 이름을 클릭하면 채팅방을 생성하거나 불러옴
-    goOrCreateChat(id) {
-        if (id === this.loginUserId) {
-            alert("자기 자신과는 대화할 수 없습니다.");
-            this.searchKeyword = '';
-            return;
-        }
+        },
+        // 검색한 이름을 클릭하면 채팅방을 생성하거나 불러옴
+        goOrCreateChat(id) {
+            if (id === this.loginUserId) {
+                alert("자기 자신과는 대화할 수 없습니다.");
+                this.searchKeyword = '';
+                return;
+            }
 
-        if (!this.loginUserId) {
-            alert("로그인 후 사용 가능한 기능입니다.");
-            return;
-        }
+            if (!this.loginUserId) {
+                alert("로그인 후 사용 가능한 기능입니다.");
+                return;
+            }
 
-        this.$axios
-            .get(`http://localhost:8081/api/chatrooms/getOrCreate`, {
-              params: {
-                user2Id: id,
-              },
+            this.$axios
+                .get(`/api/chatrooms/getOrCreate`, {
+                  params: {
+                    user2Id: id,
+                  },
+                })
+                .then((response) => {
+                    this.$axios.get(`/api/user/findUserById`, {
+                        params: { id: response.data.user2Id },
+                    })
+                    .then((userResponse) => {
+                        console.log(userResponse.data.nickname + "님과의 1:1 채팅방에 입장했습니다.");
+                        const user = userResponse.data;
+                        const chatRoom = response.data;
+
+                        // 부모 컴포넌트로 선택된 유저와 채팅방 정보를 전달
+                        this.$emit('openChat', {
+                            id: user.id,
+                            nickname: user.nickname,
+                            chatRoomId: chatRoom.id,
+                        });
+                    })
             })
-            .then((response) => {
-                this.$axios.get(`http://localhost:8081/api/user/findUserById`, {
-                    params: { id: response.data.user2Id },
-                })
-                .then((userResponse) => {
-                    console.log(userResponse.data.nickname + "님과의 1:1 채팅방에 입장했습니다.");
-                    const user = userResponse.data;
-                    const chatRoom = response.data;
-
-                    // 부모 컴포넌트로 선택된 유저와 채팅방 정보를 전달
-                    this.$emit('openChat', {
-                        id: user.id,
-                        nickname: user.nickname,
-                        chatRoomId: chatRoom.id,
-                    });
-                })
-        })
-        .catch((error) => {
-            console.log(error);
-        });
-
-        this.searchKeyword = '';
+            .catch((error) => {
+                console.log(error);
+            });
+            this.searchKeyword = '';
+        },
     },
-  },
 };
 </script>
 <style scope>
@@ -151,4 +155,10 @@ export default {
     text-align: center;
     margin-top: 1px;
 }
+
+.open-sidebar-btn {
+    transform: translateX(-399px);
+    transition: transform 0.3s ease-in-out;
+}
+
 </style>

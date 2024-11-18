@@ -4,7 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="b6e131d5-5ac7-4d0d-9526-f9e2833cf2d7" name="Changes" comment="fix: 게시글 수정 기능 오류 제거 및 지도 로딩 지연 문제 해결&#10;&#10;1. 게시글 수정 시 위치를 맵에서 수정할 수 있도록 변경&#10;2. 판매 상태 수정 가능하도록 변경하고 리스트에 불러올 때 판매 상태가 SOLD_OUT이면 회색으로 보이게 처리&#10;3. 게시글을 올릴 때 현재 로그인한 사람으로 등록되도록 수정">
+    <list default="true" id="b6e131d5-5ac7-4d0d-9526-f9e2833cf2d7" name="Changes" comment="design: 디자인 수정">
+      <change afterPath="$PROJECT_DIR$/application-prod.properties" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/.env.development" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/.env.production" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/8.10.2/checksums/checksums.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/8.10.2/checksums/checksums.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/8.10.2/checksums/md5-checksums.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/8.10.2/checksums/md5-checksums.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/8.10.2/checksums/sha1-checksums.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/8.10.2/checksums/sha1-checksums.bin" afterDir="false" />
@@ -17,10 +20,21 @@
       <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/outputFiles.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/outputFiles.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/file-system.probe" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/file-system.probe" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application-test.properties" beforeDir="false" afterPath="$PROJECT_DIR$/application-dev.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/application.properties" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/build/classes/java/main/com/tiffy/TiffyApplication.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/java/main/com/tiffy/TiffyApplication.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/build/resources/main/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/build/resources/main/application.properties" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/build/tmp/compileJava/previous-compilation-data.bin" beforeDir="false" afterPath="$PROJECT_DIR$/build/tmp/compileJava/previous-compilation-data.bin" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/components/recipe/RecipeSearch.vue" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/recipe/RecipeSearch.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/axios.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/axios.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/components/exchange/ExchangeDetail.vue" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/exchange/ExchangeDetail.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/components/layouts/ChatSidebar.vue" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/layouts/ChatSidebar.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/components/layouts/CommonHeader.vue" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/layouts/CommonHeader.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/components/layouts/MainChat.vue" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/layouts/MainChat.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/vue.config.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/vue.config.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/tiffy/config/SecurityConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/tiffy/config/SecurityConfig.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/application.properties" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -85,22 +99,22 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;Gradle.tiffy [:com.tiffy.TiffyApplication.main()].executor&quot;: &quot;Run&quot;,
-    &quot;Gradle.tiffy [bootJar].executor&quot;: &quot;Run&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;develop&quot;,
-    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/tiffy/frontend/public/js&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;project.structure.last.edited&quot;: &quot;Problems&quot;,
-    &quot;project.structure.proportion&quot;: &quot;0.0&quot;,
-    &quot;project.structure.side.proportion&quot;: &quot;0.0&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "Gradle.tiffy [:com.tiffy.TiffyApplication.main()].executor": "Run",
+    "Gradle.tiffy [bootJar].executor": "Run",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "git-widget-placeholder": "develop",
+    "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "C:/tiffy/frontend/public/js",
+    "nodejs_package_manager_path": "npm",
+    "project.structure.last.edited": "Project",
+    "project.structure.proportion": "0.0",
+    "project.structure.side.proportion": "0.2",
+    "settings.editor.selected.configurable": "preferences.pluginManager",
+    "vue.rearranger.settings.migration": "true"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="C:\tiffy\frontend\public\js" />
@@ -111,6 +125,7 @@
     </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="C:\tiffy" />
+      <recent name="C:\tiffy\frontend" />
       <recent name="C:\tiffy\frontend\public" />
       <recent name="C:\tiffy\frontend\public\favicon" />
     </key>
@@ -462,7 +477,15 @@
       <option name="project" value="LOCAL" />
       <updated>1731840803774</updated>
     </task>
-    <option name="localTasksCounter" value="37" />
+    <task id="LOCAL-00037" summary="design: 디자인 수정">
+      <option name="closed" value="true" />
+      <created>1731841393945</created>
+      <option name="number" value="00037" />
+      <option name="presentableId" value="LOCAL-00037" />
+      <option name="project" value="LOCAL" />
+      <updated>1731841393946</updated>
+    </task>
+    <option name="localTasksCounter" value="38" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -477,7 +500,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="feat: 상품 수정 기능 구현" />
     <MESSAGE value="feat: 상품 삭제 기능 구현" />
     <MESSAGE value="feat: JPA Repository를 MyBatis Mapper로 교체&#10;&#10;Spring Data JPA 의존성을 제거하고 MyBatis를 사용해 데이터 조회, 수정, 삭제, 추가가 가능하도록 한다." />
     <MESSAGE value="feat: 페이지네이션 기능 수정&#10;&#10;페이지네이션 기능을 1~10, 10~20 단위로 보이도록 구현" />
@@ -502,6 +524,7 @@
     <MESSAGE value="fix: 로그인/로그아웃시 페이지를 다시 불러와 바뀐 유저 데이터를 적용&#10;&#10;로그아웃 시 페이지를 새로고침해 다시 불러오고, 로그인 시 새로고침 하되 페이지를 mounted 할 때 현재 로그인 상태인지 점검해서 이미 로그인 상태이면 메인 페이지로 이동하도록 수정" />
     <MESSAGE value="design: 디자인 수정&#10;&#10;1. 채팅창은 일정 크기 이상 늘어나지 않고 스크롤바로 볼 수 있게 구현 (채팅 수, 송신 시 스크롤바 가장 아래에 위치)&#10;2. 교환 게시판 UI 수정, 검색 창과 위치 변경 버튼 위치 수정" />
     <MESSAGE value="fix: 게시글 수정 기능 오류 제거 및 지도 로딩 지연 문제 해결&#10;&#10;1. 게시글 수정 시 위치를 맵에서 수정할 수 있도록 변경&#10;2. 판매 상태 수정 가능하도록 변경하고 리스트에 불러올 때 판매 상태가 SOLD_OUT이면 회색으로 보이게 처리&#10;3. 게시글을 올릴 때 현재 로그인한 사람으로 등록되도록 수정" />
-    <option name="LAST_COMMIT_MESSAGE" value="fix: 게시글 수정 기능 오류 제거 및 지도 로딩 지연 문제 해결&#10;&#10;1. 게시글 수정 시 위치를 맵에서 수정할 수 있도록 변경&#10;2. 판매 상태 수정 가능하도록 변경하고 리스트에 불러올 때 판매 상태가 SOLD_OUT이면 회색으로 보이게 처리&#10;3. 게시글을 올릴 때 현재 로그인한 사람으로 등록되도록 수정" />
+    <MESSAGE value="design: 디자인 수정" />
+    <option name="LAST_COMMIT_MESSAGE" value="design: 디자인 수정" />
   </component>
 </project>

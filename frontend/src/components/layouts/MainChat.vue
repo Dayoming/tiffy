@@ -154,7 +154,8 @@ export default {
             }
         },
         connect(loginUserId) {
-            const socket = new SockJS("http://localhost:8081/ws/chat");
+            const socket = new SockJS(
+                `http://${process.env.VUE_APP_IP}:${process.env.VUE_APP_PORT}/ws/chat`);
             this.stompClient = Stomp.over(socket);
             const token = localStorage.getItem('authToken');
 
