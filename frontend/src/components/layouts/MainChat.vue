@@ -252,12 +252,14 @@ export default {
                   const parsedMessage = JSON.parse(message.body);
 
                   // senderId가 현재 로그인한 사용자의 ID와 다르고, 같은 채팅방이 켜져 있을 때
+                  const activeChat = this.activeChats.find(chat => chat.chatRoomId);
+
                   if (parsedMessage.senderId !== this.loginUserId) {
-                      if (this.activeChat && parsedMessage.chatRoomId === this.activeChat.chatRoomId) {
-                          this.activeChat.messages.push({ ...parsedMessage, sender: parsedMessage.senderId === this.loginUserId ? "me" : "other" });
+                      if (activeChat && parsedMessage.chatRoomId === activeChat.chatRoomId) {
+                          activeChat.messages.push({ ...parsedMessage, sender: parsedMessage.senderId === this.loginUserId ? "me" : "other" });
                           // 채팅방 메시지 읽음 처리
                           this.$axios
-                            .post(`/api/notifications/markAsRead/${this.activeChat.chatRoomId}/${this.loginUserId}`);
+                            .post(`/api/notifications/markAsRead/${activeChat.chatRoomId}/${this.loginUserId}`);
                       }
                   }
 
