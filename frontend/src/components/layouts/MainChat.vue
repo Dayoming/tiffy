@@ -6,7 +6,7 @@
             :contacts="contacts"
             :loginUserId="loginUserId"
             :unreadNotificationCount="unreadNotificationCount"
-            @openChat="openChat" @closeSidebar="closeSidebar" />
+            @openChat="openChat" @closeSidebar="closeSidebar" @closeAllChats="closeAllChats" />
 
         <!-- 채팅창 영역 -->
         <div v-for="(chat, index) in activeChats" :key="chat.chatRoomId">
@@ -33,7 +33,7 @@ export default {
         return {
             contacts: [],
             activeChats: [], // activeChat이 설정되면 ChatToast가 나타남
-            maxChatCount: 5, // 최대 채팅창 개수
+            maxChatCount: 10, // 최대 채팅창 개수
             chatToastWidth: 370, // 채팅창 너비
             chatToastHeight: 330, // 채팅창 높이
             screenPadding: 20, // 화면 경계 간격
@@ -78,7 +78,6 @@ export default {
                     bottom: `${20 + screenPadding + row * chatToastHeight}px`,
                 };
             }
-
         },
         openSidebar() {
             // 이미 열려 있는 경우
@@ -101,6 +100,9 @@ export default {
                 .catch((error) => {
                     console.log(error);
                 });
+        },
+        closeAllChats() {
+            this.activeChats = [];
         },
         setContacts() {
             this.$axios
@@ -147,11 +149,27 @@ export default {
                 });
         },
         async openChat(contact) {
-
-            // 최대 채팅창 개수 확인
-            if (this.activeChats.length >= this.maxChatCount) {
+            if (this.isMobile) {
+                this.activeChats = []; // 기존 채팅 정보 제거
+            } else if (this.activeChats.length >= this.maxChatCount) {
+                // 데스크톱 환경에서 최대 채팅창 개수 초과 시 알림
                 alert(`최대 ${this.maxChatCount}개의 채팅창만 열 수 있습니다.`);
                 return;
+            } else {
+                const { chatToastWidth, chatToastHeight, screenPadding } = this;
+                const screenWidth = window.innerWidth - 380; // 사이드바를 제외한 화면 너비
+                const screenHeight = window.innerHeight; // 화면 높이
+
+                 // 현재 열려 있는 채팅창으로 필요한 공간 계산
+                const maxColumns = Math.floor((screenWidth - screenPadding) / chatToastWidth);
+                const maxRows = Math.floor((screenHeight - screenPadding) / chatToastHeight);
+                const maxChatsPossible = maxColumns * maxRows;
+
+                 // 최대 가능한 채팅창 개수를 초과하면 새 채팅창을 열지 못하게 함
+                if (this.activeChats.length >= maxChatsPossible) {
+                    alert("화면 공간이 부족하여 더 이상 채팅창을 열 수 없습니다.");
+                    return;
+                }
             }
 
             // 채팅창 중복 확인

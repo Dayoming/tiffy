@@ -4,7 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="b6e131d5-5ac7-4d0d-9526-f9e2833cf2d7" name="Changes" comment="chore: DB 경로, 포트 변경">
+    <list default="true" id="b6e131d5-5ac7-4d0d-9526-f9e2833cf2d7" name="Changes" comment="design: 채팅 N개와 모바일 화면에서 채팅 목록 위에 채팅창을 보여주기">
       <change beforePath="$PROJECT_DIR$/.gradle/8.10.2/checksums/checksums.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/8.10.2/checksums/checksums.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/8.10.2/checksums/md5-checksums.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/8.10.2/checksums/md5-checksums.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/8.10.2/checksums/sha1-checksums.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/8.10.2/checksums/sha1-checksums.bin" afterDir="false" />
@@ -20,8 +20,7 @@
       <change beforePath="$PROJECT_DIR$/build/classes/java/main/com/tiffy/TiffyApplication.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/java/main/com/tiffy/TiffyApplication.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/build/resources/main/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/build/resources/main/application.properties" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/build/tmp/compileJava/previous-compilation-data.bin" beforeDir="false" afterPath="$PROJECT_DIR$/build/tmp/compileJava/previous-compilation-data.bin" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/public/css/style.css" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/public/css/style.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/public/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/public/index.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/frontend/src/components/layouts/ChatSidebar.vue" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/layouts/ChatSidebar.vue" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/frontend/src/components/layouts/ChatToast.vue" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/layouts/ChatToast.vue" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/frontend/src/components/layouts/MainChat.vue" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/layouts/MainChat.vue" afterDir="false" />
@@ -491,7 +490,15 @@
       <option name="project" value="LOCAL" />
       <updated>1732004900895</updated>
     </task>
-    <option name="localTasksCounter" value="40" />
+    <task id="LOCAL-00040" summary="design: 채팅 N개와 모바일 화면에서 채팅 목록 위에 채팅창을 보여주기">
+      <option name="closed" value="true" />
+      <created>1732005047832</created>
+      <option name="number" value="00040" />
+      <option name="presentableId" value="LOCAL-00040" />
+      <option name="project" value="LOCAL" />
+      <updated>1732005047832</updated>
+    </task>
+    <option name="localTasksCounter" value="41" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -506,7 +513,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="feat: 페이지네이션 기능 수정&#10;&#10;페이지네이션 기능을 1~10, 10~20 단위로 보이도록 구현" />
     <MESSAGE value="chore: 사용하지 않는 response.error 삭제" />
     <MESSAGE value="fix: 상품 등록 오류 수정&#10;&#10;PK 값이던 item_id 값이 null이기 때문에 발생하던 오류, xml 파일에 userGeneratedKeys와 keyProperty 옵션을 적용해 해결" />
     <MESSAGE value="feat: 로그인, 회원가입 기능 구현&#10;&#10;로그인 시 JWT 토큰을 발급해 Vue로 보내주어 로그인 상태를 체크하도록 구현" />
@@ -531,6 +537,7 @@
     <MESSAGE value="design: 디자인 수정" />
     <MESSAGE value="chore: 소소한 디자인 변경점과 개발, 운영환경 구분을 위한 환경변수 설정" />
     <MESSAGE value="chore: DB 경로, 포트 변경" />
-    <option name="LAST_COMMIT_MESSAGE" value="chore: DB 경로, 포트 변경" />
+    <MESSAGE value="design: 채팅 N개와 모바일 화면에서 채팅 목록 위에 채팅창을 보여주기" />
+    <option name="LAST_COMMIT_MESSAGE" value="design: 채팅 N개와 모바일 화면에서 채팅 목록 위에 채팅창을 보여주기" />
   </component>
 </project>

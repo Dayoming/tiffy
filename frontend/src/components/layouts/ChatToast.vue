@@ -1,15 +1,16 @@
 <template>
     <div class="toast-container toast-chat d-flex gap-3 align-items-end">
-        <div class="toast toast-chat show" role="alert" aria-live="assertive" aria-atomic="true" data-bs-autohide="false"
-        :style="style">
-            <div class="toast-header">
+        <div :class="['toast toast-chat show', isMobile ? 'mobile-toast-message' : '']" role="alert" aria-live="assertive" aria-atomic="true" data-bs-autohide="false"
+        :style="isMobile ? '' : style">
+            <div class="toast-header" :style="isMobile ? 'display: none' : ''">
                 <img src="/icon/profile-default-icon.png" class="rounded-circle me-2" alt="Profile Image" width="24" height="24">
                 <strong class="me-auto">{{ chat.nickname }}</strong>
                 <small class="text-muted">Just now</small>
-                <button type="button" class="btn-close ms-2 mb-1" @click="$emit('closeToast')"></button>
+                <button v-if="!isMobile" type="button" class="btn-close ms-2 mb-1" @click="$emit('closeToast')"></button>
             </div>
             <div class="toast-body">
-                <div class="chat-conversation-content custom-scrollbar h-200px" ref="chatContents">
+                <div :class="['chat-conversation-content custom-scrollbar h-200px',
+                    isMobile ? 'mobile-toast-height' : '']" ref="chatContents">
                     <div v-for="message in chat.messages" :key="message.id" class="d-flex" :class="message.sender === 'me' ? 'justify-content-end text-end mb-1' : 'mb-1'">
                         <div class="w-100">
                             <div class="d-flex flex-column" :class="message.sender === 'me' ? 'align-items-end' : 'align-items-start'">
@@ -36,10 +37,14 @@ export default {
     },
     data() {
         return {
+            isMobile: false,
             newMessage: '',
         };
     },
     methods: {
+        checkScreenSize() {
+            this.isMobile = window.innerWidth <= 768;
+        },
         sendMessage() {
             if (this.newMessage.trim()) {
                 // 메시지 전송 후 DOM 업데이트를 기다린 다음 스크롤 이동
@@ -66,6 +71,7 @@ export default {
     },
     mounted() {
         this.$nextTick(() => this.scrollToBottom());
+        this.checkScreenSize();
     },
 };
 </script>
@@ -78,5 +84,19 @@ export default {
 
     .toast-container {
         z-index: 1051;
+    }
+
+    .mobile-toast-message {
+        border: unset;
+        box-shadow: unset;
+        bottom: 20px;
+        right: 20px;
+        width: 75%;
+        left: 25%;
+        top: 13%;
+    }
+
+    .mobile-toast-height {
+        height: 400px;
     }
 </style>

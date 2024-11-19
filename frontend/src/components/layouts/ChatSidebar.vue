@@ -37,7 +37,7 @@
           <i class="bi bi-search fs-5"></i>
         </button>
       </form>
-      <ul class="list-unstyled">
+      <ul :class="isMobile ? 'hidden' : 'list-unstyled'">
         <li v-for="(contact, index) in contacts" :key="index" class="mt-3 hstack gap-3 align-items-center position-relative" @click="$emit('openChat', contact)">
           <div class="avatar status-online">
             <img class="avatar-img rounded-circle" src="/icon/profile-default-icon.png" alt="Profile Image">
@@ -52,8 +52,21 @@
           <div class="small ms-auto text-nowrap">{{ contact.timestamp }}</div>
         </li>
       </ul>
+      <!-- 모바일 환경에서 프로필 사진으로 채팅 목록 추가 -->
+      <div v-if="isMobile" class="mobile-profile-images">
+        <div
+          v-for="(contact, index) in contacts"
+          :key="index"
+          class="profile-image-wrapper"
+          @click="$emit('openChat', contact)"
+        >
+          <img class="profile-image" :src="contact.profileImage || '/icon/profile-default-icon.png'" :alt="contact.nickname">
+          <p class="profile-name">{{ contact.nickname }}</p>
+        </div>
+      </div>
     </div>
   </div>
+
 </template>
 
 <script>
@@ -63,17 +76,23 @@ export default {
             searchKeyword: '',
             users: [],
             isOpenedSideBar: false,
+            isMobile: false,
         }
     },
     props: {
         contacts: Array,
         loginUserId: Number,
         unreadNotificationCount: Number,
-        isMobile: Boolean,
     },
     methods: {
+        checkScreenSize() {
+            this.isMobile = window.innerWidth <= 768;
+        },
         toggleSidebar() {
             this.isOpenedSideBar = !this.isOpenedSideBar; // 열림 상태 토글
+            if (!this.isOpenedSideBar) {
+                this.$emit('closeAllChats'); // 부모 컴포넌트에 모든 채팅을 닫으라는 이벤트 전달
+            }
         },
         searchUser(e) {
             this.searchKeyword = e.target.value;
@@ -133,6 +152,9 @@ export default {
             this.searchKeyword = '';
         },
     },
+    mounted() {
+        this.checkScreenSize();
+    },
 };
 </script>
 <style scope>
@@ -164,6 +186,57 @@ export default {
 
 .sidebar-canvas {
     width: 310px;
+}
+
+.mobile-chat-list {
+    width: 100px;
+    height: 100%;
+    background-color: white;
+}
+
+/* 모바일 환경에서 프로필 이미지 스타일 */
+.mobile-profile-images {
+    display: flex;
+    width: calc(100% - 309px);
+    height: 100%;
+    overflow-y: auto;
+    padding: 10px;
+    background-color: #fff;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 1050;
+    flex-direction: column;
+}
+
+.profile-image-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    cursor: pointer;
+}
+
+.profile-image {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.profile-name {
+    font-size: 12px;
+    text-align: center;
+    margin-top: 5px;
+    color: #333;
+}
+
+.hidden {
+    display: none;
+}
+
+.show {
+    display: block;
 }
 
 </style>
