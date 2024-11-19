@@ -13,7 +13,7 @@
             <i class="bi bi-arrow-bar-left"></i>
         </a>
    </div>
-  <div class="offcanvas offcanvas-end" data-bs-scroll="true" data-bs-backdrop="false" tabindex="-1" id="offcanvasChat">
+  <div class="offcanvas offcanvas-end sidebar-canvas" data-bs-scroll="true" data-bs-backdrop="false" tabindex="-1" id="offcanvasChat">
     <div class="offcanvas-header d-flex justify-content-between">
       <h5 class="offcanvas-title">Message</h5>
       <button class="btn btn-secondary-soft-hover py-1 px-2" data-bs-dismiss="offcanvas" aria-label="Close" @click="toggleSidebar">
@@ -69,6 +69,7 @@ export default {
         contacts: Array,
         loginUserId: Number,
         unreadNotificationCount: Number,
+        isMobile: Boolean,
     },
     methods: {
         toggleSidebar() {
@@ -157,8 +158,12 @@ export default {
 }
 
 .open-sidebar-btn {
-    transform: translateX(-399px);
+    transform: translateX(-309px);
     transition: transform 0.3s ease-in-out;
+}
+
+.sidebar-canvas {
+    width: 310px;
 }
 
 </style>

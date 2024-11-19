@@ -1,6 +1,7 @@
 <template>
     <div class="toast-container toast-chat d-flex gap-3 align-items-end">
-        <div class="toast toast-chat show" role="alert" aria-live="assertive" aria-atomic="true" data-bs-autohide="false">
+        <div class="toast toast-chat show" role="alert" aria-live="assertive" aria-atomic="true" data-bs-autohide="false"
+        :style="style">
             <div class="toast-header">
                 <img src="/icon/profile-default-icon.png" class="rounded-circle me-2" alt="Profile Image" width="24" height="24">
                 <strong class="me-auto">{{ chat.nickname }}</strong>
@@ -31,6 +32,7 @@ export default {
     props: {
         chat: Object,
         loginUserId: Number,
+        style: Object,
     },
     data() {
         return {
@@ -71,6 +73,10 @@ export default {
 <style scoped>
     .chat-conversation-content {
         overflow-y: auto;
-        height: 300px;
+        height: 160px;
+    }
+
+    .toast-container {
+        z-index: 1051;
     }
 </style>

@@ -405,7 +405,7 @@ body {
 
 .toast-chat {
   position: fixed;
-  right: calc(400px + 1rem); /* Replace $offcanvas-horizontal-width with its actual value, e.g., 300px */
+  /*right: calc(400px + 1rem);*/ /* Replace $offcanvas-horizontal-width with its actual value, e.g., 300px */
   bottom: 0;
   z-index: 11;
   margin-bottom: 15px;

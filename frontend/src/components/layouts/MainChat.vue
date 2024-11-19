@@ -1,10 +1,23 @@
 <template>
     <div>
         <!-- 사이드바 컴포넌트 -->
-        <ChatSidebar v-if="contacts" :contacts="contacts" :loginUserId="loginUserId" :unreadNotificationCount="unreadNotificationCount" @openChat="openChat" @closeSidebar="closeSidebar" />
+        <ChatSidebar
+            v-if="contacts"
+            :contacts="contacts"
+            :loginUserId="loginUserId"
+            :unreadNotificationCount="unreadNotificationCount"
+            @openChat="openChat" @closeSidebar="closeSidebar" />
 
-        <!-- 채팅창 컴포넌트: activeChat이 설정될 때만 보임 -->
-        <ChatToast v-if="activeChat" :chat="activeChat" :loginUserId="loginUserId" @sendMessage="sendMessage" @closeToast="closeToast" />
+        <!-- 채팅창 영역 -->
+        <div v-for="(chat, index) in activeChats" :key="chat.chatRoomId">
+            <ChatToast
+                :chat="chat"
+                :loginUserId="loginUserId"
+                @sendMessage="sendMessage"
+                @closeToast="closeToast(chat.chatRoomId)"
+                :style="getChatToastStyle(index)"
+            />
+        </div>
     </div>
 </template>
 
@@ -19,7 +32,11 @@ export default {
     data() {
         return {
             contacts: [],
-            activeChat: null, // activeChat이 설정되면 ChatToast가 나타남
+            activeChats: [], // activeChat이 설정되면 ChatToast가 나타남
+            maxChatCount: 5, // 최대 채팅창 개수
+            chatToastWidth: 370, // 채팅창 너비
+            chatToastHeight: 330, // 채팅창 높이
+            screenPadding: 20, // 화면 경계 간격
             loginUserId: 0,
             otherUserId: 0,
             textMessage: '',
@@ -29,9 +46,40 @@ export default {
             headers: '',
             unreadNotificationCount: 0,
             isOpenSidebar: false,
+            isMobile: false, // 모바일 여부
         };
     },
     methods: {
+        checkScreenSize() {
+            this.isMobile = window.innerWidth <= 768;
+        },
+        // 채팅창을 여러 개 열었을 때 디자인
+        getChatToastStyle(index) {
+            if (this.isMobile) {
+                // 모바일 환경 스타일 적용
+                return {
+                    bottom: `${20 + index * 70}px`,
+                    right: '20px',
+                    width: '90%',
+                    left: '5%',
+                };
+            } else {
+                const { chatToastWidth, chatToastHeight, screenPadding } = this;
+                const screenWidth = window.innerWidth - 380;
+                 // 최대 배치 가능한 열의 개수
+                const maxColumns = Math.floor((screenWidth - screenPadding) / chatToastWidth);
+                 // 채팅창의 열 위치 (오른쪽에서부터)
+                const column = index % maxColumns;
+                 // 채팅창의 행 위치 (위에서부터)
+                const row = Math.floor(index / maxColumns);
+                 // 오른쪽 및 위쪽으로 배치
+                return {
+                    right: `${380 + screenPadding + column * chatToastWidth}px`,
+                    bottom: `${20 + screenPadding + row * chatToastHeight}px`,
+                };
+            }
+
+        },
         openSidebar() {
             // 이미 열려 있는 경우
             if (this.isOpenSidebar) {
@@ -92,7 +140,6 @@ export default {
                         // 전체 읽지 않은 메시지 수 계산
                         // contacts 배열에 있는 각 채팅방의 읽지 않은 메시지 수를 모두 더해 unreadNotificationCount에 저장
                         this.unreadNotificationCount = contacts.reduce((total, contact) => total + contact.notificationCount, 0);
-                        console.log(this.unreadNotificationCount);
                     });
                 })
                 .catch((error) => {
@@ -100,57 +147,71 @@ export default {
                 });
         },
         async openChat(contact) {
+
+            // 최대 채팅창 개수 확인
+            if (this.activeChats.length >= this.maxChatCount) {
+                alert(`최대 ${this.maxChatCount}개의 채팅창만 열 수 있습니다.`);
+                return;
+            }
+
+            // 채팅창 중복 확인
+            const existingChat = this.activeChats.find(chat => chat.chatRoomId === contact.chatRoomId);
+            if (existingChat) {
+                alert(`${contact.nickname}님과의 채팅이 이미 열려 있습니다.`);
+                return;
+            }
+
             // 클릭한 연락처 정보를 activeChat에 설정하여 ChatToast가 열리게 함
-            this.activeChat = {
+            const newChat = {
                 id: contact.id,
                 chatRoomId: contact.chatRoomId,
                 nickname: contact.nickname,
                 messages: [],
             };
 
-            // 해당 채팅방에서 유저가 받은 대화 모두 읽음 처리
-            this.$axios.post(`/api/notifications/markAsRead/${this.activeChat.chatRoomId}/${this.loginUserId}`);
-
-            this.setContacts();
 
             // 이전 대화 내용 불러오기
             try {
-                const response = await this.$axios.get(`/api/messages/${this.activeChat.chatRoomId}`, {
-                    params: { chatRoomId: this.activeChat.chatRoomId }
-                });
-
-                // 불러온 메시지 데이터를 activeChat.messages에 추가
-                this.activeChat.messages = response.data.map(message => ({
+                const response = await this.$axios.get(`/api/messages/${contact.chatRoomId}`);
+                newChat.messages = response.data.map(message => ({
                     ...message,
-                    sender: message.senderId === this.loginUserId ? "me" : "other" // 메시지의 보낸 사람 구분
+                    sender: message.senderId === this.loginUserId ? "me" : "other",
                 }));
+
+                this.activeChats.push(newChat);
+                // 해당 채팅방에서 유저가 받은 대화 모두 읽음 처리
+                this.$axios.post(`/api/notifications/markAsRead/${contact.chatRoomId}/${this.loginUserId}`);
+                this.setContacts();
             } catch (error) {
                 console.error("Error fetching messages:", error);
             }
         },
-        closeToast() {
-            // 채팅창 닫기: activeChat을 null로 설정하여 ChatToast를 숨김
-            this.activeChat = null;
+        closeToast(chatRoomId) {
+            // 채팅창 닫기
+            this.activeChats = this.activeChats.filter(chat => chat.chatRoomId !== chatRoomId);
         },
         sendMessage(messageContent) {
-            if (this.activeChat) {
-                const message = {
-                    chatRoomId: this.activeChat.chatRoomId,
-                    senderId: this.loginUserId,
-                    receiverId: this.activeChat.id,
-                    content: messageContent.content,
-                    timestamp: new Date().toLocaleTimeString(),
-                };
+            if (this.activeChats.length > 0) {
+                const activeChat = this.activeChats.find(chat => chat.chatRoomId);
+                if (activeChat) {
+                    const message = {
+                        chatRoomId: activeChat.chatRoomId,
+                        senderId: this.loginUserId,
+                        receiverId: activeChat.id,
+                        content: messageContent.content,
+                        timestamp: new Date().toLocaleTimeString(),
+                    };
 
-                this.stompClient.send(`/app/user/messages/${message.receiverId}`, {}, JSON.stringify(message));
-                this.activeChat.messages.push(
-                    { ...message,
-                      senderId: this.loginUserId,
-                      receiverId: message.receiverId,
-                      sender: "me",
-                      timestamp: message.timestamp });
-                this.setContacts();
+                    this.stompClient.send(`/app/user/messages/${message.receiverId}`, {}, JSON.stringify(message));
+                    activeChat.messages.push(
+                        { ...message,
+                          senderId: this.loginUserId,
+                          receiverId: message.receiverId,
+                          sender: "me",
+                          timestamp: message.timestamp });
 
+                    this.setContacts();
+                }
             }
         },
         connect(loginUserId) {
@@ -207,9 +268,12 @@ export default {
                 this.connect(this.loginUserId);
                 this.setContacts();
             });
+        this.checkScreenSize();
+        window.addEventListener('resize', this.checkScreenSize);
     },
     beforeUnmount() {
         this.disconnect();
+        window.removeEventListener('resize', this.checkScreenSize);
     },
 };
 </script>
