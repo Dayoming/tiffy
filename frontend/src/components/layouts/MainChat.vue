@@ -33,7 +33,7 @@ export default {
         return {
             contacts: [],
             activeChats: [], // activeChat이 설정되면 ChatToast가 나타남
-            maxChatCount: 10, // 최대 채팅창 개수
+            maxChatCount: 5, // 최대 채팅창 개수
             chatToastWidth: 370, // 채팅창 너비
             chatToastHeight: 330, // 채팅창 높이
             screenPadding: 20, // 화면 경계 간격
