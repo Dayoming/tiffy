@@ -22,7 +22,7 @@
         </svg>
       </button>
     </div>
-    <div class="offcanvas-body pt-0 custom-scrollbar">
+    <div class="offcanvas-body pt-0">
       <form class="rounded position-relative">
         <input :value="searchKeyword" v-bind:disabled="loginUserId === 0" id="searchKeyword"
             class="form-control ps-5 bg-light" type="search"
@@ -237,6 +237,10 @@ export default {
 
 .show {
     display: block;
+}
+
+.offcanvas-body {
+    overflow: visible;
 }
 
 </style>

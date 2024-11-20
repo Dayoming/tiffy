@@ -13,7 +13,7 @@
             <ChatToast
                 :chat="chat"
                 :loginUserId="loginUserId"
-                @sendMessage="sendMessage"
+                @sendMessage="sendMessage(chat.chatRoomId, $event)"
                 @closeToast="closeToast(chat.chatRoomId)"
                 :style="getChatToastStyle(index)"
             />
@@ -208,9 +208,9 @@ export default {
             // 채팅창 닫기
             this.activeChats = this.activeChats.filter(chat => chat.chatRoomId !== chatRoomId);
         },
-        sendMessage(messageContent) {
+        sendMessage(chatRoomId, messageContent) {
             if (this.activeChats.length > 0) {
-                const activeChat = this.activeChats.find(chat => chat.chatRoomId);
+                const activeChat = this.activeChats.find(chat => chat.chatRoomId === chatRoomId);
                 if (activeChat) {
                     const message = {
                         chatRoomId: activeChat.chatRoomId,
