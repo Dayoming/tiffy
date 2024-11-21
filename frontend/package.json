@@ -8,7 +8,7 @@
     "lint": "vue-cli-service lint",
     "prod": "vue-cli-service serve --mode production",
     "local": "vue-cli-service serve --mode local",
-    "dev": "vue-cli-service serve --mode development"
+    "dev": "vue-cli-service serve --mode development --port 8082"
   },
   "dependencies": {
     "axios": "^1.7.7",

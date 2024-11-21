@@ -53,19 +53,21 @@
                     </div>
                 </div>
             </div>
-            <input
-                class="form-control mb-sm-0 mb-3"
-                placeholder="Type a message"
-                rows="1"
-                v-model="newMessage"
-                @keyup.enter="sendMessage"
-            />
-            <button
-                class="btn btn-sm btn-primary ms-auto chat-send-btn"
-                @click="sendMessage"
-            >
-                Send
-            </button>
+            <div class="search-input-div">
+                <input
+                    class="form-control mb-sm-0"
+                    placeholder="Type a message"
+                    rows="1"
+                    v-model="newMessage"
+                    @keyup.enter="sendMessage"
+                />
+                <button
+                    class="btn btn-sm btn-primary ms-auto chat-send-btn"
+                    @click="sendMessage"
+                >
+                    Send
+                </button>
+            </div>
         </div>
     </div>
 </template>
@@ -140,7 +142,7 @@ export default {
     top: 20vh;
     bottom: 10vh;
     right: 1vw;
-    width: 70vw;
+    width: auto;
     height: 75vh;
     background-color: white;
     padding: 10px;
@@ -157,5 +159,10 @@ export default {
     height: calc(75vh - 120px); /* 채팅창 높이에서 입력창과 여백을 제외한 값 */
 }
 
+.search-input-div {
+    padding: 15px;
+    display: inline-flex;
+    width: 100%;
+}
 
 </style>

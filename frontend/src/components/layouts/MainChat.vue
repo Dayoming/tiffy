@@ -6,10 +6,15 @@
             :contacts="contacts"
             :loginUserId="loginUserId"
             :unreadNotificationCount="unreadNotificationCount"
-            @openChat="openChat" @closeSidebar="closeSidebar" @closeAllChats="closeAllChats" />
+            @openChat="openChat"
+            @closeSidebar="closeSidebar"
+            @closeAllChats="closeAllChats" />
 
         <!-- 채팅창 영역 -->
-        <div v-for="(chat, index) in activeChats" :key="chat.chatRoomId">
+        <div v-for="(chat, index) in activeChats"
+        :key="chat.chatRoomId"
+        @click="bringChatToFront(index)"
+        >
             <ChatToast
                 :chat="chat"
                 :loginUserId="loginUserId"
@@ -33,10 +38,11 @@ export default {
         return {
             contacts: [],
             activeChats: [], // activeChat이 설정되면 ChatToast가 나타남
-            maxChatCount: 5, // 최대 채팅창 개수
+            maxChatCount: 10, // 최대 채팅창 개수
             chatToastWidth: 370, // 채팅창 너비
             chatToastHeight: 330, // 채팅창 높이
             screenPadding: 20, // 화면 경계 간격
+            baseZIndex: 1000, // 기본 z-index 값
             loginUserId: 0,
             otherUserId: 0,
             textMessage: '',
@@ -64,20 +70,22 @@ export default {
                     left: '5%',
                 };
             } else {
-                const { chatToastWidth, chatToastHeight, screenPadding } = this;
-                const screenWidth = window.innerWidth - 380;
-                 // 최대 배치 가능한 열의 개수
-                const maxColumns = Math.floor((screenWidth - screenPadding) / chatToastWidth);
-                 // 채팅창의 열 위치 (오른쪽에서부터)
-                const column = index % maxColumns;
-                 // 채팅창의 행 위치 (위에서부터)
-                const row = Math.floor(index / maxColumns);
-                 // 오른쪽 및 위쪽으로 배치
+                const offset = 20; // 대각선 간격
                 return {
-                    right: `${380 + screenPadding + column * chatToastWidth}px`,
-                    bottom: `${20 + screenPadding + row * chatToastHeight}px`,
+                    position: "fixed",
+                    bottom: `${offset + index * offset}px`,
+                    right: `${offset + this.chatToastWidth + index * offset}px`,
+                    zIndex: this.baseZIndex + index, // z-index 동적 계산
                 };
             }
+        },
+        bringChatToFront(index) {
+            if (!this.activeChats[index]) {
+                console.error("Invalid index: chat object does not exist.");
+                return;
+            }
+            const clickedChat = this.activeChats.splice(index, 1)[0];
+            this.activeChats.push(clickedChat); // 채팅 배열의 맨 뒤로 추가
         },
         openSidebar() {
             // 이미 열려 있는 경우
@@ -149,33 +157,22 @@ export default {
                 });
         },
         async openChat(contact) {
+            // 배열에서 null/undefined 제거
+            this.activeChats = this.activeChats.filter(chat => chat);
+
             if (this.isMobile) {
                 this.activeChats = []; // 기존 채팅 정보 제거
             } else if (this.activeChats.length >= this.maxChatCount) {
                 // 데스크톱 환경에서 최대 채팅창 개수 초과 시 알림
                 alert(`최대 ${this.maxChatCount}개의 채팅창만 열 수 있습니다.`);
                 return;
-            } else {
-                const { chatToastWidth, chatToastHeight, screenPadding } = this;
-                const screenWidth = window.innerWidth - 380; // 사이드바를 제외한 화면 너비
-                const screenHeight = window.innerHeight; // 화면 높이
-
-                 // 현재 열려 있는 채팅창으로 필요한 공간 계산
-                const maxColumns = Math.floor((screenWidth - screenPadding) / chatToastWidth);
-                const maxRows = Math.floor((screenHeight - screenPadding) / chatToastHeight);
-                const maxChatsPossible = maxColumns * maxRows;
-
-                 // 최대 가능한 채팅창 개수를 초과하면 새 채팅창을 열지 못하게 함
-                if (this.activeChats.length >= maxChatsPossible) {
-                    alert("화면 공간이 부족하여 더 이상 채팅창을 열 수 없습니다.");
-                    return;
-                }
             }
 
             // 채팅창 중복 확인
-            const existingChat = this.activeChats.find(chat => chat.chatRoomId === contact.chatRoomId);
+            const existingChat = this.activeChats.find(chat => chat?.chatRoomId === contact?.chatRoomId);
             if (existingChat) {
-                alert(`${contact.nickname}님과의 채팅이 이미 열려 있습니다.`);
+                // 이미 열려 있는 채팅창을 앞으로 가져오기
+                this.bringChatToFront(this.activeChats.indexOf(existingChat));
                 return;
             }
 
@@ -186,7 +183,6 @@ export default {
                 nickname: contact.nickname,
                 messages: [],
             };
-
 
             // 이전 대화 내용 불러오기
             try {
@@ -205,8 +201,12 @@ export default {
             }
         },
         closeToast(chatRoomId) {
+            if (!chatRoomId) {
+                console.error("Invalid chatRoomId: cannot close toast.");
+                return;
+            }
             // 채팅창 닫기
-            this.activeChats = this.activeChats.filter(chat => chat.chatRoomId !== chatRoomId);
+            this.activeChats = this.activeChats.filter(chat => chat?.chatRoomId !== chatRoomId);
         },
         sendMessage(chatRoomId, messageContent) {
             if (this.activeChats.length > 0) {

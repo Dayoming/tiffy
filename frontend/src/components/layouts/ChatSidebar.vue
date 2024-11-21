@@ -154,6 +154,10 @@ export default {
     },
     mounted() {
         this.checkScreenSize();
+        window.addEventListener('resize', this.checkScreenSize);
+    },
+    beforeUnmount() {
+        window.removeEventListener('resize', this.checkScreenSize);
     },
 };
 </script>
